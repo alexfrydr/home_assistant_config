@@ -43,7 +43,7 @@
         ⚠  Потеряна связь с Zigbee координатором {{ states('sensor.date_time') }}
         
 - alias: "004_Zigbee_Bridge_state_online"
-  description: ''
+  description: 'Отпрвка уведомления о восстановлении связи с координатором.'
   trigger:
   - entity_id: sensor.bridge_state
     from: offline

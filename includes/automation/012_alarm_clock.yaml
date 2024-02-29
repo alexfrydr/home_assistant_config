@@ -1,3 +1,7 @@
+# -----------------------------------------------------------
+# Автоматизации управления будильником
+# -----------------------------------------------------------
+
 - alias: "012_Alarm_clock:_wake_up_with_Yandex_Station"
   trigger:
   - platform: time
@@ -20,11 +24,6 @@
     - service: script.turn_on
       entity_id: 
         - script.yandex_command_01
-    # - service: light.turn_on
-    #   data: 
-    #     entity_id: light.gyver_lamp_esp_ce2392
-    #     brightness_pct: 40
-    #     effect: "Мерцание"
     - service: light.turn_on
       data:
         entity_id: light.wled
@@ -35,7 +34,6 @@
       type: select_option
       option: Preset 3
 
-        
 - alias: "012_Alarm_clock:_Off"
   trigger:
   - platform: time

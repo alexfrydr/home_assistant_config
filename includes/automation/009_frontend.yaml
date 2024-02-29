@@ -1,3 +1,7 @@
+# -----------------------------------------------------------
+# Автоматизации принудительного применения темы
+# -----------------------------------------------------------
+
 - alias: "009_Auto_Theme_Selector_IOS_Dark/Light_mode"
   description: Automatically changes theme depending on the time of day
   trigger:
