@@ -143,6 +143,14 @@ cards:
                   action: call-service
                   service: shell_command.pushupdates_to_github
                   target: {}
+                use_light_color: false
+                show_brightness_control: false
+                show_color_control: false
+                show_color_temp_control: false
+                collapsible_controls: false
+                icon_color: disabled
+                fill_container: false
+                secondary_info: none
 
 ##########################################################################
 #                                                                        #
