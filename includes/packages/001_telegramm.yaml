@@ -1,0 +1,302 @@
+telegramm:
+    sensor:
+      - platform: template
+        sensors:
+          unavailable_now_light:
+            friendly_name: "Всего недоступных светильников - "
+            value_template: "{{states.light | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+            icon_template: mdi:lightbulb-off        
+
+          unavailable_now_switch:
+            friendly_name: "Всего недоступных реле - "
+            value_template: "{{states.switch | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+            icon_template: mdi:light-switch 
+            
+          unavailable_now_sensor:
+            friendly_name: "Всего недоступных сенсоров - "
+            value_template: "{{states.sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+            icon_template: mdi:motion-sensor-off
+            
+          unavailable_now_binary_sensor:
+            friendly_name: "Всего недоступных бинарных сенсоров - "
+            value_template: "{{states.binary_sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
+            icon_template: mdi:leak-off
+
+    script:
+      send_message_1:
+        alias: "Pakage: Отправка через сервис уведомлений"
+        sequence:
+        - service: telegram_bot.send_message
+          data:
+            message: "Текущее время - {{ states('sensor.time') }} . Все в порядке"
+  
+      system_report:
+        alias: "Pakage: Отправка отчета о состоянии системы"
+        sequence:
+         - service: telegram_bot.send_message
+           data:
+             message: | 
+                 📢  *ОПОВЕЩЕНИЕ СИСТЕМЫ*
+                 🗒 Отчет за {{ states('sensor.time') }}
+                 🌡 Температура CPU - {{ states('sensor.processor_temperature') }} °C
+                 💡 Светильников недоступно - {{ states('sensor.unavailable_now_light') }} 
+                 🔧  Свичей недоступно - {{ states('sensor.unavailable_now_switch') }} 
+                 🔧  Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }} 
+                 🔧  Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
+
+                 
+      temp_report:
+        alias: "Pakage: Отправка отчета о состоянии температуры в доме"
+        sequence:
+         - service: telegram_bot.send_message
+           data:
+             message: | 
+                 🌡 Улица:  {{ states('sensor.outdoor_temperature') }} °C
+                 🌡 Детская:  {{ states('sensor.aqara_t_h_child_room_temperature') }} °C
+                 🌡 Гостинная:  {{ states('sensor.aqara_t_h_living_room_temperature') }} °C
+                 🌡 Спальня:  {{ states('sensor.aqara_t_h_bedroom_temperature') }} °C
+                 🌡 Ванная:  {{ states('sensor.aqara_t_h_bathroom_temperature') }} °C
+                 
+      report_home:
+        alias: "Pakage: Статус Дома"
+        sequence:
+         - service: telegram_bot.send_message
+           data:
+             message: | 
+                 {{'\U0001F6AA'}} Входная дверь - {% if is_state('binary_sensor.door_window_contact_sensor_hallway_contact', 'on') %} Открыта {% else %} Закрыта {% endif %}
+                 {{'\U0001F57A'}} Движение в доме - {% if is_state('binary_sensor.motion_in_home', 'on') %} Есть движение {% else %} Нет движения {% endif %}
+                 {{'\U0001F9FB'}} Ванная - {% if is_state('binary_sensor.water_leak_sensor_bathroom_water_leak', 'on') %} Влажно {% else %} Сухо {% endif %}
+                 {{'\U0001F4A7'}} Кухня - {% if is_state('binary_sensor.water_leak_sensor_kitchen_water_leak', 'on') %} Влажно {% else %} Сухо {% endif %}
+
+      home_away_report:
+        alias: "Pakage: Отправка отчета уходя из дома"
+        sequence:
+         - service: telegram_bot.send_message
+           data:
+             title: "Пока 👋"
+             message: |
+                  До скорой встречи!😢
+        #  - service: telegram_bot.send_message
+        #   data:
+        #      message: >-
+        #         {% set window_sensors = {
+        #           "на кухне": is_state("binary_sensor.door_window_contact_sensor_kitchen_contact", "on")
+        #         } %}
+        #         {% set data = namespace(text=[]) %}
+        #         {% for k in window_sensors if window_sensors[k] == true %}
+        #           {% if loop.first %}
+        #             {% set data.text = data.text + [["Кстати,", "Не забудьте, что", "Напоминаю, что"]|random] + [" у вас"] + [[" открыто", " не закрыто"]|random] + [" окно"] %}
+        #           {% endif %}
+        #           {% if not loop.first and not loop.last %}
+        #             {% set data.text = data.text + [", "] + [k] %}
+        #           {% elif loop.last and not loop.first %}
+        #             {% set data.text = data.text + [" и "] + [k] %}
+        #           {% else %}
+        #             {% set data.text = data.text + [" "] + [k] %}
+        #           {% endif %}
+        #         {% endfor %}
+        #         {{ data.text|join("") }}
+
+
+      home_arrived_report:
+        alias: "Pakage: Отправка отчета о прибытии домой Алексей"
+        sequence:
+         - service: telegram_bot.send_message
+           data:
+             title: "Приветики 👋"
+             message: |
+                 Алексей, вы в домашней зоне 🎉
+
+                 
+      home_arrived_report_viktoriya:
+        alias: "Pakage: Отправка отчета о прибытии домой Виктория"
+        sequence:
+         - service: telegram_bot.send_message
+           data:
+             title: "Приветики 👋"
+             message: |
+                 Виктория, вы в домашней зоне 🎉
+
+
+      telegramm_keyboard_start:
+        alias: "Pakage: Cтарт клавиатуры"
+        sequence:
+          - service: telegram_bot.send_message
+            data:
+                message: >
+                    {{ [
+                    "Приветики",
+                    "К звездам!",
+                    "Сер, Да сер!",
+                    "Здоровеньки были!",
+                    "Вечер в хату!",
+                    "Здрасти!",
+                    "Шо такое?",
+                    "Поехали",
+                    "Хелло амиго",
+                    "Буенос ночес!"
+                    ] | random }}       
+                data:
+                inline_keyboard:
+                  - '🗒 Статус системы:/report, {{"\U0001F3E0"}} Статус дома:/temp' 
+                  - '🔒 Поставить на охрану:/armed, 🔒 Снять с охраны:/disarm'
+                  - '🔘 Начать уборку:/clean, 🔘 Закончить уборку:/clean_stop'
+                  - '💡 Выключить всё:/turn_off'
+             
+    automation:   
+        - alias: "Pakage: start_message"
+          initial_state: true
+          trigger:   
+             - platform: homeassistant
+               event: start          
+          action:          
+             - service: telegram_bot.send_message
+               data:
+                 message: | 
+                     📢 *ОПОВЕЩЕНИЕ СИСТЕМЫ* 
+                     📝  Зафиксирован запуск сервера в {{ states('sensor.time') }} 
+                     👉  Отчет о состоянии будет через 1 минуту...            
+             - delay: 00:01:10
+             - service: script.turn_on
+               entity_id: script.system_report
+             - delay: 00:01:20
+             - service: script.turn_on
+               entity_id: script.telegramm_keyboard_start
+
+        - alias: "Pakage: arrived_home_alex"
+          trigger:
+          - platform: zone
+            entity_id: person.alex
+            zone: zone.home
+            event: enter
+          action:
+             - service: script.turn_on
+               entity_id: script.home_arrived_report
+               
+        - alias: "Pakage: arrived_home_viktoriya"
+          trigger:
+              - platform: zone
+                entity_id: person.victoriya
+                zone: zone.home
+                event: enter
+          action:
+             - service: script.turn_on
+               entity_id: script.home_arrived_report_viktoriya
+
+        - alias: "Pakage: send_report"
+          initial_state: true
+          trigger:
+          - platform: event
+            event_type: telegram_callback
+            event_data:
+              command: '/report'
+          action:
+           - service: script.turn_on
+             entity_id: 
+                - script.system_report
+
+        - alias: "Pakage: send_temp"
+          initial_state: true
+          trigger:
+          - platform: event
+            event_type: telegram_callback
+            event_data:
+              command: '/temp'
+          action:
+           - service: script.turn_on
+             entity_id: 
+                - script.report_home
+                - script.temp_report
+
+        - alias: "Pakage: send_vacuum_clean"
+          initial_state: true
+          trigger:
+          - platform: event
+            event_type: telegram_callback
+            event_data:
+              command: '/clean'                
+          action:
+            service: vacuum.start
+            entity_id: vacuum.mi_robot
+            
+        - alias: "Pakage: send_vacuum_clean_stop"
+          initial_state: true
+          trigger:
+          - platform: event
+            event_type: telegram_callback
+            event_data:
+              command: '/clean_stop'                
+          action:
+            service: vacuum.return_to_base
+            entity_id: vacuum.mi_robot
+
+        - alias: "Pakage: telegram_keyboard"
+          initial_state: true
+          trigger:
+            platform: event
+            event_type: telegram_command
+            event_data:
+              command: '/start'
+          action:
+           - service: script.turn_on
+             entity_id: 
+                - script.telegramm_keyboard_start
+                
+        - alias: "Pakage: send_turn_off_stop"
+          initial_state: true
+          trigger:
+          - platform: event
+            event_type: telegram_callback
+            event_data:
+              command: '/turn_off'                
+          action:
+           - service: script.turn_on
+             entity_id: 
+                - script.turn_off_away_person
+                
+        - alias: "Pakage: system_status_query"
+          initial_state: true
+          trigger:
+              - platform: event
+                event_type: telegram_text
+          condition:
+              - condition: template
+                value_template: >-
+                  {{ trigger.event.data.text in ["клава", "Клавиатура", "Клава", "куку", "Rere", "rere", "Привет", "привет", "Ghbdtn", "ghbdtn"] }}
+          action:
+           - service: script.turn_on
+             entity_id: 
+                - script.telegramm_keyboard_start
+                
+        - alias: "Pakage: send_turn_off_stop_notify"
+          trigger:
+            platform: event
+            event_type: telegram_callback
+            event_data:
+              command: '/turn_off'
+          action:
+            - service: telegram_bot.send_message
+              data_template:
+                message: "Получена команда. Выключить всё."
+
+        # - id: "Pakage: Главное меню управления телеграм"
+        #   alias: telegram_menu_control
+        #   initial_state: true
+        #   trigger:
+        #     - platform: event
+        #       event_type: telegram_callback
+        #       event_data: {}
+        #   action:
+        #     - choose:
+        #         - conditions: []
+        #           sequence:
+        #             - service: telegram_bot.send_message
+        #               data:
+        #                 message: |
+        #                   {{'\U0001F527'}} *Управление умным домом*
+        #                   * *            
+        #                 inline_keyboard:
+        #                   - '🗒 Статус системы:/report, {{"\U0001F3E0"}} Статус дома:/temp' 
+        #                   - '🔒 Поставить на охрану:/armed, 🔒 Снять с охраны:/disarm'
+        #                   - '🔘 Начать уборку:/clean, 🔘 Закончить уборку:/clean_stop'
+        #                   - '💡 Выключить всё:/turn_off'                  

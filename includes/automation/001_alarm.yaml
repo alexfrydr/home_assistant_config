@@ -1,0 +1,253 @@
+- alias: '001_Trigger_alarm_while_armed_away'
+  description: "Тревога в режиме охрана не дома"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.door_window_contact_sensor_kitchen_contact
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+    - condition: state
+      entity_id: alarm_control_panel.home_alarm
+      state: armed_away
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.home_alarm
+    
+- alias: '001_Send_notification_when_alarm_triggered'
+  description: "Тревога в режиме охрана не дома отправка в телеграмм"
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_alarm
+      to: 'triggered'
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    - service: telegram_bot.send_message
+      data:
+        title: '*ОПОВЕЩЕНИЕ СИГНАЛИЗАЦИИ:*'
+        message: |
+              ⚠️ Сработала тревога!
+
+- alias: '001_Send_notification_when_alarm_is_Disarmed'
+  description: "Снятие с охраны, отправка в телеграмм"
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_alarm
+      to: 'disarmed'
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    - service: telegram_bot.send_message
+      data:
+        title: '*ОПОВЕЩЕНИЕ СИГНАЛИЗАЦИИ:*'
+        message: |
+              🔓  Сигнализация снята с охраны в {{ states('sensor.date_time') }}
+              
+- alias: '001_Send_notification_when_alarm_is_in_pending_status'
+  description: "Отправка сообщения о режиме ожидания в телеграмм"
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_alarm
+      to: 'arming'
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    - service: telegram_bot.send_message
+      data:
+        title: '*ОПОВЕЩЕНИЕ СИГНАЛИЗАЦИИ:*'
+        message: |
+              🔑  Сигнализация находится в состоянии ожидания в {{ states('sensor.date_time') }}"
+
+- alias: '001_Send_notification_when_alarm_is_Armed_in_Away_mode'
+  description: "Отправка сообщения о режиме Не дома в телеграмм"
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_alarm
+      to: 'armed_away'
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    - service: telegram_bot.send_message
+      data:
+        title: '*ОПОВЕЩЕНИЕ СИГНАЛИЗАЦИИ:*'
+        message: |
+           🔒   Сигнализация включена в режиме «Не дома» {{ states('sensor.date_time') }}"
+           
+- alias: '001_Send_notification_when_alarm_is_Armed_in_Home_mode'
+  description: "Отправка сообщения о домашнем режиме в телеграмм"
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.home_alarm
+      to: 'armed_home'
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    - service: telegram_bot.send_message
+      data:
+        title: '*ОПОВЕЩЕНИЕ СИГНАЛИЗАЦИИ:*'
+        message: |
+              🔏  Сигнализация активирована в домашнем режиме {{ states('sensor.date_time') }}
+
+- alias: '001_Trigger_alarm_while_armed_home'
+  description: "Тревога в режиме дома"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.home_alarm
+      state: armed_home
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.home_alarm
+    
+- alias: "001_Security:_door_has_been_open_for_more_than_5_minutes"
+  description: "Тревога если входная дверь открыта больше 5 минут"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
+    from: "off"
+    to: "on"
+    for: "00:05:00"
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    - repeat:
+        while:
+          - condition: state
+            entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
+            state: 'on'
+          - condition: state
+            entity_id: input_boolean.control_mode
+            state: 'on'
+        sequence:
+          - service: telegram_bot.send_message
+            data:
+               title: '*ОПОВЕЩЕНИЕ СИГНАЛИЗАЦИИ:*'
+               message: |
+                   ⚠ Входная дверь открыта больше 5 минут.
+          - delay: 00:00:05
+          
+- alias: "001_Security:_Signaling._Forgot_to_put_it?"
+  description: "Постановка на охрану если ни кого нет дома"
+  trigger:
+    - platform: state
+      entity_id: group.persons
+      from: home
+      to: not_home
+  condition:
+    - condition: state
+      entity_id: alarm_control_panel.home_alarm
+      state: 'disarmed'
+    - condition: state
+      entity_id: group.persons
+      state: not_home
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    - service: telegram_bot.send_message
+      data:
+        title: '*ОПОВЕЩЕНИЕ СИГНАЛИЗАЦИИ:*'
+        message: "Похоже дом опустел, ставлю на сигнализацию."
+        inline_keyboard:
+          - '↩ Отменить?:/disarm'
+    - delay: 00:00:02
+    - service: script.turn_on
+      entity_id: script.home_away_report
+    - delay: 00:00:02
+    - service: alarm_control_panel.alarm_arm_away
+      entity_id: alarm_control_panel.home_alarm
+
+          
+- alias: "001_Security:_Signaling._Cancellation"
+  description: "Отмена постановки на охрану командой в телеграмм"
+  trigger:
+    platform: event
+    event_type: telegram_callback
+    event_data:
+      command: '/disarm'
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    - service: alarm_control_panel.alarm_disarm
+      entity_id: alarm_control_panel.home_alarm
+    - service: telegram_bot.send_message
+      data_template:
+        title: '*ОПОВЕЩЕНИЕ СИГНАЛИЗАЦИИ:*'
+        message: "Получена команда. Отменить постановку на сигнализацию."
+        
+- alias: "001_Security:_Signaling._Armed"
+  description: "Постановка на охрану командой в телеграмм"
+  trigger:
+    platform: event
+    event_type: telegram_callback
+    event_data:
+      data: '/armed'
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    - service: alarm_control_panel.alarm_arm_away
+      entity_id: alarm_control_panel.home_alarm
+    - service: telegram_bot.send_message
+      data_template:
+        title: '*ОПОВЕЩЕНИЕ СИГНАЛИЗАЦИИ:*'
+        message: "Получена команда. Постановка на сигнализацию."
+        
+- alias: "001_Security:_Signaling._disarming"
+  description: "Снятие с охраны при нахождении персон в домашней зоне и статусе охраны в ожидании"
+  trigger:
+  - platform: geo_location
+    source: group.persons
+    zone: zone.home
+    event: enter
+  condition:
+      - condition: state
+        entity_id: 'alarm_control_panel.home_alarm'
+        state: 'pending'
+  action:
+      - service: alarm_control_panel.alarm_disarm
+        entity_id: alarm_control_panel.home_alarm
+
+- alias: "001_Security:_Signaling._disarming_door_open"
+  description: "Снятие с охраны при открытии двери и нахождении персон в домашней зоне"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: 'alarm_control_panel.home_alarm'
+      state: 'armed_away'
+    - condition: state
+      entity_id: group.persons
+      state: home
+  action:
+      - service: alarm_control_panel.alarm_disarm
+        entity_id: alarm_control_panel.home_alarm
+

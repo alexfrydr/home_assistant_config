@@ -1,0 +1,160 @@
+- alias: "018_Xiaomi_humidifier_OFF"
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: '/1'
+    seconds: 00
+  condition:
+    - condition: state
+      entity_id: input_boolean.auto_fan_xiaomi_on_off
+      state: 'on'
+    - condition: state
+      entity_id: fan.xiaomi_air_humidifier
+      state: 'on'
+    - type: is_humidity
+      condition: device
+      device_id: b8b9d5a5b339f482983a535dbd3474bc
+      entity_id: sensor.aqara_t_h_living_room_humidity
+      domain: sensor
+      above: 40
+  action:
+  - service: fan.turn_off
+    data: {}
+    entity_id: fan.xiaomi_air_humidifier
+    
+# - alias: "018_Xiaomi_humidifier_binsensor_OFF"
+#   description: ''
+#   trigger:
+#     - platform: state
+#       entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
+#       to: 'on'
+#     - platform: state
+#       entity_id: binary_sensor.door_window_contact_sensor_kitchen_contact
+#       to: 'on'
+#   condition:
+#     - condition: state
+#       entity_id: input_boolean.auto_fan_xiaomi_on_off
+#       state: 'on'
+#     - condition: state
+#       entity_id: fan.xiaomi_air_humidifier
+#       state: 'on'
+#   action:
+#     - service: fan.turn_off
+#       data: {}
+#       entity_id: fan.xiaomi_air_humidifier
+#     - service: telegram_bot.send_message
+#       data_template:
+#         title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+#         message: | 
+#              ⚠  Для эффективной работы увлажнителя, закройте окна и двери {{ states('sensor.date_time') }}
+
+- alias: "018_Xiaomi_humidifier_ON"
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: '/1'
+    seconds: 00
+  condition: 
+    - condition: state
+      entity_id: input_boolean.auto_fan_xiaomi_on_off
+      state: 'on'
+    - condition: state
+      entity_id: fan.xiaomi_air_humidifier
+      state: 'off'
+    # - condition: state
+    #   entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
+    #   state: 'off'
+    # - condition: state
+    #   entity_id: binary_sensor.door_window_contact_sensor_kitchen_contact
+    #   state: 'off'
+    - type: is_humidity
+      condition: device
+      device_id: b8b9d5a5b339f482983a535dbd3474bc
+      entity_id: sensor.aqara_t_h_living_room_humidity
+      domain: sensor
+      below: 30
+  action:
+  - service: fan.turn_on
+    data: {}
+    entity_id: fan.xiaomi_air_humidifier
+  - delay: 00:00:01
+  - service: fan.set_speed
+    data_template:
+      speed: medium
+      entity_id: fan.xiaomi_air_humidifier
+
+- alias: "018_Xiaomi_humidifier_buzzer_off"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: fan.xiaomi_air_humidifier
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.auto_fan_xiaomi_on_off
+      state: 'on'
+  action:
+  - service: switch.turn_off
+    data: {}
+    entity_id: switch.xiaomi_airpurifier_buzzer
+
+- alias: "018_Xiaomi_humidifier_No_water"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: sensor.hum_tank_state
+    to: 'true'
+  condition: []
+  action:
+    - service: telegram_bot.send_message
+      data_template:
+        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+        message: | 
+             ⚠  В увлажнителе  закончилась вода {{ states('sensor.date_time') }}
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.auto_fan_xiaomi_on_off
+    - service: media_player.volume_set
+      data:
+        entity_id:
+        - media_player.yandex_station_540078920110102034cf
+        volume_level: 0.4
+    - delay: 00:00:01
+    - service: tts.yandex_station_say
+      entity_id: media_player.yandex_station_540078920110102034cf
+      data_template:
+        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+        message: В увлажнителе закончилась вода.
+
+- alias: "018_humidifier_auto_on"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.auto_fan_xiaomi_on_off
+    to: 'on'
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    entity_id: switch.xiaomi_airpurifier_buzzer
+  - delay: 00:00:01
+  - service: switch.turn_off
+    data: {}
+    entity_id: switch.xiaomi_airpurifier_buzzer
+  mode: single
+  
+- alias: "018_humidifier_auto_off"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.auto_fan_xiaomi_on_off
+    to: 'off'
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    entity_id: switch.xiaomi_airpurifier_buzzer
+  mode: single
+
+
+  
+  

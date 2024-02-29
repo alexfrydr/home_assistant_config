@@ -1,0 +1,14 @@
+alarm_clock:
+  name: Alarm clock
+  has_date: false
+  has_time: true
+  
+plant_clock:
+  name: Plant clock
+  has_date: false
+  has_time: true
+  
+light_clock:
+  name: Light clock
+  has_date: false
+  has_time: true

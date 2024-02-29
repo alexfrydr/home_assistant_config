@@ -1,0 +1,156 @@
+- alias: "022_plant_light_ON"
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.plant_clock
+  condition: 
+  - condition: state
+    entity_id: input_boolean.auto_switch_on_off_light_plant
+    state: "on"
+  - condition: device
+    type: is_off
+    device_id: 5924b7d28ae525112cee0fe88e67242f
+    entity_id: switch.mi_plug_02_switch
+    domain: switch
+  action:
+  - type: turn_on
+    device_id: 5924b7d28ae525112cee0fe88e67242f
+    entity_id: switch.mi_plug_02_switch
+    domain: switch
+  - service: timer.start
+    entity_id: timer.light_plant
+  - service: telegram_bot.send_message
+    data_template:
+        title: "Освещение растений 🌴🌝 "
+        message: | 
+             Включено, отсчет таймера запущен: {{ states('sensor.date_time') }}
+  mode: single
+
+- alias: "022_plant_light_audit_above_14W"
+  description: ''
+  trigger:
+  - type: value
+    platform: device
+    device_id: 5924b7d28ae525112cee0fe88e67242f
+    entity_id: sensor.mi_plug_02_power
+    domain: sensor
+    above: 14
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition:
+  - condition: device
+    type: is_on
+    device_id: 5924b7d28ae525112cee0fe88e67242f
+    entity_id: switch.mi_plug_02_switch
+    domain: switch
+  action:
+  - service: switch.turn_off
+    entity_id: switch.mi_plug_02_switch
+  - service: telegram_bot.send_message
+    data_template:
+        title: "Plant in trouble! ⚠️☢️☠️"
+        message: | 
+             ⚠  Внимание! Высокое потребление стойки освещения растений: {{ states('sensor.date_time') }}
+             
+- alias: "022_plant_light_audit_below_7W"
+  description: ''
+  trigger:
+  - type: value
+    platform: device
+    device_id: 5924b7d28ae525112cee0fe88e67242f
+    entity_id: sensor.mi_plug_02_power
+    domain: sensor
+    below: 7
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition: 
+  - condition: device
+    type: is_on
+    device_id: 5924b7d28ae525112cee0fe88e67242f
+    entity_id: switch.mi_plug_02_switch
+    domain: switch
+  action:
+  - service: switch.turn_off
+    entity_id: switch.mi_plug_02_switch
+  - service: telegram_bot.send_message
+    data_template:
+        title: "Plant in trouble! ⚠️☢️☠️"
+        message: | 
+             ⚠  Внимание! Низкое потребление стойки освещения растений: {{ states('sensor.date_time') }}
+             
+- alias: "022_plant_light_timer_off"
+  initial_state: true
+  trigger:
+  - platform: device
+    type: turned_off
+    device_id: 5924b7d28ae525112cee0fe88e67242f
+    entity_id: switch.mi_plug_02_switch
+    domain: switch
+  action:
+  - service: timer.cancel
+    entity_id: timer.light_plant
+    
+- alias: "022_plant_light_timer_on"
+  initial_state: true
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 5924b7d28ae525112cee0fe88e67242f
+    entity_id: switch.mi_plug_02_switch
+    domain: switch
+  action:
+  - service: timer.start
+    entity_id: timer.light_plant
+
+- alias: "022_plant_light_OFF_12H"
+  description: ''
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.light_plant
+  condition: 
+    condition: state
+    entity_id: input_boolean.auto_switch_on_off_light_plant
+    state: "on"
+  action:
+  - service: switch.turn_off
+    entity_id: switch.mi_plug_02_switch
+  - service: telegram_bot.send_message
+    data_template:
+        title: "Освещение растений! 🌴🌙"
+        message: | 
+             Выключено, таймер истек: {{ states('sensor.date_time') }}
+
+- alias: "022_plant_light_timer_reload_homeassistant_reload"
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: 
+  - condition: state
+    entity_id: input_boolean.auto_switch_on_off_light_plant
+    state: "on"
+  - condition: device
+    type: is_on
+    device_id: 5924b7d28ae525112cee0fe88e67242f
+    entity_id: switch.mi_plug_02_switch
+    domain: switch
+  action:
+  - service: timer.cancel
+    entity_id: timer.light_plant
+  - service: timer.start
+    entity_id: timer.light_plant
+  - service: telegram_bot.send_message
+    data_template:
+        title: "Освещение растений! 🌴✔"
+        message: | 
+             Таймер перезапущен: {{ states('sensor.date_time') }}
+
+
+
+

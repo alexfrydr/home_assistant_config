@@ -1,0 +1,87 @@
+hum_living:
+
+    switch:
+
+      - platform: template
+        switches:
+
+          gg_humidifier_mode_silent:
+            friendly_name: "Увлажнитель тихий"
+            turn_on:
+              - service: fan.turn_on
+                entity_id: fan.xiaomi_air_humidifier
+              - service: fan.set_speed
+                data_template:
+                    entity_id: fan.xiaomi_air_humidifier
+                    speed: Low
+            turn_off:
+              - service: fan.turn_off
+                entity_id: fan.xiaomi_air_humidifier
+
+          gg_humidifier_mode_medium:
+            friendly_name: "Увлажнитель средний"
+            turn_on:
+              - service: fan.turn_on
+                entity_id: fan.xiaomi_air_humidifier
+              - service: fan.set_speed
+                data_template:
+                    entity_id: fan.xiaomi_air_humidifier
+                    speed: Medium
+            turn_off:
+              - service: fan.turn_off
+                entity_id: fan.xiaomi_air_humidifier
+
+          gg_humidifier_mode_high:
+            friendly_name: "Увлажнитель максимальный"
+            turn_on:
+              - service: fan.turn_on
+                entity_id: fan.xiaomi_air_humidifier
+              - service: fan.set_speed
+                data_template:
+                    entity_id: fan.xiaomi_air_humidifier
+                    speed: High
+            turn_off:
+              - service: fan.turn_off
+                entity_id: fan.xiaomi_air_humidifier
+                   
+    input_number:
+
+          humidity_level_gg:
+            name: Уровень влажности гостиная
+            initial: 25
+            min: 20
+            max: 45
+            step: 1
+                   
+    automation:
+    
+#        - id: Увлажнение в гостиной
+#          alias: '002_packages_hum_on_living_room'
+#          initial_state: true
+#          trigger:
+#            - platform: time_pattern
+#              minutes: '/5'
+#            - platform: state
+#              entity_id:
+#                - input_number.humidity_level_gg
+#                - sensor.0x00158d0003cb5e88_humidity
+#          condition: 
+#           - condition: state
+#             entity_id: input_boolean.auto_fan_xiaomi_on_off
+#             state: 'on'
+#          action:
+#          - service: switch.toggle
+#            data_template:
+#                entity_id: >-
+#                    {% set current = states('input_number.humidity_level_gg') | float %}
+#                    {% set low = (states('input_number.humidity_level_gg') | float) - 5 %}
+#                    {% set medium = (states('input_number.humidity_level_gg') | float) - 10 %}
+#                    {% set high = (states('input_number.humidity_level_gg') | float) - 15 %}
+#                    {% set hum_level = states('sensor.0x00158d0003cb5e88_humidity') | float %}
+#                    {% if hum_level < high %} 
+#                    switch.gg_humidifier_mode_high
+#                    {% elif hum_level < medium %} 
+#                    switch.gg_humidifier_mode_medium
+#                    {% elif hum_level < low %} 
+#                    switch.gg_humidifier_mode_silent
+#                    {% endif %}

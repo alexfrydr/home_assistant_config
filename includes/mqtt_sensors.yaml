@@ -1,0 +1,61 @@
+sensor:
+
+# Время фиксации движения в ванной
+  - name: 'mqtt_binary_sensor_158d0001e547a3'
+    state_topic: "binary_sensor/158d0001e547a3"
+
+#Время работы освещения
+  - name: 'mqtt_binary_sensor_4kspcdam44'
+    state_topic: "binary_sensor/4kspcdam44"
+
+# Время фиксации движения в коридоре
+  - name: 'mqtt_binary_sensor_158d00010f8920'
+    state_topic: "binary_sensor/158d00010f8920"
+
+# Время фиксации включения света в коридоре
+  - name: 'mqtt_binary_sensor_oaqxqzt1kh'
+    state_topic: "binary_sensor/oaqxqzt1kh"
+
+# Время фиксации открытия входной двери
+  - name: 'mqtt_binary_sensor_prxine9ptea758sx'
+    state_topic: "binary_sensor/prxine9ptea758sx"
+
+# Время фиксации открытия окна
+  - name: 'mqtt_binary_sensor_a03icm9w73zeffmh'
+    state_topic: "binary_sensor/a03icm9w73zeffmh"
+
+#Датчик температуры на балконе
+  - name: "Outdoor temperature"
+    state_topic: "/temp_sensor_04/temp/Temperature"
+    unit_of_measurement: "°C"
+    device_class: temperature
+
+  - name: Bridge state
+    state_topic: "zigbee2mqtt/bridge/state"
+    icon: mdi:router-wireless
+  
+  # Sensor for Showing the Zigbee2mqtt Version
+  - name: Zigbee2mqtt Version
+    state_topic: "zigbee2mqtt/bridge/config"
+    value_template: "{{ value_json.version }}"
+    icon: mdi:zigbee
+  # Sensor for Showing the Coordinator Version
+
+  - name: Zigbee2mqtt Coordinator Version
+    state_topic: "zigbee2mqtt/bridge/config"
+    value_template: "{{ value_json.coordinator }}"
+    icon: mdi:chip
+
+  - name: Zigbee2mqtt Network PanID
+    state_topic: "zigbee2mqtt/bridge/config"
+    value_template: "{{ value_json.network.panID }}"
+    icon: mdi:wifi
+
+  - name: Zigbee2mqtt Network Extended PanID
+    state_topic: "zigbee2mqtt/bridge/config"
+    value_template: "{{ value_json.network.extendedPanID }}"
+    icon: mdi:wifi
+
+
+
+

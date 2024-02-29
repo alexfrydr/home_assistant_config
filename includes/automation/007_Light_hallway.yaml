@@ -1,0 +1,89 @@
+- alias: "007_Hallway_turn_on_light"
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 7d430a026d2f4adfa816429e11b8c63c
+    entity_id: a10f7d31ded43ca1d3510de02907d35a
+    domain: binary_sensor
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.auto_light_on_off_hallway
+      state: 'on'
+  - condition: state
+    entity_id: binary_sensor.kam02_home_cell_motion_detection
+    state: 'on'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  action:
+  - service: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.0x54ef4410008178c4_right
+  mode: single
+    
+- alias: "007_Hallway_turn_off_light_5_min_(no_motion)"
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.kam02_home_cell_motion_detection
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.auto_light_on_off_hallway
+      state: 'on'
+  - condition: device
+    type: is_on
+    device_id: b7ac3d1f31d1b58c2c1ee0ac3cc4f04b
+    entity_id: 19b06607011d23b2f415cb4b48819b90
+    domain: switch
+  action:
+  - service: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id: b7ac3d1f31d1b58c2c1ee0ac3cc4f04b
+  mode: single
+      
+## Запись последнего движения в коридоре
+- alias: "007_motion_hallway_time"
+  initial_state: true
+  trigger:
+## Движение в коридоре
+  - platform: state
+    entity_id: binary_sensor.kam02_home_cell_motion_detection
+    to: 'on'
+  condition: []
+  action:
+  - service: mqtt.publish
+    data_template:
+      topic: "binary_sensor/158d00010f8920"
+      payload: "{{ states('sensor.date_time')}}"
+      retain: true
+      
+## Запись последнего открытия входной двери
+- alias: "007_motion_hallway_time"
+  initial_state: true
+  trigger:
+## Открытие входной двери
+  - platform: state
+    entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
+    to: 'on'
+  condition: []
+  action:
+  - service: mqtt.publish
+    data_template:
+      topic: "binary_sensor/prxine9ptea758sx"
+      payload: "{{ states('sensor.date_time')}}"
+      retain: true
+      

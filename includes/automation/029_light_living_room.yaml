@@ -1,0 +1,98 @@
+- alias: "029_light_living_room_off"
+  trigger:
+  - platform: time
+    at: '09:30:00'
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  - condition: and
+    conditions:
+      - condition: state
+        entity_id:
+            - light.wled
+        match: any
+        state: "on"
+  action:
+    - service: light.turn_off
+      entity_id: light.wled
+    # - service: switch.turn_off
+    #   entity_id: switch.0x00158d0003985898_switch
+
+- alias: "029_light_living_room_3%_22:00"
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  - condition: and
+    conditions:
+      - condition: state
+        entity_id:
+            - light.wled
+        match: any
+        state: "on"
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.wled
+        brightness_pct: 3
+
+- alias: "029_light_living_room_50%_lamp_on"
+  trigger:
+  - platform: time
+    at: input_datetime.light_clock
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  - condition: and
+    conditions:
+      - condition: state
+        entity_id:
+            - light.wled
+        match: any
+        state: "off"
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.wled
+        brightness_pct: 50
+    # - service: switch.turn_on
+    #   entity_id: switch.0x00158d0003985898_switch
+
+- alias: "029_light_living_room_turn_on_automatic"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - light.wled
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - device_id: 74f618890967fe0de63bf749d22803b6
+    domain: select
+    entity_id: select.wled_preset
+    type: select_option
+    option: Preset 3
+  mode: single
+  
+

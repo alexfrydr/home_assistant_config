@@ -1,0 +1,8 @@
+  - alias: "037_Turn_On_Living_Room_TV_with_WakeOnLan"
+    trigger:
+      - platform: webostv.turn_on
+        entity_id: media_player.lg_webos_smart_tv
+    action:
+      - service: wake_on_lan.send_magic_packet
+        data:
+          mac: 00:51:ED:AD:02:34

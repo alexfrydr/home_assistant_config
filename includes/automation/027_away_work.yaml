@@ -1,0 +1,18 @@
+- alias: "027_Work_Alex_left_work_notification_for_Viktoriya"
+  trigger:
+  - platform: zone
+    entity_id: person.alex
+    zone: zone.rabota
+    event: leave
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  - condition: time
+    after: "08:00:00"
+    before: "22:00:00"
+  action:
+    # service: notify.mobile_app_viktoriya_phone
+    service: telegram_bot.send_message
+    data:
+      message: "Алексей ушел с работы! ♥️🎉"

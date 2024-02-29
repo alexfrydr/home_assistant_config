@@ -1,0 +1,111 @@
+# - alias: "011_Plant_Yucca_Problem"
+#   trigger:
+#     - platform: state
+#       entity_id: plant.yucca_elephantipes
+#       to: "problem"
+#     - platform: time
+#       at: "20:00"
+#   condition:
+#       condition: state
+#       entity_id: plant.yucca_elephantipes
+#       state: "problem"
+#   action:
+#   - service: telegram_bot.send_message
+#     data:
+#      title: "*Plant in trouble!* ⚠️☢️☠️"
+#      message: | 
+#         You need to give the Yucca Elephantipes 🌿 attention and love: {{ state_attr("plant.yucca_elephantipes", "problem") }}!
+        
+# - alias: "011_Plant_Codiaeum"
+#   trigger:
+#     - platform: state
+#       entity_id: plant.codiaeum
+#       to: "problem"
+#     - platform: time
+#       at: "20:00"
+#   condition:
+#       condition: state
+#       entity_id: plant.codiaeum
+#       state: "problem"
+#   action:
+#   - service: telegram_bot.send_message
+#     data:
+#      title: "*Plant in trouble!* ⚠️☢️☠️"
+#      message: | 
+#         You need to give the Codiaeum 🌿 attention and love: {{ state_attr("plant.codiaeum", "problem") }}!
+        
+# - alias: "011_Plant_Ficus_Benjamina"
+#   trigger:
+#     - platform: state
+#       entity_id: plant.ficus_benjamina
+#       to: "problem"
+#     - platform: time
+#       at: "20:00"
+#   condition:
+#       condition: state
+#       entity_id: plant.ficus_benjamina
+#       state: "problem"
+#   action:
+#   - service: telegram_bot.send_message
+#     data:
+#      title: "*Plant in trouble!* ⚠️☢️☠️"
+#      message: | 
+#         You need to give the Eucharis Amazonica 🌿 attention and love: {{ state_attr("plant.ficus_benjamina", "problem") }}!    
+        
+- alias: "011_Plant_Ficus_Elastica"
+  trigger:
+    - platform: state
+      entity_id: plant.ficus_elastica
+      to: "problem"
+    - platform: time
+      at: "20:00"
+  condition:
+      condition: state
+      entity_id: plant.ficus_elastica
+      state: "problem"
+  action:
+  - service: telegram_bot.send_message
+    data:
+     title: "*Plant in trouble!* ⚠️☢️☠️"
+     message: | 
+        You need to give the Ficus Elastica 🌿 attention and love: {{ state_attr("plant.ficus_elastica", "problem") }}!  
+        
+- alias: "011_Plant_Dracaena_Marginata"
+  trigger:
+    - platform: state
+      entity_id: plant.dracaena_marginata
+      to: "problem"
+    - platform: time
+      at: "20:00"
+  condition:
+      condition: state
+      entity_id: plant.dracaena_marginata
+      state: "problem"
+  action:
+  - service: telegram_bot.send_message
+    data:
+     title: "*Plant in trouble!* ⚠️☢️☠️"
+     message: | 
+        You need to give the Dracaena Marginata 🌿 attention and love: {{ state_attr("plant.dracaena_marginata", "problem") }}!  
+        
+# - alias: "011_Plant_Zamioculcas"
+#   trigger:
+#     - platform: state
+#       entity_id: plant.zamioculcas
+#       to: "problem"
+#     - platform: time
+#       at: "20:00"
+#   condition:
+#       condition: state
+#       entity_id: plant.zamioculcas
+#       state: "problem"
+#   action:
+#   - service: telegram_bot.send_message
+#     data:
+#      title: "*Plant in trouble!* ⚠️☢️☠️"
+#      message: | 
+#         You need to give the Zamioculcas 🌿 attention and love: {{ state_attr("plant.zamioculcas", "problem") }}!        
+        
+        
+        
+        

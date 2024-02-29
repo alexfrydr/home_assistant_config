@@ -1,0 +1,50 @@
+- alias: 014_Sensor_CO2_Alarm_1500ppm_ON
+  trigger:
+  - above: '1500'
+    entity_id: sensor.ppm_01
+    for: 00:00:03
+    platform: numeric_state
+  condition: []
+  action:
+  - service: telegram_bot.send_message
+    data:
+     title: "*Превышение концентрации СО2 в гостинной 1000 ppm!* ⚠️☢️☠️"
+     message: | 
+        {{ states('sensor.ppm_01') }} ppm
+  - service: script.turn_on
+    entity_id: 
+     - script.yandex_tts7
+        
+- alias: 014_Sensor_CO2_Alarm_3000ppm_ON
+  trigger:
+  - above: '3000'
+    entity_id: sensor.ppm_01
+    for: 00:00:03
+    platform: numeric_state
+  condition: []
+  action:
+  - service: telegram_bot.send_message
+    data:
+     title: "*Критическое превышение концентрации СО2 в гостинной 3000 ppm!* ⚠️☢️☠️"
+     message: | 
+        {{ states('sensor.ppm_01') }} ppm
+  - service: script.turn_on
+    entity_id: 
+     - script.yandex_tts7
+     
+- alias: 014_Sensor_CO2_Alarm_5000ppm_ON
+  trigger:
+  - above: '5000'
+    entity_id: sensor.ppm_01
+    for: 00:00:03
+    platform: numeric_state
+  condition: []
+  action:
+  - service: telegram_bot.send_message
+    data:
+     title: "*Критическое превышение концентрации СО2 в гостинной 5000 ppm!* ⚠️☢️☠️"
+     message: | 
+        {{ states('sensor.ppm_01') }} ppm
+  - service: script.turn_on
+    entity_id: 
+     - script.yandex_tts7

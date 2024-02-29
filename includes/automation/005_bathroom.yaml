@@ -1,0 +1,153 @@
+---
+#-
+#  _ _       _     _
+# | (_) __ _| |__ | |_
+# | | |/ _` | '_ \| __|
+# | | | (_| | | | | |_
+# |_|_|\__, |_| |_|\__|
+#      |___/
+#
+
+#  ____        _   _
+# | __ )  __ _| |_| |__  _ __ ___   ___  _ __ ___
+# |  _ \ / _` | __| '_ \| '__/ _ \ / _ \| '_ ` _ \
+# | |_) | (_| | |_| | | | | | (_) | (_) | | | | | |
+# |____/ \__,_|\__|_| |_|_|  \___/ \___/|_| |_| |_|
+#
+
+- alias: "005_Bathroom_Turn_ON_light_scene-1_(motion on)"
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_in_bathroom
+    to: "on"
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_on_off
+    state: 'on'
+  - condition: and
+    conditions:
+     - condition: state
+       entity_id: switch.0x54ef4410008194ad_switch
+       state: 'off'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.0x54ef4410008194ad_switch
+
+- alias: "005_Bathroom_Turn_OFF_light_above_10_min_(no motion)"
+  initial_state: true
+  trigger:
+   - platform: state
+     entity_id: binary_sensor.motion_in_bathroom
+     to: 'off'
+     for: 00:10:00
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_on_off
+    state: 'on'
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: switch.0x54ef4410008194ad_switch
+      state: 'on'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.0x54ef4410008194ad_switch
+      
+- alias: "005_Bathroom_Turn_OFF_light_above_15_min"
+  initial_state: true
+  trigger:
+    - platform: time_pattern
+      minutes: '/5'
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_on_off
+    state: 'on'
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.motion_in_bathroom
+      state: 'off'
+      for: 00:20:00
+    - condition: state
+      entity_id: switch.0x54ef4410008194ad_switch
+      state: 'on'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.0x54ef4410008194ad_switch
+      
+## Запись последнего движения в ванной
+- alias: "005_bathroom_motion_time"
+  initial_state: true
+  trigger:
+## Движение в ванной
+  - platform: state
+    entity_id: binary_sensor.motion_in_bathroom
+    to: 'on'
+  condition: []
+  action: 
+  - service: mqtt.publish
+    data_template:
+      topic: "binary_sensor/158d0001e547a3"
+      payload: "{{ states('sensor.date_time')}}"
+      retain: true
+      
+- alias: "005_bathroom_lights_on"
+  initial_state: true
+  trigger:
+## Свет в ванной
+  - platform: state
+    entity_id: switch.0x54ef4410008194ad_switch
+    to: 'on'
+  condition: []
+  action: 
+  - service: mqtt.publish
+    data_template:
+      topic: "binary_sensor/4kspcdam44"
+      payload: "{{ states('sensor.date_time')}}"
+      retain: true   
+      
+- alias: "005_fan_bathroom_ON"
+  description: ''
+  trigger:
+    platform: state
+    entity_id: binary_sensor.motion_in_bathroom
+    to: "on"
+  condition: 
+    - condition: state
+      entity_id: input_boolean.control_fan_mode
+      state: 'on'
+    - condition: state
+      entity_id: fan.rele01
+      state: 'off'
+    - condition: time
+      after: "06:00:00"
+      before: "22:00:00"
+  action:
+  - service: fan.turn_on
+    data: {}
+    entity_id: fan.rele01
+  
+- alias: "005_fan_bathroom_OFF"
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: '/1'
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_fan_mode
+      state: 'on'
+    - condition: state
+      entity_id: fan.rele01
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.motion_in_bathroom
+      state: 'off'
+      for: 00:05:00
+  action:
+  - service: fan.turn_off
+    data: {}
+    entity_id: fan.rele01
+    
+    
+    

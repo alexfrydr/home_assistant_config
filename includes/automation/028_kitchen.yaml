@@ -1,0 +1,55 @@
+## Запись последнего открытия окна на кухне
+- alias: "005_window_motion_time_kitchen"
+  initial_state: true
+  trigger:
+## Открытие окна на кухне
+  - platform: state
+    entity_id: binary_sensor.door_window_contact_sensor_kitchen_contact
+    to: 'on'
+  condition: []
+  action: 
+  - service: mqtt.publish
+    data_template:
+      topic: "binary_sensor/a03icm9w73zeffmh"
+      payload: "{{ states('sensor.date_time')}}"
+      retain: true
+      
+- alias: "005_lights_on_kitchen_time"
+  initial_state: true
+  trigger:
+## Включение света на кухне
+  - platform: state
+    entity_id: switch.0xec1bbdfffe803961
+    to: 'on'
+  condition: []
+  action:
+  - service: mqtt.publish
+    data_template:
+      topic: "binary_sensor/oaqxqzt1kh"
+      payload: "{{ states('sensor.date_time')}}"
+      retain: true
+      
+- alias: "005_lights_on_kitchen_strip"
+  initial_state: true
+  trigger:
+## Включение света на кухне
+  - platform: state
+    entity_id: switch.0xec1bbdfffe803961
+    to: 'on'
+  condition: []
+  action:
+    - service: light.turn_on
+      entity_id: light.0x00158d00028b38b0
+      
+- alias: "005_lights_off_kitchen_strip"
+  initial_state: true
+  trigger:
+## Включение света на кухне
+  - platform: state
+    entity_id: switch.0xec1bbdfffe803961
+    to: 'off'
+  condition: []
+  action:
+    - service: light.turn_off
+      entity_id: light.0x00158d00028b38b0
+      

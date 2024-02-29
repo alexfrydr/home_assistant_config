@@ -1,0 +1,28 @@
+##########################################################################
+#                                                                        #
+#                              * VIDEO *                                 #
+#                                                                        #
+##########################################################################
+
+
+
+title: CCTV
+icon: mdi:video
+cards:
+    
+      - type: vertical-stack
+        cards:
+        - type: markdown
+          content: '## Video'
+          style: |
+            ha-card {
+              box-shadow: none;
+              border: none;
+              background: none;
+              font-family: var(--primary-font-family);
+              --card-background-color: none
+            }
+        # - type: picture-entity
+        #   entity: camera.m1011_0
+        - type: picture-entity
+          entity: camera.kam02_home_profile0 

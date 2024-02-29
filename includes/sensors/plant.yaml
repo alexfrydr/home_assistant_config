@@ -1,0 +1,7 @@
+ - platform: template
+   sensors: 
+       plant01_temperature_custom: 
+         friendly_name: "Температура (округленная)"
+         value_template: "{{ states('sensor.plant01_temperature') | round (1) }}"
+         unit_of_measurement: °C 
+

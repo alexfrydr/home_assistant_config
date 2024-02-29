@@ -1,0 +1,14 @@
+- alias: "009_Auto_Theme_Selector_IOS_Dark/Light_mode"
+  description: Automatically changes theme depending on the time of day
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition:
+    condition: state
+    entity_id: input_boolean.auto_theme_selector
+    state: "on"
+  action:
+  - data_template:
+      name: "waves"
+    service_template: frontend.set_theme
+  mode: single

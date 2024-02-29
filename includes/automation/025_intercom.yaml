@@ -1,0 +1,49 @@
+- alias: "025_Intercom_ring"
+  trigger:
+    platform: state
+    entity_id: sensor.0x00124b002262723d_state
+    to: "ring"
+  condition: 
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+  - service: telegram_bot.send_message
+    data:
+     title: "*Intercom*"
+     message: | 
+        "Кто-то звонит в домофон!" {{ states('sensor.date_time') }}
+
+- alias: "025_intercom_notify_Off"
+  trigger:
+  - platform: time
+    at: '22:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.intercom_mode
+        state: 'on'
+  action:
+  - service: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.0x00124b002262723d_sound
+
+- alias: "025_intercom_notify_On"
+  trigger:
+  - platform: time
+    at: '09:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.intercom_mode
+        state: 'on'
+  action:
+  - service: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.0x00124b002262723d_sound

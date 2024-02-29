@@ -1,0 +1,80 @@
+# - alias: "020_listen_to_me_yandex_station"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 9bfa3b8cd7f9d289fdc8695f2c372957
+#     type: action
+#     subtype: shake
+#     discovery_id: 0x00158d00054b85df action_shake
+#   condition: 
+#   - condition: state
+#     entity_id: input_boolean.cube_mode
+#     state: 'on'
+#   action:
+#     - service: media_player.play_media
+#       entity_id: media_player.yandex_station_540078920110102034cf
+#       data:
+#         media_content_id: Слушай меня
+#         media_content_type: command
+
+# - alias: "020_Volium_UP"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 9bfa3b8cd7f9d289fdc8695f2c372957
+#     type: action
+#     subtype: rotate_right
+#     discovery_id: 0x00158d00054b85df action_rotate_right
+#   condition: 
+#   - condition: state
+#     entity_id: input_boolean.cube_mode
+#     state: 'on'
+#   action:
+#     - service: media_player.play_media
+#       entity_id: media_player.yandex_station_540078920110102034cf
+#       data:
+#         media_content_id: прибавь громкость
+#         media_content_type: command
+
+# - alias: "020_Volium_Down"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 9bfa3b8cd7f9d289fdc8695f2c372957
+#     type: action
+#     subtype: rotate_left
+#     discovery_id: 0x00158d00054b85df action_rotate_left
+#   condition: 
+#   - condition: state
+#     entity_id: input_boolean.cube_mode
+#     state: 'on'
+#   action:
+#     - service: media_player.play_media
+#       entity_id: media_player.yandex_station_540078920110102034cf
+#       data:
+#         media_content_id: убавь громкость
+#         media_content_type: command
+        
+# - alias: "020_Next_track"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 9bfa3b8cd7f9d289fdc8695f2c372957
+#     type: action
+#     subtype: flip90
+#     discovery_id: 0x00158d00054b85df action_flip90
+#   condition: 
+#   - condition: state
+#     entity_id: input_boolean.cube_mode
+#     state: 'on'
+#   action:
+#     - service: media_player.play_media
+#       entity_id: media_player.yandex_station_540078920110102034cf
+#       data:
+#         media_content_id: следующий
+#         media_content_type: command
+        

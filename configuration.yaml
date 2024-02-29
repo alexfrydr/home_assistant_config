@@ -1,0 +1,119 @@
+homeassistant:
+  customize:
+    person.alex:
+      entity_picture: /local/person/person_alex.jpg
+  packages: !include_dir_merge_named includes/packages
+  allowlist_external_dirs:
+   - /config/
+
+default_config:
+frontend:
+  themes: !include_dir_merge_named themes
+
+#### Вынос в файлы
+### Includes
+alarm_control_panel: !include includes/alarm_control_panel.yaml
+counter: !include includes/counter.yaml
+input_boolean: !include includes/input_booleans.yaml
+input_select: !include includes/input_selects.yaml
+input_number: !include includes/input_numbers.yaml
+input_datetime: !include includes/input_datetimes.yaml
+shell_command: !include includes/shell_command.yaml
+notify: !include includes/notify.yaml
+plant: !include includes/plant.yaml
+recorder: !include includes/recorder.yaml
+scene: !include includes/scenes.yaml
+script: !include includes/script.yaml
+timer: !include includes/timer.yaml
+telegram_bot: !include includes/telegram_bot.yaml
+switch: !include includes/switch.yaml
+automation ui: !include automations.yaml
+person: !include includes/persons.yaml
+mqtt: !include includes/mqtt_sensors.yaml
+
+### Includes private
+fan: !include includes_private/fan.yaml
+vacuum: !include includes_private/vacuum.yaml
+media_player: !include includes_private/media_players.yaml
+
+##### Вынос в папки
+sensor: !include_dir_merge_list includes/sensors
+automation manual: !include_dir_merge_list includes/automation
+binary_sensor: !include_dir_merge_list includes/binsensors
+group: !include includes/groups.yaml
+
+wake_on_lan:
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1
+    - 172.16.0.0/12
+    - ::1
+
+lovelace:
+  mode: yaml
+  resources:
+    - url: /hacsfiles/bar-card/bar-card.js
+      type: module
+    - url: /hacsfiles/lovelace-fold-entity-row/fold-entity-row.js
+      type: module
+    - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+      type: module
+    - url: /hacsfiles/ha-card-weather-conditions/ha-card-weather-conditions.js
+      type: module
+    - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+      type: module
+    - url: /hacsfiles/battery-state-card/battery-state-card.js
+      type: module
+    - url: /hacsfiles/lovelace-card-mod/card-mod.js
+      type: module
+    - url: /hacsfiles/simple-weather-card/simple-weather-card-bundle.js
+      type: module
+    - url: /hacsfiles/mini-humidifier/mini-humidifier-bundle.js
+      type: module
+    - url: /hacsfiles/rgb-light-card/card.js
+      type: module
+    - url: /hacsfiles/simple-thermostat/simple-thermostat.js
+      type: module
+    - url: /hacsfiles/stack-in-card/stack-in-card.js
+      type: module
+    - url: /hacsfiles/vacuum-card/vacuum-card.js
+      type: module
+    - url: /hacsfiles/lovelace-hui-element/hui-element.js
+      type: module
+    - url: /hacsfiles/lovelace-layout-card/layout-card.js
+      type: module 
+    - url: /hacsfiles/light-popup-card/light-popup-card.js
+      type: module  
+    - url: /hacsfiles/button-card/button-card.js
+      type: module
+    - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
+      type: module
+    - url: hacsfiles/light-entity-card/light-entity-card.js
+      type: module
+    - url: /hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js
+      type: module
+    - url: 'https://fonts.googleapis.com/css?family=Raleway'
+      type: css
+    - url: https://fonts.googleapis.com/css2?family=Oxygen&family=Ubuntu:wght@300&display=swap
+    - url: /local/custom_icons.js
+      type: module
+    - url: /hacsfiles/swipe-card/swipe-card.js
+      type: module
+    - url: /hacsfiles/kiosk-mode/kiosk-mode.js
+      type: module
+    - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
+      type: module
+    - url: /hacsfiles/lovelace-mushroom/mushroom.js
+      type: module
+    - url: /hacsfiles/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
+      type: module
+    - url: /hacsfiles/homeassistant-minimalistic-area-card/minimalistic-area-card.js
+      type: module
+    - url: /hacsfiles/ha-floorplan/floorplan.js
+      type: module
+    - url: /hacsfiles/lovelace-fan-xiaomi/xiaomi-fan-card.js
+      type: module
+
+

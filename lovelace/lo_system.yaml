@@ -1,0 +1,346 @@
+##########################################################################
+#                                                                        #
+#                              * SYSTEM *                                #
+#                                                                        #
+##########################################################################
+
+
+
+title: System
+icon: mdi:cog
+cards:
+
+
+
+##########################################################################
+#                                                                        #
+#                              * КОЛОНКА 1 *                             #
+#                                                                        #
+##########################################################################
+
+
+
+
+      - type: vertical-stack
+        cards:
+        - type: markdown
+          content: '## System'
+          style: |
+            ha-card {
+              box-shadow: none;
+              border: none;
+              background: none;
+              font-family: var(--primary-font-family);
+              --card-background-color: none
+            }
+        - type: custom:stack-in-card
+          cards:
+          - type: horizontal-stack
+            cards: 
+            - type: custom:mini-graph-card
+              entities:
+                - entity: sensor.processor_use #sensor.cpu_speed #
+                  name: CPU 
+                  hours_to_show: 12
+                  points_per_hour: 4
+              color_thresholds:
+                - value: 35
+                  color: "#00ff21"
+                - value: 45
+                  color: "#f6ff00"
+                - value: 50
+                  color: "#ff6600"
+                - value: 55
+                  color: "#ff1800"
+              show:
+                fill: false
+            - type: custom:mini-graph-card
+              entities:
+                - entity: sensor.processor_temperature
+                  name: CPU 
+                  hours_to_show: 12
+                  points_per_hour: 4
+              color_thresholds:
+                - value: 35
+                  color: "#00ff21"
+                - value: 45
+                  color: "#f6ff00"
+                - value: 50
+                  color: "#ff6600"
+                - value: 55
+                  color: "#ff1800"
+              show:
+                fill: false
+            - type: custom:mini-graph-card
+              entities:
+                - entity: sensor.memory_use_percent
+                  name: Memory
+                  hours_to_show: 12
+                  points_per_hour: 4
+              color_thresholds:
+                - value: 35
+                  color: "#00ff21"
+                - value: 80
+                  color: "#f6ff00"
+                - value: 85
+                  color: "#ff6600"
+                - value: 90
+                  color: "#ff1800"
+              show:
+                fill: false
+            - type: custom:mini-graph-card
+              entities:
+                - entity: sensor.disk_use_percent
+                  name: Disk 
+                  hours_to_show: 12
+                  points_per_hour: 4
+              color_thresholds:
+                - value: 30
+                  color: "#00ff21"
+                - value: 80
+                  color: "#f6ff00"
+                - value: 85
+                  color: "#ff6600"
+                - value: 90
+                  color: "#ff1800"
+              show:
+                fill: false
+        - type: entities
+          show_header_toggle: false
+          entities:
+            - entity: sensor.date
+              name: Date
+              icon: mdi:calendar-check-outline
+            - entity: sensor.uptime
+              icon: mdi:home-assistant
+            # - entity: sensor.supervisor_updates
+            - entity: sensor.last_boot
+              icon: mdi:calendar
+            - entity: sensor.maria_db_size
+              name: DB size
+              icon: mdi:database
+            - entity: sensor.local_ip
+              name: Local ip
+            - entity: sensor.608b0157ac25_sn_mynetname_net
+              name: External ip
+            - entity: binary_sensor.internet_is_available
+              name: Internet 
+            
+
+
+
+##########################################################################
+#                                                                        #
+#                              * КОЛОНКА 2 *                             #
+#                                                                        #
+##########################################################################
+
+
+
+
+      - type: vertical-stack
+        cards:
+        - type: markdown
+          content: '## Component Count'
+          style: |
+            ha-card {
+              box-shadow: none;
+              border: none;
+              background: none;
+              font-family: var(--primary-font-family);
+              --card-background-color: none
+            }
+        - type: glance
+          entities:
+            - entity: sensor.count_automations
+              name: Automations
+            - entity: sensor.count_scripts
+              name: Scripts
+            - entity: sensor.count_zones
+              name: Zones
+            - entity: sensor.count_device_trackers
+              name: Device Trackers
+            - entity: sensor.count_switches
+              name: Switches
+            - entity: sensor.count_sensors
+              name: Sensors
+            - entity: sensor.count_binary_sensors
+              name: Binary Sensors
+            - entity: sensor.count_input_booleans
+              name: Input Booleans
+            - entity: sensor.count_input_numbers
+              name: Input Numbers
+            - entity: sensor.count_input_texts
+              name: Input Texts
+            - entity: sensor.count_input_selects
+              name: Input Select
+            - entity: sensor.count_input_datetimes
+              name: Input Date Times
+            - entity: sensor.unavailable_now_binary_sensor
+              name: Binary Sensors Un
+            - entity: sensor.unavailable_now_switch
+              name: Switches Un
+            - entity: sensor.unavailable_now_light
+              name: Lights Un
+            - entity: sensor.unavailable_now_sensor
+              name: Sensor Un
+            - entity: sensor.count_script_off
+              name: Script OFF
+            - entity: sensor.count_script_on
+              name: Script ON
+            - entity: sensor.count_automation_off
+              name: Automation OFF
+
+
+
+##########################################################################
+#                                                                        #
+#                              * КОЛОНКА 3 *                             #
+#                                                                        #
+##########################################################################
+
+
+
+
+      - type: vertical-stack
+        cards:
+        - type: markdown
+          content: '## Sensors Сolumn 1'
+          style: |
+            ha-card {
+             box-shadow: none;
+             border: none;
+             background: none;
+             font-family: var(--primary-font-family);
+             --card-background-color: none
+            }
+        - type: entities
+          cards:
+          entities:
+          ############## Гостинная ###############
+          ############## Кухня ###################
+            # - entity: sensor.aqara_t_h_kitchen_temperature
+            #   name: Kitchen
+            # - entity: sensor.aqara_t_h_kitchen_humidity
+            #   name: Kitchen
+            # - type: divider
+            # - entity: sensor.aqara_t_h_refregerator_temperature
+            #   name: Refrigerator
+            # - entity: sensor.aqara_t_h_refregerator_humidity
+            #   name: Refrigerator
+            # - type: divider
+         ############## Балкон ###################
+            - entity: sensor.outdoor_temperature
+              name: Outdoor
+            - type: divider
+            # - entity: sensor.speedtest_download
+            #   name: Download
+            # - entity: sensor.speedtest_ping
+            #   name: Ping
+            # - entity: sensor.speedtest_upload
+            #   name: Upload
+        - type: custom:auto-entities
+          show_empty: false
+          card:
+            type: entities
+            show_header_toggle: false
+            style: |
+                ha-card {
+                  color: #8b8b8c;
+                  --paper-item-icon-color: #8b8b8c;
+                  --iron-icon-stroke-color: #8b8b8c;
+                  font-weight: bold;
+                  font-size: 14px;
+                } 
+          filter:
+            include:
+             - entity_id: switch.tv_*
+             - entity_id: sensor.*_tv_custom
+             - entity_id: switch.alice_station
+             - entity_id: sensor.alice_custom
+            exclude:
+             - state: 'off'
+
+
+##########################################################################
+#                                                                        #
+#                              * КОЛОНКА 4 *                             #
+#                                                                        #
+##########################################################################
+
+
+
+
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: '## Google Backup'
+            style: |
+              ha-card {
+                box-shadow: none;
+                border: none;
+                background: none;
+                font-family: var(--primary-font-family);
+                --card-background-color: none
+              }
+          - type: entities
+            show_header_toggle: false
+            entities:
+            #  - entity: sensor.last_google_backup_train
+            #  - entity: sensor.snapshots_in_google_drive_train
+            #  - entity: sensor.snapshots_in_hassio_train
+              - entity: sensor.last_google_backup_main
+              - entity: sensor.backups_in_google_drive
+                type: custom:multiple-entity-row
+                name: Резервные копии
+                state_header: Google Drive
+                entities:
+                  - entity: sensor.backups_in_home_assistant
+                    name: Сервер
+              - entity: sensor.size_in_google_drive
+                type: custom:multiple-entity-row
+                name: Занято на
+                state_header: Google Drive
+                entities:
+                  - entity: sensor.size_in_home_assistant
+                    name: Сервере
+      - type: vertical-stack
+        cards:
+          - type: markdown
+            content: '## Sensors Сolumn 2'
+            style: |
+              ha-card {
+                box-shadow: none;
+                border: none;
+                background: none;
+                font-family: var(--primary-font-family);
+                --card-background-color: none
+              }
+          - type: entities
+            show_header_toggle: false
+            entities:
+              - entity: person.alex
+              - entity: person.victoriya
+              - entity: person.semen
+              - entity: sun.sun
+              - type: divider
+             ############## Прихожая ###############
+              - entity: binary_sensor.honeywell_detector_smoke
+                name: Honeywell smoke detector
+              - type: divider
+              - entity: binary_sensor.door_window_contact_sensor_hallway_contact
+                name: Door hallway
+                icon: mdi:door
+             ############## Кухня ##################
+              - entity: binary_sensor.door_window_contact_sensor_kitchen_contact
+                name: Window kitchen
+                icon: mdi:window-closed-variant
+              - type: divider
+             ############## Ванная ###############
+              - entity: binary_sensor.water_leak_sensor_bathroom_water_leak
+                name: Water sensor bathroom
+              - entity: binary_sensor.water_leak_sensor_kitchen_water_leak
+                name: Water sensor kitchen
+              - type: divider
+              - entity: binary_sensor.motion_in_home
+                name: Movement in the house

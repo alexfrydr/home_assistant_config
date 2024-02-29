@@ -1,0 +1,35 @@
+- alias: "031_Home_away_OFF_devices"
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: '/10'
+    seconds: '0'
+  condition:
+      - condition: state
+        entity_id: binary_sensor.motion_in_home
+        state: 'off'
+        for:
+          minutes: 30
+      - condition: state
+        entity_id:
+            - light.wled
+            - light.wled_2
+            - light.gyver_lamp_esp_ce2392
+            - media_player.lg_webos_smart_tv
+            - switch.hallway_one_gang
+            - switch.aqara_single_key_bathroom
+            - switch.0x00158d00028b38b0_switch
+        match: any
+        state: "on"
+      - condition: state
+        entity_id: alarm_control_panel.home_alarm
+        state: "armed_away"
+      - condition: state
+        entity_id: input_boolean.control_mode
+        state: "on"
+  action:
+    - service: telegram_bot.send_message
+      data:
+        message: "Похоже в доме остались включенные приборы."
+        inline_keyboard:
+          - '💡 Выключить всё:/turn_off'

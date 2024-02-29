@@ -1,0 +1,110 @@
+- alias: "032_light_child_room_off"
+  trigger:
+  - platform: time
+    at: '09:30:00'
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_child_room
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  - condition: and
+    conditions:
+      - condition: state
+        entity_id:
+            - light.wled_2
+        match: any
+        state: "on"
+  action:
+    - service: light.turn_off
+      entity_id: light.wled_2
+
+- alias: "032_light_child_room_3%_strip_on_22:00"
+  trigger:
+    - platform: time_pattern
+      minutes: "/10"
+  condition: 
+    - condition: state
+      entity_id: input_boolean.auto_light_child_room
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+    - condition: time
+      after: '22:00:00'
+    - condition: state
+      entity_id: light.wled_2
+      state: "on"
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.wled_2
+        brightness_pct: 15
+              
+- alias: "032_light_lamp_child_room_off"
+  trigger:
+  - platform: time
+    at: '09:30:00'
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_on_off_lamp
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  - condition: and
+    conditions:
+     - condition: state
+       entity_id: light.gyver_lamp_esp_ce2392
+       state: 'on'
+  action:
+    - service: light.turn_off
+      entity_id: light.gyver_lamp_esp_ce2392
+      
+- alias: "032_light_child_room_50%_on_19:00"
+  trigger:
+  - platform: time
+    at: input_datetime.light_clock
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_child_room
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  - condition: and
+    conditions:
+      - condition: state
+        entity_id:
+            - light.wled_2
+        match: any
+        state: "off"
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.wled_2
+        brightness_pct: 50
+        
+- alias: "032_light_child_room_turn_on_automatic_wled_2"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - light.wled_2
+    from: 'off'
+    to: 'on'
+  condition: 
+  - condition: state
+    entity_id: input_boolean.auto_light_child_room
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - device_id: c4a1f53e2bf2693166df40cc440eb622
+    domain: select
+    entity_id: select.wled_girlyanda_preset
+    type: select_option
+    option: Preset 8
+  mode: single

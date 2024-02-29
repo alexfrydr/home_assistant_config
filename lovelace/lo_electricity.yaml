@@ -1,0 +1,319 @@
+##########################################################################
+#                                                                        #
+#                              * ELECTRICITY *                           #
+#                                                                        #
+##########################################################################
+
+title: Electricity
+icon: mdi:flash
+cards:
+  ##########################################################################
+  #                                                                        #
+  #                              * КОЛОНКА 1 *                             #
+  #                                                                        #
+  ##########################################################################
+
+  - type: vertical-stack
+    cards:
+      - type: markdown
+        content: "## Batteries sensors 1"
+        style: |
+          ha-card {
+           box-shadow: none;
+           border: none;
+           background: none;
+           font-family: var(--primary-font-family);
+           --card-background-color: none
+          }
+      - type: custom:battery-state-card
+        color_thresholds: []
+        entities:
+          #   - entity: sensor.lumi_lumi_sensor_cube_aqgl01_df854b05_power
+          #      name: "Aqara Cube"
+          - entity: sensor.button_keypad_02_battery
+            name: "key Pad 02"
+          - entity: sensor.door_window_contact_sensor_hallway_battery
+            name: "Door contact sensor"
+          - entity: sensor.door_window_contact_sensor_kitchen_battery
+            name: "Window contact sensor"
+          - entity: sensor.human_body_movement_bathroom_battery
+            name: "Bathroom motion sensor"
+          - entity: sensor.human_body_movement_bathroom_2_battery
+            name: "Bathroom motion sensor 2"
+          - entity: sensor.human_body_movement_hallway_battery
+            name: "Hallway motion sensor"
+          - entity: sensor.water_leak_sensor_bathroom_battery
+            name: "Water leak bathroom sensor"
+          - entity: sensor.water_leak_sensor_kitchen_battery
+            name: "Water leak kitchen sensor"
+          - entity: sensor.honeywell_detector_battery
+            name: "Honeywell smoke detector"
+
+      - type: markdown
+        content: "## Batteries < 30% charge"
+        style: |
+          ha-card {
+           box-shadow: none;
+           border: none;
+           background: none;
+           font-family: var(--primary-font-family);
+           --card-background-color: none
+          }
+      - type: custom:auto-entities
+        show_empty: false
+        card:
+          type: custom:battery-state-card
+          show_header_toggle: false
+          style: |
+            ha-card {
+              font-weight: bold;
+              font-size: 14px;
+            }
+        filter:
+          include:
+            - domain: sensor
+              attributes:
+                device_class: "battery"
+          exclude:
+            - state: "> 30.0"
+            - state: "unknown"
+            - state: "unavailable"
+
+  ##########################################################################
+  #                                                                        #
+  #                              * КОЛОНКА 2 *                             #
+  #                                                                        #
+  ##########################################################################
+
+  - type: vertical-stack
+    cards:
+      - type: markdown
+        content: "## Batteries sensors 2"
+        style: |
+          ha-card {
+           box-shadow: none;
+           border: none;
+           background: none;
+           font-family: var(--primary-font-family);
+           --card-background-color: none
+          }
+      - type: custom:battery-state-card
+        color_thresholds: []
+        entities:
+          - entity: sensor.aqara_t_h_bedroom_battery
+            name: "Aqara temperature, humidity bedroom"
+          - entity: sensor.aqara_t_h_child_room_battery
+            name: "Aqara temperature, humidity child room"
+          - entity: sensor.aqara_t_h_bathroom_battery
+            name: "Aqara temperature, humidity Bathroom"
+          - entity: sensor.aqara_t_h_living_room_battery
+            name: "Aqara temperature, humidity Living room"
+        #   - entity: sensor.plant04_battery
+        #     name: "Plant Ficus Elastica"
+        #   - entity: sensor.plant05_battery
+        #     name: "Plant Dracaena Marginata"
+#         - entity: sensor.plant03_battery
+#           name: "Plant Ficus Benjamina"
+#         - entity: sensor.plant02_battery
+#           name: "Plant Codiaeum"
+#         - entity: sensor.plant06_battery
+#           name: "Plant Yucca Elephantipes"
+#         - entity: "{% if is_state('binary_sensor.termostat_02_battery_low', 'on') %} Заряжена {% else %} Разряжена {% endif %}"
+#           name: "Termostat 02"
+
+      ################# Потребление более 5 Ватт #################
+
+      - type: markdown
+        content: "## Active outlets > 5 watts"
+        style: |
+          ha-card {
+           box-shadow: none;
+           border: none;
+           background: none;
+           font-family: var(--primary-font-family);
+           --card-background-color: none
+          }
+      - type: custom:auto-entities
+        card:
+          type: entities
+          show_header_toggle: false
+        filter:
+          include:
+            - domain: switch
+              state: "on"
+              attributes:
+                power: "! none"
+              options:
+                type: custom:multiple-entity-row
+                toggle: true
+                #  show_state: false
+                secondary_info: last-changed
+                entities:
+                  - attribute: power
+                    name: Потребление
+                    unit: "Ватт"
+          exclude:
+            - domain: switch
+              state: "on"
+              attributes:
+                power: "< 5"
+            - entity_id: switch.*power_outage*
+
+  ##########################################################################
+  #                                                                        #
+  #                              * КОЛОНКА 3 *                             #
+  #                                                                        #
+  ##########################################################################
+
+  - type: vertical-stack
+    cards:
+    #   - type: markdown
+    #     content: "## APC UPS"
+    #     style: |
+    #       ha-card {
+    #         box-shadow: none;
+    #         border: none;
+    #         background: none;
+    #         font-family: var(--primary-font-family);
+    #         --card-background-color: none
+    #       }
+    #   - type: entities
+    #     show_header_toggle: false
+    #     entities:
+    #       - entity: sensor.ups_internal_temperature
+    #       - entity: sensor.apc_ups_battery_custom
+    #         icon: "mdi:battery"
+    #         name: UPS Battery
+    #       - entity: sensor.ups_load
+    #       - entity: sensor.ups_battery_shutdown
+    #       - entity: sensor.ups_input_voltage
+    #       - entity: sensor.ups_output_voltage
+
+      ################# Включенные светильники #################
+
+      - type: markdown
+        content: "## Active lights"
+        style: |
+          ha-card {
+           box-shadow: none;
+           border: none;
+           background: none;
+           font-family: var(--primary-font-family);
+           --card-background-color: none
+          }
+
+      - type: custom:auto-entities
+        card:
+          type: entities
+          show_header_toggle: false
+        filter:
+          include:
+            - domain: light
+              state: "on"
+              options:
+                type: custom:multiple-entity-row
+                toggle: true
+                #  show_state: false
+                secondary_info: last-changed
+                entities:
+                  - attribute: brightness
+                    name: Яркость
+                  - attribute: color_temp
+                    name: Температура
+          exclude:
+            - entity_id: light.*virtual*
+
+      # - type: custom:mushroom-cover-card
+      #   entity: sensor.consumption_new_day
+      #   show_buttons_control: false
+      #   show_position_control: false
+      #   hide_state: false
+      #   tap_action:
+      #     action: none
+      #   name: Потребление медиа за текущий день
+
+      # - type: custom:mushroom-cover-card
+      #   entity: sensor.consumption_new_month
+      #   show_buttons_control: false
+      #   show_position_control: false
+      #   hide_state: false
+      #   tap_action:
+      #     action: none
+      #   name: Потребление медиа за текущую неделю
+
+      # - type: custom:mushroom-cover-card
+      #   entity: sensor.consumption_new_week
+      #   show_buttons_control: false
+      #   show_position_control: false
+      #   hide_state: false
+      #   tap_action:
+      #     action: none
+      #   name: Потребление медиа за текущий месяц
+
+  ##########################################################################
+  #                                                                        #
+  #                              * КОЛОНКА 4 *                             #
+  #                                                                        #
+  ##########################################################################
+
+#   - type: vertical-stack
+#     cards:
+#       - type: markdown
+#         content: "## Switches"
+#         style: |
+#           ha-card {
+#             box-shadow: none;
+#             border: none;
+#             background: none;
+#             font-family: var(--primary-font-family);
+#             --card-background-color: none
+#           }
+#       - type: entities
+#         show_header_toggle: false
+#         entities:
+#           - entity: switch.0x00158d00028b38b0_switch
+#             name: Switch Media
+#           - entity: sensor.0x00158d00028b38b0_power
+#             name: Power
+#           - entity: switch.mi_plug_02_switch
+#             name: Switch Plant
+#           - entity: sensor.mi_plug_02_power
+#             name: Power Plant
+#           - entity: sensor.wled_estimated_current
+#             name: Wled
+#           - entity: sensor.wled_estimated_current_2
+#             name: Wled 2
+
+#   - type: vertical-stack
+#     cards:
+#       - type: markdown
+#         content: "## Electricity"
+#         style: |
+#           ha-card {
+#             box-shadow: none;
+#             border: none;
+#             background: none;
+#             font-family: var(--primary-font-family);
+#             --card-background-color: none
+#           }
+#       - type: custom:mini-graph-card
+#         entities:
+#           - entity: sensor.ups_input_voltage
+#             name: Mains voltage
+#         color_thresholds:
+#           - value: 205
+#             color: "#DC143C"
+#           - value: 210
+#             color: "#FFFFE0"
+#           - value: 220
+#             color: "#00FF00"
+#           - value: 230
+#             color: "#FFFFE0"
+#           - value: 300
+#             color: "#DC143C"
+#         animate: true
+#         line_width: 2
+#         hour24: true
+#         points_per_hour: 2
+#         group_by: hour
+#         hours_to_show: 36

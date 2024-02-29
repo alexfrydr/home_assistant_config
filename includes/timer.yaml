@@ -1,0 +1,18 @@
+backup:
+    duration: '00:15:00'
+
+light_hallway_5m_off:
+    duration: 480
+    
+bathroom: 
+    name: Ванная свет. выкл через -
+    duration: '00:15:00'
+    
+hallway:
+    name: Коридор свет. выкл через -
+    duration: '00:05:00'
+    
+light_plant:
+    name: Подсветка выключится через - 
+    duration: '15:00:00'
+  

@@ -1,0 +1,322 @@
+##########################################################################
+#                                                                        #
+#                              * DEVICES *                               #
+#                                                                        #
+##########################################################################
+
+
+title: Devices
+icon: mdi:source-pull
+cards:
+
+
+
+##########################################################################
+#                                                                        #
+#                              * КОЛОНКА 1 *                             #
+#                                                                        #
+##########################################################################
+
+
+
+    - type: vertical-stack
+      cards:
+        - type: markdown
+          content: '## Clock automations'
+          style: |
+            ha-card {
+              box-shadow: none;
+              border: none;
+              background: none;
+              font-family: var(--primary-font-family);
+              --card-background-color: none
+            }
+        - type: entities
+          show_header_toggle: false
+          cards:
+          entities:
+          
+            - type: custom:mushroom-cover-card
+              entity: input_datetime.alarm_clock
+              tap_action:
+                action: more-info
+              show_buttons_control: false
+              show_position_control: false
+              hide_state: false
+            - type: custom:mushroom-cover-card
+              entity: input_datetime.plant_clock
+              tap_action:
+                action: more-info
+              show_buttons_control: false
+              show_position_control: false
+              hide_state: false
+              name: Plant clock
+            - type: custom:mushroom-cover-card
+              entity: input_datetime.light_clock
+              tap_action:
+                action: more-info
+              show_buttons_control: false
+              show_position_control: false
+              hide_state: false
+              name: light strip clock
+            - type: custom:fold-entity-row
+              head:
+                type: section
+                label: Light
+              padding: 5
+              entities:
+                - entity: input_boolean.auto_light_on_off_hallway
+                - entity: input_boolean.auto_light_on_off
+                  name: Auto light on bathroom
+                - entity: input_boolean.auto_light_on_off_girlianda_ws2811
+                  name: Auto light strip on living room
+                - entity: input_boolean.auto_light_on_off_lamp
+                  name: Auto light lamp on living room
+                - entity: input_boolean.auto_switch_on_off_light_plant
+                  name: Auto light Plant
+                - entity: input_boolean.auto_light_child_room
+                - entity: input_boolean.auto_light_bedroom_on_off
+                - entity: input_boolean.auto_light_on_off_stock
+                - entity: input_boolean.google_calendar_mode
+                - entity: input_number.scale
+                - entity: input_number.speed
+                - entity: select.wled_color_palette
+                - entity: select.wled_preset
+
+            - type: custom:fold-entity-row
+              head:
+                type: section
+                label: Mode
+              padding: 5
+              entities:
+              - entity: input_boolean.control_mode
+              - entity: input_boolean.alarm_clock
+              - entity: input_boolean.cube_mode
+              - entity: input_boolean.control_fan_mode
+              - entity: input_boolean.auto_theme_selector
+                name: Auto theme
+              - entity: input_boolean.auto_fan_xiaomi_on_off
+                name: Auto mode humidifier
+              - entity: input_boolean.alice_homework_mode                
+              - entity: input_boolean.cleaned_today
+              - entity: input_boolean.doorbell_mode
+              - entity: input_boolean.intercom_mode
+              # - entity: switch.termostat_02_window_detection
+              #   name: Window detection
+              # - entity: lock.termostat_02_child_lock
+              #   name: Termostat lock
+              - entity: input_number.aqara_cube
+        - type: custom:auto-entities
+          show_empty: false
+          card:
+            type: entities
+            show_header_toggle: false
+            style: |
+                ha-card {
+                  color: #8b8b8c;
+                  --paper-item-icon-color: #8b8b8c;
+                  --iron-icon-stroke-color: #8b8b8c;
+                  font-weight: bold;
+                  font-size: 14px;
+                } 
+          filter:
+            include:
+             - domain: timer
+            exclude:
+             - domain: timer
+               state: 'idle'
+        - type: vertical-stack
+          cards: 
+            # - type: custom:mini-humidifier
+            #   entity: fan.xiaomi_air_humidifier
+            #   model: 'deerma.humidifier.mjjsq'
+              - type: custom:mushroom-fan-card
+                entity: fan.xiaomi_air_humidifier
+                icon_animation: true
+                fill_container: false
+                show_oscillate_control: false
+                collapsible_controls: false
+                layout: horizontal
+
+##########################################################################
+#                                                                        #
+#                              * КОЛОНКА 2 *                             #
+#                                                                        #
+##########################################################################
+
+
+
+    
+    - type: vertical-stack
+      cards:
+        - type: markdown
+          content: '## Shopping'
+          style: |
+            ha-card {
+              box-shadow: none;
+              border: none;
+              background: none;
+              font-family: var(--primary-font-family);
+              --card-background-color: none
+            }
+        - type: vertical-stack
+          cards:
+              - type: todo-list
+                entity: todo.shopping_list
+                title: Список покупок
+    #           #- type: custom:mushroom-fan-card
+    #           - type: custom:mushroom-climate-card
+    #             entity: climate.termostat_02
+    #             name: Termostat Kitchen
+    #             icon_animation: true
+    #             show_oscillate_control: false
+    #             show_percentage_control: false
+    #             tap_action:
+    #               action: more-info
+    #             hold_action:
+    #               action: more-info
+    #             double_tap_action:
+    #               action: more-info
+    #           - type: custom:mushroom-cover-card
+    #             show_position_control: false
+    #             entity: sensor.termostat_02_position
+    #             show_buttons_control: false
+    #             hide_state: false
+    #             name: Thermostat position
+    #             tap_action:
+    #               action: none
+    #             hold_action:
+    #               action: none
+    #             double_tap_action:
+    #               action: none
+    #         #   - type: custom:mushroom-fan-card
+    #         #     entity: climate.342bbf45_2
+    #         #     name: Air Conditioner
+    #         #     icon_animation: true
+    #         #     show_oscillate_control: false
+    #         #     show_percentage_control: false
+    #         #     tap_action:
+    #         #       action: more-info
+    #         #     hold_action:
+    #         #       action: more-info
+    #         #     double_tap_action:
+    #         #       action: more-info
+
+
+
+##########################################################################
+#                                                                        #
+#                              * КОЛОНКА 3 *                             #
+#                                                                        #
+##########################################################################
+
+
+
+
+    - type: vertical-stack
+      cards:
+        - type: markdown
+          content: '## Vacuum cleaner'
+          style: |
+            ha-card {
+              box-shadow: none;
+              border: none;
+              background: none;
+              font-family: var(--primary-font-family);
+              --card-background-color: none
+            }
+        - type: vertical-stack
+          cards: 
+          - type: custom:mushroom-fan-card
+            entity: vacuum.mi_robot
+            tap_action:
+              action: more-info
+            icon_animation: true
+            show_percentage_control: false
+            show_oscillate_control: false
+
+          - type: entities
+            entities:
+              - entity: sensor.transmission_active_torrents
+              - entity: sensor.transmission_total_torrents
+              - entity: sensor.transmission_completed_torrents
+              - entity: sensor.transmission_started_torrents
+              - entity: sensor.transmission_paused_torrents
+              - entity: sensor.transmission_download_speed
+              - entity: sensor.transmission_upload_speed
+
+
+##########################################################################
+#                                                                        #
+#                              * КОЛОНКА 4 *                             #
+#                                                                        #
+##########################################################################
+
+    - type: vertical-stack
+      cards:
+        - type: markdown
+          content: '## Recent Activities'
+          style: |
+            ha-card {
+              box-shadow: none;
+              border: none;
+              background: none;
+              font-family: var(--primary-font-family);
+              --card-background-color: none
+            }
+        - type: vertical-stack
+          cards: 
+            - type: custom:mushroom-cover-card
+              entity: sensor.mqtt_binary_sensor_158d00010f8920
+              show_buttons_control: false
+              show_position_control: false
+              hide_state: false
+              tap_action:
+                action: more-info
+              name: Последнее движение в коридоре -
+    
+            - type: custom:mushroom-cover-card
+              entity: sensor.mqtt_binary_sensor_158d0001e547a3
+              show_buttons_control: false
+              show_position_control: false
+              hide_state: false
+              tap_action:
+                action: more-info
+              name: Последнее движение в ванной -
+    
+            - type: custom:mushroom-cover-card
+              entity: sensor.mqtt_binary_sensor_a03icm9w73zeffmh
+              show_buttons_control: false
+              show_position_control: false
+              hide_state: false
+              tap_action:
+                action: more-info
+              name: Последнее открытие окна в детской -
+    
+            - type: custom:mushroom-cover-card
+              entity: sensor.mqtt_binary_sensor_prxine9ptea758sx
+              show_buttons_control: false
+              show_position_control: false
+              hide_state: false
+              tap_action:
+                action: more-info
+              name: Последнее открытие входной двери -
+    
+            # - type: custom:mushroom-cover-card
+            #   entity: sensor.mqtt_binary_sensor_4kspcdam44
+            #   show_buttons_control: false
+            #   show_position_control: false
+            #   hide_state: false
+            #   tap_action:
+            #     action: more-info
+            #   name: Последнее включение света в ванной -
+    
+            - type: custom:mushroom-cover-card
+              entity: sensor.mqtt_binary_sensor_oaqxqzt1kh
+              show_buttons_control: false
+              show_position_control: false
+              hide_state: false
+              tap_action:
+                action: more-info
+              name: Последнее включение света на кухне -
+

@@ -1,0 +1,13 @@
+# - alias: "021_termostat_battery_low"
+#   description: ''
+#   trigger:
+#     - platform: state
+#       entity_id: binary_sensor.termostat_02_battery_low
+#       to: 'on'
+#   condition: []
+#   action:
+#   - service: telegram_bot.send_message
+#     data_template:
+#       title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+#       message: | 
+#              ⚠  Внимание! Низкий заряд батареи термостата, кухня {{ states('sensor.date_time') }}

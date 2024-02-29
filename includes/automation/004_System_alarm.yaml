@@ -1,0 +1,148 @@
+- alias: "004_System_CPU_Temperature_alarm"
+  description: "Тревога превышение температуры ЦПУ"
+  trigger:
+  - entity_id: sensor.cpu_temp
+    for: 00:05:00
+    platform: state
+    to: '60'
+  condition: []
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+      message: >
+        ⚠  Превышение температуры процессора {{ states('sensor.date_time') }}
+
+- alias: "004_Purge_Database"
+  description: "Очистка базы данных"
+  initial_state: True
+  trigger:
+      platform: time
+      at: '02:22:22'
+  action:
+      service: recorder.purge
+      data:
+        keep_days: 3
+        repack: true
+
+- alias: "004_Zigbee_Bridge_state_offline"
+  description: "Уведомление о потере связи с координатором"
+  trigger:
+  - entity_id: sensor.bridge_state
+    from: online
+    platform: state
+    to: offline
+  condition: []
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+      message: >
+        ⚠  Потеряна связь с Zigbee координатором {{ states('sensor.date_time') }}
+        
+- alias: "004_Zigbee_Bridge_state_online"
+  description: ''
+  trigger:
+  - entity_id: sensor.bridge_state
+    from: offline
+    platform: state
+    to: online
+  condition: []
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+      message: >
+        ⚠  Cвязь с Zigbee координатором  восстановлена {{ states('sensor.date_time') }}
+
+- alias: "004_Zigbee_unhealthy_alert"
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.z2m_health
+    to: 'on'
+  - platform: time
+    at: '08:00:00'
+  - platform: time
+    at: '20:00:00'
+  condition: []
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      message: |-
+        ❌ Zigbee last seen ❌️:  
+        {{"*"}}{{state_attr('binary_sensor.z2m_health', 'data')}}{{"*: "}}
+        
+- alias: "004_Zigbee_Device_Missing_Alert"
+  trigger:
+      - platform: time
+        at: '07:00'
+      - platform: time
+        at: '16:00'
+  condition:
+      - condition: template
+        value_template: |
+          {% set ns = namespace(break = false) %} {% for state in states -%}
+            {%- if state.attributes.last_seen %}
+              {%- if (as_timestamp(now()) - as_timestamp(state.attributes.last_seen) > (60 * 60 * 20) ) and ns.break == false %}
+                {%- set ns.break = true %}
+                true
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor %} 
+  action:
+      - service: telegram_bot.send_message
+        data:
+          message: >
+            Some Zigbee devices haven't been seen lately... {% for state in states
+            -%}
+              {%- if (state.attributes.last_seen and not (state.name | regex_search('available|linkquality|power_on_behavior|state'))) %}
+                {%- if (as_timestamp(now()) - as_timestamp(state.attributes.last_seen) > (60 * 60 * 20) ) %}
+                  {{ ((as_timestamp(now()) - as_timestamp(state.attributes.last_seen)) / (3600)) | round(1) }} hours ago for {{"*"}}{{ state.name }}{{"*"}}
+                  
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor %}
+  mode: single
+
+- alias: "004_internet_ping_lost"
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.internet_is_available
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: "*Problem with Internet!* ⚠️"
+      message: >
+        ⚠  Потеряна связь с интернетом {{ states('sensor.date_time') }}
+        
+- alias: "004_internet_ping_available"
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.internet_is_available
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: "*Problem with Internet!* ⚠️"
+      message: >
+        👍  Cвязь с интернетом восстановлена {{ states('sensor.date_time') }}

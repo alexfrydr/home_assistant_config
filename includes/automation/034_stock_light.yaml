@@ -1,0 +1,20 @@
+- alias: "034_stock_turn_off_light_5_min_(no_motion)"
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: switch.0x54ef4410008178c4_switch_left
+      to: 'on'
+      for:
+        minutes: 20
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_on_off_stock
+    state: 'on'
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: switch.0x54ef4410008178c4_switch_left
+      state: 'on'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.0x54ef4410008178c4_switch_left

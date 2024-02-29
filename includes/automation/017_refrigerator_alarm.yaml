@@ -1,0 +1,62 @@
+# - alias: "017_Refrigerator_alarm"
+#   description: ''
+#   trigger:
+#   - type: temperature
+#     platform: device
+#     device_id: e7a9e0fcfbf511eaba42ef9b6f172424
+#     entity_id: sensor.aqara_t_h_refregerator_temperature
+#     domain: sensor
+#     above: 9
+#     for:
+#       hours: 0
+#       minutes: 1
+#       seconds: 0
+#   condition: []
+#   action:
+#   - service: telegram_bot.send_message
+#     data_template:
+#       message: | 
+#              ⚠  *Внимание! Превышен порог температуры 9 градусов в холодильнике!* {{ states('sensor.date_time') }}
+#              Текущая температура {{ states('sensor.aqara_t_h_refregerator_temperature') }} °C.
+
+# - alias: "017_Refrigerator_alarm_10"
+#   description: ''
+#   trigger:
+#   - type: temperature
+#     platform: device
+#     device_id: e7a9e0fcfbf511eaba42ef9b6f172424
+#     entity_id: sensor.aqara_t_h_refregerator_temperature
+#     domain: sensor
+#     above: 10
+#     for:
+#       hours: 0
+#       minutes: 1
+#       seconds: 0
+#   condition: []
+#   action:
+#   - service: telegram_bot.send_message
+#     data_template:
+#       message: | 
+#              ⚠  *Внимание! Превышен порог температуры 10 градусов в холодильнике!* {{ states('sensor.date_time') }}
+#              Текущая температура {{ states('sensor.aqara_t_h_refregerator_temperature') }} °C.
+             
+# - alias: "017_Refrigerator_alarm_12"
+#   description: ''
+#   trigger:
+#   - type: temperature
+#     platform: device
+#     device_id: e7a9e0fcfbf511eaba42ef9b6f172424
+#     entity_id: sensor.aqara_t_h_refregerator_temperature
+#     domain: sensor
+#     above: 12
+#     for:
+#       hours: 0
+#       minutes: 1
+#       seconds: 0
+#   condition: []
+#   action:
+#   - service: telegram_bot.send_message
+#     data_template:
+#       message: | 
+#              ⚠  *Внимание! Превышен порог температуры 12 градусов в холодильнике!* {{ states('sensor.date_time') }}
+#              Текущая температура {{ states('sensor.aqara_t_h_refregerator_temperature') }} °C.

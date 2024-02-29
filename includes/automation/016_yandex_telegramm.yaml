@@ -1,0 +1,34 @@
+- alias: "016_yandex_telegramm_massage"
+  trigger:
+  - platform: event
+    event_type: telegram_text
+  condition: []
+  action:
+  - service: media_player.play_media
+    entity_id: media_player.yandex_station_540078920110102034cf
+    data_template:
+      media_content_id: "{{ trigger.event.data.text }}"
+      media_content_type: "question:{{ trigger.event.data.chat_id }}"
+
+- alias: "016_yandex_station_telegramm_massage_response"
+  trigger:
+  - platform: event
+    event_type: yandex_station_response
+  action:
+  - service: telegram_bot.send_message
+    data_template:
+      target: "{{ trigger.event.data.request_id }}"
+      message: "{{ trigger.event.data.text }}"
+      
+- trigger:
+    platform: event
+    event_type: telegram_command
+    event_data:
+      command: '/yandstation'
+  action:
+    service: media_player.play_media
+    entity_id: media_player.yandex_station_540078920110102034cf
+    data_template:
+      media_content_id: "{{ trigger.event.data['args']|join(' ') }}"
+      media_content_type: "question:{{ trigger.event.data.chat_id }}"
+      

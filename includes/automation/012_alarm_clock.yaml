@@ -1,0 +1,54 @@
+- alias: "012_Alarm_clock:_wake_up_with_Yandex_Station"
+  trigger:
+  - platform: time
+    at: input_datetime.alarm_clock
+  condition:
+    condition: state
+    entity_id: input_boolean.alarm_clock
+    state: "on"
+  action:
+    - service: media_player.volume_set
+      data:
+        entity_id:
+        - media_player.yandex_station_540078920110102034cf
+        volume_level: 0.2
+    - delay: 00:00:01
+    - service: script.turn_on
+      entity_id: 
+        - script.yandex_tts2    
+    - delay: 00:00:01
+    - service: script.turn_on
+      entity_id: 
+        - script.yandex_command_01
+    # - service: light.turn_on
+    #   data: 
+    #     entity_id: light.gyver_lamp_esp_ce2392
+    #     brightness_pct: 40
+    #     effect: "Мерцание"
+    - service: light.turn_on
+      data:
+        entity_id: light.wled
+        brightness_pct: 30
+    - device_id: 74f618890967fe0de63bf749d22803b6
+      domain: select
+      entity_id: select.wled_preset
+      type: select_option
+      option: Preset 3
+
+        
+- alias: "012_Alarm_clock:_Off"
+  trigger:
+  - platform: time
+    at: '08:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: time
+        weekday:
+          - fri
+      - condition: state
+        entity_id: input_boolean.alarm_clock
+        state: "on"
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.alarm_clock

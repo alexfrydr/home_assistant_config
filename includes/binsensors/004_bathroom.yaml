@@ -1,0 +1,9 @@
+# Сенсор движения в ванной
+  - platform: template
+    sensors:
+      motion_in_bathroom:
+        friendly_name: "Движение в ванной"
+        device_class: motion
+        value_template: >
+          {{ is_state('binary_sensor.human_body_movement_bathroom_occupancy', 'on')
+             or is_state('binary_sensor.human_body_movement_bathroom_2_occupancy', 'on') }} 

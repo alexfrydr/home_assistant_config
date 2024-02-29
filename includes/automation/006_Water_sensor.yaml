@@ -1,0 +1,89 @@
+- alias: "006_Alarm_Aqara_water_sensor_bathroom_ON"
+  trigger:
+    platform: state
+    entity_id: binary_sensor.water_leak_sensor_bathroom_water_leak
+    to: "on"
+  condition: []
+  action:
+    - repeat:
+        while:
+          - condition: state
+            entity_id: binary_sensor.water_leak_sensor_bathroom_water_leak
+            state: 'on'
+        sequence:
+          - service: telegram_bot.send_message
+            data:
+              title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+              message: |
+                   ⚠  Протечка в ванной {{ states('sensor.date_time') }}
+          - service: script.turn_on
+            entity_id: 
+                - script.yandex_tts3
+          - service: media_player.play_media
+            data_template:
+                entity_id: media_player.mpd
+                media_content_id: "http://10.123.10.84:8123/local/sound/alarm_2.mp3"
+                media_content_type: 'music'
+          - delay: 00:00:05
+
+- alias: "006_Alarm_Aqara_water_sensor_bathroom_OFF"
+  description: ''
+  trigger:
+    entity_id: binary_sensor.water_leak_sensor_bathroom_water_leak
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+    - service: telegram_bot.send_message
+      data_template:
+        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+        message: | 
+             ⚠  Протечка в ванной устранена {{ states('sensor.date_time') }}
+    - service: script.turn_on
+      entity_id: 
+         - script.yandex_tts5
+
+- alias: "006_Alarm_Aqara_water_sensor_kitchen_ON"
+  trigger:
+    entity_id: binary_sensor.water_leak_sensor_kitchen_water_leak
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+    - repeat:
+        while:
+          - condition: state
+            entity_id: binary_sensor.water_leak_sensor_kitchen_water_leak
+            state: 'on'
+        sequence:
+          - service: telegram_bot.send_message
+            data:
+              title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+              message: | 
+                   ⚠  Протечка на кухне {{ states('sensor.date_time') }}
+          - service: script.turn_on
+            entity_id: 
+                - script.yandex_tts4
+          - service: media_player.play_media
+            data_template:
+                entity_id: media_player.mpd
+                media_content_id: "http://10.123.10.84:8123/local/sound/alarm_2.mp3"
+                media_content_type: 'music'
+          - delay: 00:00:05
+             
+- alias: "006_Alarm_Aqara_water_sensor_kitchen_OFF"
+  trigger:
+    entity_id: binary_sensor.water_leak_sensor_kitchen_water_leak
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+    - service: telegram_bot.send_message
+      data_template:
+        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+        message: | 
+             ⚠  Протечка на кухне устранена {{ states('sensor.date_time') }}
+    - service: script.turn_on
+      entity_id: 
+         - script.yandex_tts5
+    

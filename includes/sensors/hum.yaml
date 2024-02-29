@@ -1,0 +1,6 @@
+- platform: template
+  sensors:
+    hum_tank_state:
+      value_template: "{{ state_attr('fan.xiaomi_air_humidifier', 'no_water') }}"
+      
+      

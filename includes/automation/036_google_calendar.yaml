@@ -1,0 +1,40 @@
+- alias: "036_Google_calendar_dni_rozhdeniia"
+  trigger:
+    - platform: calendar
+      event: start
+      entity_id: calendar.dni_rozhdeniia
+    - platform: calendar
+      event: start
+      entity_id: calendar.prazdniki_rossii
+  condition: 
+    - condition: state
+      entity_id: input_boolean.google_calendar_mode
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    - service: light.turn_on
+      entity_id: light.wled
+      data:
+        effect: Gravcenter
+        brightness_pct: 10
+    - service: select.select_option
+      data:
+        option: Hult
+      target:
+        entity_id: select.wled_color_palette
+    - service: number.set_value
+      target:
+        entity_id: number.wled_speed
+      data:
+        value: 40
+    - service: number.set_value
+      target:
+        entity_id: number.wled_intensity
+      data:
+        value: 255
+    - delay: 00:00:15
+    - service: light.turn_off
+      entity_id: light.wled
+

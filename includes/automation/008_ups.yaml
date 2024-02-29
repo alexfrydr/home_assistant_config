@@ -1,0 +1,29 @@
+- alias: "008_APC_ON_BATTARY"
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.ups_online_status
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: telegram_bot.send_message
+    data:
+     title: "*APC UPS trouble!* ⚠️☢️☠️"
+     message: | 
+        Сбой электропитания!
+        
+- alias: "008_APC_OFF_BATTARY"
+  trigger: 
+  - platform: state
+    entity_id:
+    - binary_sensor.ups_online_status
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: telegram_bot.send_message
+    data:
+     title: "*APC UPS OK!* 👍 "
+     message: | 
+        Электропитание восстановлено!

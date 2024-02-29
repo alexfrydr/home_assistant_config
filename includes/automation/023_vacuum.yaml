@@ -1,0 +1,109 @@
+- alias: "023_Vacuum_started_cleaning"
+  trigger:
+    platform: state
+    entity_id: vacuum.mi_robot
+    to: cleaning
+  action:
+  - service: telegram_bot.send_message
+    data:
+     title: "*Robot*"
+     message: | 
+        "Robot started to clean!" {{ states('sensor.date_time') }}
+        
+- alias: "023_Vacuum_stopped_cleaning"
+  trigger:
+    platform: state
+    entity_id: vacuum.mi_robot
+    from: returning
+    to: docked
+  action:
+    - service: telegram_bot.send_message
+      data:
+        title: "*Robot*"
+        message: "Cleanup successful after {{ state_attr('vacuum.mi_robot', 'cleaning_time') }} minutes."
+        
+- alias: "023_Vacuum_reset_to_standard_mode"
+  trigger:
+    platform: state
+    entity_id: vacuum.mi_robot
+    to: docked
+  action:
+    service: vacuum.set_fan_speed
+    entity_id: vacuum.mi_robot
+    data:
+      fan_speed: Standard
+      
+- alias: "023_Vacuum_reset_cleaned_today"
+  initial_state: "on"
+  trigger:
+    platform: state
+    entity_id: vacuum.mi_robot
+    to: docked
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.cleaned_today
+
+- alias: "023_Vacuum_reminder_notification"
+  trigger:
+  - platform: state
+    entity_id: input_boolean.cleaned_today
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.cleaned_today
+      state: 'on'
+  action:
+    service: telegram_bot.send_message
+    data:
+      title: "*Robot*"
+      message: "Пылесос сегодня в 13:00 выполнит уборку, пожалуйста убери вещи с пола и закрой дверь в ванную!"
+      
+- alias: "023_Vacuum_cleanup_if_nobody_is_home"
+  trigger:
+    - platform: time
+      at: "13:00"
+  condition:
+    - condition: time
+      after: "13:00:00"
+      before: "22:00:00"
+    - condition: state
+      entity_id: input_boolean.cleaned_today
+      state: "on"
+    - condition: state
+      entity_id: group.persons
+      state: not_home
+    - condition: state
+      entity_id: binary_sensor.motion_in_home
+      state: 'off'
+      for:
+       minutes: 30
+  action:
+  - service: vacuum.start
+    entity_id: vacuum.mi_robot
+  - service: vacuum.set_fan_speed
+    entity_id: vacuum.mi_robot
+    data:
+      fan_speed: Strong
+    
+- alias: "023_Vacuum_cleanup:_ON_away"
+  description: ''
+  trigger:
+    - platform: state
+      entity_id: group.persons
+      from: home
+      to: not_home
+  condition: 
+    condition: time
+    after: "06:00:00"
+    before: "13:00:00"
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.cleaned_today
+  mode: single
+
+  
+    
+    
+    
+    

@@ -1,0 +1,20 @@
+- alias: "002_Ночник_управление_скоростью"
+  trigger:
+    platform: state
+    entity_id: input_number.speed
+  action:
+    - service: mqtt.publish
+      data_template:
+        topic: homeassistant/light/ESP-ce2392/effect/speed/set
+        payload_template: "{{ trigger.to_state.state | int }}"
+    
+- alias: "002_Ночник_управление_масштабом"
+  trigger:
+    platform: state
+    entity_id: input_number.scale
+  action:
+    - service: mqtt.publish
+      data_template:
+        topic: homeassistant/light/ESP-ce2392/effect/scale/set
+        payload_template: "{{ trigger.to_state.state | int }}"
+        

@@ -1,0 +1,99 @@
+- trigger:
+    platform: state
+    entity_id: sensor.alice_state
+    to: LISTENING
+  action:
+  - service: script.turn_off
+    entity_id: script.speaking
+  - service: light.turn_on
+    entity_id: light.gyver_lamp_esp_3c2b07
+    data:
+      brightness: 50
+  - service: script.turn_on
+    entity_id: script.listening
+
+- trigger:
+    platform: state
+    entity_id: sensor.alice_state
+    to: SPEAKING
+  action:
+  - service: script.turn_off
+    entity_id: script.listening
+  - service: light.turn_on
+    entity_id: light.gyver_lamp_esp_3c2b07
+    data:
+      brightness: 70
+  - service: script.turn_on
+    entity_id: script.speaking
+
+- trigger:
+    platform: state
+    entity_id: sensor.alice_state
+    to: IDLE
+  action:
+  - service: script.turn_off
+    entity_id: script.listening, script.speaking
+  - service: light.turn_off
+    entity_id: light.gyver_lamp_esp_3c2b07
+    
+- alias: 019_yand_alice_automation_homework
+  description: ''
+  trigger:
+  - platform: time_pattern
+    minutes: '0'
+    seconds: '/5'
+  - platform: device
+    device_id: 964567135ffd9dda61ee23973a2be694
+    domain: media_player
+    entity_id: media_player.yandex_station_540078920110102034cf
+    type: playing
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  - platform: device
+    type: changed_states
+    device_id: 5a7c5d5544e0570bcf472b5d9fd789a1
+    entity_id: media_player.yandex_station_m003nh2007vwab
+    domain: media_player
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  - platform: device
+    device_id: a0d7dd8b86ae8e6df71cb0f08f48f101
+    domain: media_player
+    entity_id: media_player.lg_webos_smart_tv
+    type: turned_on
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  condition:
+  - condition: state
+    entity_id: input_boolean.alice_homework_mode
+    state: 'on'
+  action:
+    - service: media_player.turn_off
+      entity_id: media_player.lg_webos_smart_tv
+    - service: media_player.turn_off
+      entity_id: 
+        - media_player.yandex_station_540078920110102034cf
+        - media_player.yandex_station_m003nh2007vwab
+    - service: media_player.volume_set
+      data:
+        entity_id:
+        - media_player.yandex_station_540078920110102034cf
+        - media_player.yandex_station_m003nh2007vwab
+        volume_level: 0.5
+    - delay: 00:00:01
+    - service: media_player.play_media
+      entity_id: 
+        - media_player.yandex_station_540078920110102034cf
+        - media_player.yandex_station_m003nh2007vwab
+      data:
+          media_content_type: text
+          media_content_id: '{{ ["Делай уроки!", "Делай домашку!", "А ты пропылесосил пол?", "Помой посуду!", "Займись чем-нибудь полезным!", "Ты поел?", "Не пакости дома!", "Собери игрушки и прибери одежду!"]|random }}'
+
+      
+    

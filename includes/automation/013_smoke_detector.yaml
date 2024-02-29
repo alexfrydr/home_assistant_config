@@ -1,0 +1,36 @@
+- alias: "013_Smoke_Detector_Alarm_ON"
+  trigger:
+    entity_id: binary_sensor.honeywell_detector_smoke
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+    - repeat:
+        while:
+          - condition: state
+            entity_id: binary_sensor.honeywell_detector_smoke
+            state: 'on'
+        sequence:
+          - service: telegram_bot.send_message
+            data:
+              title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+              message: |
+                   ⚠  Внимание! Датчик обнаружил дым! {{ states('sensor.date_time') }}
+          - service: script.turn_on
+            entity_id: 
+                - script.yandex_tts8
+          - delay: 00:00:05
+
+- alias: "013_Smoke_Detector_Alarm_OFF"
+  trigger:
+    entity_id: binary_sensor.honeywell_detector_smoke
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - service: telegram_bot.send_message
+    data_template:
+        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+        message: | 
+             ⚠  Внимание! Источник дыма устранен! {{ states('sensor.date_time') }}
+             

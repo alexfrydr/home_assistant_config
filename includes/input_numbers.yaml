@@ -1,0 +1,25 @@
+# Управления ночником
+speed:
+    name: Speed
+    initial: 30
+    min: 0
+    max: 255
+    step: 1
+
+scale:
+    name: Scale
+    initial: 30
+    min: 1
+    max: 100
+    step: 1
+
+#Управление кубом Aqara
+aqara_cube:
+    name: Aqara Cube
+    initial: 1
+    min: 1
+    max: 69
+    step: 1
+    
+
+

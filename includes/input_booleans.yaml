@@ -1,0 +1,62 @@
+dark_mode:
+  name: Auto Dark mode
+  icon: mdi:theme-light-dark
+theme_alternative:
+  name: Auto Theme alternative (enable active state color)
+auto_theme_selector:
+  name: Auto theme selector
+alarm_clock:
+  name: Alarm clock is on
+  icon: mdi:alarm
+wake_up_with_spotify:
+  name: Auto start wake up with Yandex Station
+  icon: mdi:music
+auto_light_bedroom_on_off:
+  name: Auto light strip on bedroom
+  icon: mdi:brightness-auto
+auto_light_on_off:
+  name: Auto light on
+  icon: mdi:brightness-auto
+auto_light_on_off_hallway:
+  name: Auto light on hallway
+  icon: mdi:brightness-auto
+auto_light_on_off_stock:
+  name: Auto light on stock
+  icon: mdi:brightness-auto
+auto_light_on_off_girlianda_ws2811:
+  name: Auto light on livin groom
+  icon: mdi:brightness-auto
+auto_light_on_off_lamp:
+  name: Auto light lamp on livin groom
+  icon: mdi:brightness-auto
+auto_switch_on_off_living_room:
+  name: Auto switch on living room
+  icon: mdi:brightness-auto
+auto_switch_on_off_light_plant:
+  name: Auto switch on Plant Light
+  icon: mdi:brightness-auto
+auto_fan_xiaomi_on_off:
+  name: Auto humidifier
+cube_mode:
+  name: Aqara Cube mode On/Off
+cleaned_today:
+  name: Auto vacuum cleaned today
+  icon: mdi:broom
+doorbell_mode:
+  name: Auto DoorBell notify
+  icon: mdi:music-off
+intercom_mode:
+  name: Intercom notify
+  icon: mdi:music-off
+alice_homework_mode:
+  name: Auto Alice homework
+  icon: mdi:music-off
+control_mode:
+  name: Control mode
+auto_light_child_room:
+  name: Auto light on child room
+  icon: mdi:brightness-auto
+control_fan_mode:
+  name: Auto fan mode bathroom
+google_calendar_mode:
+  name: Google calendar mode

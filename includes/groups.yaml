@@ -1,0 +1,7 @@
+persons:
+  name: People
+  entities:
+    - person.alex
+    - person.victoriya
+    - person.semen
+    - person.katerina

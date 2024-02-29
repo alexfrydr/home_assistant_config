@@ -1,0 +1,19 @@
+theme:
+    options:
+      - blue-red
+      - dark-blue
+      - dark-green
+      - light-blue
+      - light-green
+      - orange
+      - red
+    icon: mdi:format-color-fill
+    
+intercom_mode:
+    options:
+        - Never
+        - Once
+        - Always
+        - Drop
+    icon: mdi:format-color-fill
+

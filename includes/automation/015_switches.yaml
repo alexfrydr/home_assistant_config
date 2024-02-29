@@ -1,0 +1,63 @@
+- alias: "015_alex_in_home_plug_ON"
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
+    to: 'on'
+  condition: 
+  - condition: state
+    entity_id: input_boolean.auto_switch_on_off_living_room
+    state: 'on'
+  - condition: and
+    conditions:
+    - condition: zone
+      entity_id: person.alex
+      zone: zone.home
+    - condition: state
+      entity_id: switch.0x00158d00028b38b0_switch
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.human_body_movement_hallway_occupancy
+      state: 'off'
+      for:
+        minutes: 30
+  action:
+  - service: switch.turn_on
+    entity_id: switch.0x00158d00028b38b0_switch
+  - delay: 00:02:00
+  - service: script.turn_on
+    entity_id: 
+      - script.yandex_tts1
+#  - delay: 00:00:05
+#  - service: script.turn_on
+#    entity_id: 
+#      - script.yandex_command_02 
+
+- alias: "015_viktoriya_in_home_plug_ON"
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
+    to: 'on'
+  condition: 
+  - condition: state
+    entity_id: input_boolean.auto_switch_on_off_living_room
+    state: 'on'
+  - condition: and
+    conditions:
+    - condition: zone
+      entity_id: person.victoriya
+      zone: zone.home
+    - condition: state
+      entity_id: switch.0x00158d00028b38b0_switch
+      state: 'off'
+    - condition: state
+      entity_id: binary_sensor.human_body_movement_hallway_occupancy
+      state: 'off'
+      for:
+        minutes: 30
+  action:
+  - service: switch.turn_on
+    entity_id: switch.0x00158d00028b38b0_switch
+  - delay: 00:02:00
+  - service: script.turn_on
+    entity_id: 
+      - script.yandex_tts9

@@ -1,0 +1,67 @@
+- alias: "026_doorbell_notify"
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 2e50223a5bfef539a42f4b36df2c7e66
+    type: action
+    subtype: hold
+    discovery_id: 0x00158d0002f3a9e2 action_hold
+  - platform: device
+    domain: mqtt
+    device_id: 2e50223a5bfef539a42f4b36df2c7e66
+    type: action
+    subtype: release
+    discovery_id: 0x00158d0002f3a9e2 action_release
+  - platform: device
+    domain: mqtt
+    device_id: 2e50223a5bfef539a42f4b36df2c7e66
+    type: action
+    subtype: single
+    discovery_id: 0x00158d0002f3a9e2 action_single
+  condition: 
+    - condition: state
+      entity_id: input_boolean.doorbell_mode
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+  - service: media_player.play_media
+    data_template:
+        entity_id: media_player.mpd
+        media_content_id: "http://10.123.10.84:8123/local/sound/door_bell_02.mp3"
+        media_content_type: 'music'
+  - service: telegram_bot.send_message
+    data:
+     title: "*Door Bell*"
+     message: | 
+        "Кто-то звонит в дверь!" {{ states('sensor.date_time') }}
+
+- alias: "026_doorbell_notify_Off"
+  trigger:
+  - platform: time
+    at: '22:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.doorbell_mode
+        state: "on"
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.doorbell_mode
+    
+- alias: "026_doorbell_notify_ON"
+  trigger:
+  - platform: time
+    at: '09:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.doorbell_mode
+        state: "off"
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.doorbell_mode

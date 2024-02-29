@@ -1,0 +1,231 @@
+  yandex_tts1:
+    alias: TTS Приветствую Вас Алексей
+    sequence:
+    - service: media_player.play_media
+      entity_id: media_player.yandex_station_540078920110102034cf  # замените на вашу колонку
+      data:
+        media_content_id: Приветствую Вас Алексей!
+        media_content_type: text
+
+  yandex_tts2:
+    alias: TTS Доброе утро
+    sequence:
+    - service: media_player.play_media
+      entity_id: 
+        - media_player.yandex_station_540078920110102034cf  # замените на вашу колонку
+      data:
+        media_content_id: Доброе утро!
+        media_content_type: text
+
+  yandex_tts3:
+    alias: TTS протечка в ванной
+    sequence:
+    - service: media_player.play_media
+      entity_id: 
+        - media_player.yandex_station_540078920110102034cf  # замените на вашу колонку
+      data:
+        media_content_id: Внимание! Протечка в ванной!
+        media_content_type: text
+        
+  yandex_tts4:
+    alias: TTS протечка на кухне
+    sequence:
+    - service: media_player.play_media
+      entity_id: media_player.yandex_station_540078920110102034cf  # замените на вашу колонку
+      data:
+        media_content_id: Внимание! Протечка на кухне!
+        media_content_type: text
+        
+  yandex_tts5:
+    alias: TTS Протечка устранена.
+    sequence:
+    - service: media_player.play_media
+      entity_id: media_player.yandex_station_540078920110102034cf  # замените на вашу колонку
+      data:
+        media_content_id: Протечка устранена!
+        media_content_type: text
+
+  yandex_tts6:
+    alias: TTS Охрана Тревога.
+    sequence:
+    - service: media_player.play_media
+      entity_id: media_player.yandex_station_540078920110102034cf  # замените на вашу колонку
+      data:
+        media_content_id: Внимание! Нарушение периметра!
+        media_content_type: text
+
+  yandex_tts7:
+    alias: TTS Внимание высокий уровнь ЦО2 в гостинной.
+    sequence:
+    - service: media_player.play_media
+      entity_id: media_player.yandex_station_540078920110102034cf  # замените на вашу колонку
+      data:
+        media_content_id: Внимание! Высокий уровень ЦО2 в гостинной, пожалуйста проветрите помещение.
+        media_content_type: text
+
+  yandex_tts8:
+    alias: TTS Внимание задымленность помещения
+    sequence:
+    - service: media_player.play_media
+      entity_id: media_player.yandex_station_540078920110102034cf  # замените на вашу колонку
+      data:
+        media_content_id: Внимание! Обнаружен дым в помещении.
+        media_content_type: text
+
+  yandex_tts9:
+    alias: TTS Приветствую Вас Виктория
+    sequence:
+    - service: media_player.play_media
+      entity_id: media_player.yandex_station_540078920110102034cf  # замените на вашу колонку
+      data:
+        media_content_id: Приветствую Вас Виктория!
+        media_content_type: text
+
+#   yandex_tts10:
+#     alias: TTS Семён! Делай уроки!
+#     sequence:
+#     - service: media_player.play_media
+#       entity_id: media_player.yandex_station_540078920110102034cf  # замените на вашу колонку
+#       data:
+#         media_content_id: >
+#                     {{ [
+#                     "Делай домашку!",
+#                     "Делай уроки"
+#                     ] | random }
+#         media_content_type: text
+        
+  yandex_command_01:  
+    alias: Yandex Station Play Music Alarm Clock
+    sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id:
+        - media_player.yandex_station_540078920110102034cf
+        volume_level: 0.3
+    - delay: 00:00:05
+    - service: media_player.play_media
+      entity_id: media_player.yandex_station_540078920110102034cf
+      data:
+        media_content_id: Играй мою любимую музыку вперемешку
+        media_content_type: command
+
+  yandex_command_02:  
+    alias: Yandex Station Play Music Chillout Playlist
+    sequence:
+    - service: media_player.volume_set
+      data:
+        entity_id:
+        - media_player.yandex_station_540078920110102034cf
+        volume_level: 0.4
+    - delay: 00:00:05
+    - service: media_player.play_media
+      entity_id: media_player.yandex_station_540078920110102034cf
+      data:
+        media_content_id: Включи спокойную музыку
+        media_content_type: command
+
+  listening:
+    mode: queued
+    sequence:
+    - service: light.turn_on
+      entity_id: light.gyver_lamp_esp_ce2392
+    - delay: '00:00:01'
+    - service: light.turn_on
+      entity_id: light.gyver_lamp_esp_ce2392
+    - delay: '00:00:01'
+    - service: script.turn_on
+      entity_id: script.listening
+
+  speaking:
+    mode: queued
+    sequence:
+    - service: light.turn_on
+      entity_id: light.gyver_lamp_esp_ce2392
+      data:
+        brightness: 50
+        transition: 1
+    - delay: '00:00:01'
+    - service: light.turn_on
+      entity_id: light.gyver_lamp_esp_ce2392
+      data:
+        brightness: 70
+        transition: 1
+    - delay: '00:00:01'
+    - service: script.turn_on
+      entity_id: script.speaking
+      
+  cleaned_today:
+    mode: queued
+    sequence:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.cleaned_today
+
+  update_shopping_list:
+    alias: Обновить список покупок
+    sequence:
+      - service: media_player.play_media
+        entity_id: media_player.yandex_station_540078920110102034cf  
+        data:
+          media_content_id: update
+          media_content_type: shopping_list
+
+  turn_off_away_person:
+    alias: Выключить всё?
+    sequence:
+        - service: light.turn_off
+          entity_id: light.wled
+        - service: light.turn_off
+          entity_id: light.wled_2
+        - service: light.turn_off
+          entity_id: light.gyver_lamp_esp_ce2392
+        - delay: 00:00:05
+        - service: media_player.turn_off
+          entity_id: media_player.lg_webos_smart_tv
+        - delay: 00:00:05
+        - service: switch.turn_off
+          entity_id: switch.hallway_one_gang
+        - service: switch.turn_off
+          entity_id: switch.aqara_single_key_bathroom         
+        - service: switch.turn_off
+          entity_id: switch.0x00158d00028b38b0_switch
+        - delay: 00:00:05
+        - service: telegram_bot.send_message
+          data_template:
+            message: "Команда: Выключить всё. Выполнена."
+
+  call_on_yandex:
+    alias: Звонок на станцию, автоответ
+    sequence:
+      - service: media_player.volume_set
+        data:
+          volume_level: 0
+        entity_id: media_player.yandex_station_540078920110102034cf  # поменяйте на свою колонку
+      - delay: '00:00:10'
+      - service: media_player.play_media
+        data:
+          media_content_id: Сними трубку
+          media_content_type: command
+        entity_id: media_player.yandex_station_540078920110102034cf  # поменяйте на свою колонку
+      - delay: '00:00:01'
+      - service: media_player.volume_set
+        data:
+          volume_level: 0.5
+        entity_id: media_player.yandex_station_540078920110102034cf  # поменяйте на свою колонку
+    mode: single
+    icon: 'mdi:phone-classic'
+
+  call_on_yandex_silent:
+    alias: Звонок на станцию, автоответ без звука
+    sequence:
+      - service: media_player.volume_set
+        data:
+          volume_level: 0
+        entity_id: media_player.yandex_station_540078920110102034cf  # поменяйте на свою колонку
+      - delay: '00:00:10'
+      - service: media_player.play_media
+        data:
+          media_content_id: Сними трубку
+          media_content_type: command
+        entity_id: media_player.yandex_station_540078920110102034cf  # поменяйте на свою колонку
+    mode: single
+    icon: 'mdi:phone-classic'

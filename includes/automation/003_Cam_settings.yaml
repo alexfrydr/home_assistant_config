@@ -1,0 +1,18 @@
+- alias: "003_Photo_cam_2"
+  description: "Сьемка видео в режиме тревоги и отправка в телеграмм"
+  trigger:
+     - platform: state
+       entity_id: alarm_control_panel.home_alarm
+       to: 'triggered'
+  action:
+     - service: camera.record
+       data_template:
+            entity_id: camera.kam02_home_profile0
+            filename: "/config/www/cam_captures/cam_2.mp4"
+            lookback: 3
+            duration: 3
+     - delay: 00:00:10
+     - service: telegram_bot.send_video
+       data_template:
+         file: "/config/www/cam_captures/cam_2.mp4"
+         caption: "Door"

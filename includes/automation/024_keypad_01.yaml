@@ -1,0 +1,325 @@
+# - alias: "024_keypad_01_light_off_20"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_20_single
+#     discovery_id: 0x00124b002442a2e7 action_button_20_single
+#   condition: []
+#   action:
+#   - type: turn_off
+#     device_id: 74f618890967fe0de63bf749d22803b6
+#     entity_id: light.wled
+#     domain: light
+#   - type: turn_off
+#     device_id: 2b1775b486ba4b50a6a123d0e915d610
+#     entity_id: light.gyver_lamp_esp_ce2392
+#     domain: light
+# #   - service: switch.turn_off
+# #     entity_id: switch.lumi_lumi_plug_b0388b02_on_off
+#   - service: switch.turn_off
+#     entity_id: switch.hallway_one_gang
+#   - service: switch.turn_off
+#     entity_id: switch.aqara_single_key_bathroom
+#   - service: media_player.turn_off
+#     data: {}
+#     entity_id: media_player.living_room_tv_2
+#   - service: media_player.turn_off
+#     data: {}
+#     entity_id: media_player.yandex_station_540078920110102034cf
+#   mode: single
+
+# - alias: "024_keypad_01_media_playback_13"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_13_hold
+#     discovery_id: 0x00124b002442a2e7 action_button_13_hold
+#   condition: []
+#   action:
+#   - service: media_player.media_previous_track
+#     target:
+#       device_id: 964567135ffd9dda61ee23973a2be694
+#   mode: single
+
+# - alias: "024_keypad_01_media_play_pause_14"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_14_single
+#     discovery_id: 0x00124b002442a2e7 action_button_14_single
+#   condition: []
+#   action:
+#   - service: media_player.media_play_pause
+#     target:
+#       device_id: 964567135ffd9dda61ee23973a2be694
+#   mode: single
+
+# - alias: "024_keypad_01_media_play_next_track_15"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_15_hold
+#     discovery_id: 0x00124b002442a2e7 action_button_15_hold
+#   condition: []
+#   action:
+#   - service: media_player.media_next_track
+#     target:
+#       device_id: 964567135ffd9dda61ee23973a2be694
+#   mode: single
+
+# - alias: "024_keypad_01_media_play_vol_up_15"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_15_single
+#     discovery_id: 0x00124b002442a2e7 action_button_15_single
+#   condition: []
+#   action:
+#     - service: media_player.play_media
+#       entity_id: media_player.yandex_station_540078920110102034cf
+#       data:
+#         media_content_id: прибавь громкость
+#         media_content_type: command 
+#   mode: single
+  
+# - alias: "024_keypad_01_media_play_vol_down_13"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_13_single
+#     discovery_id: 0x00124b002442a2e7 action_button_13_single
+#   condition: []
+#   action:
+#     - service: media_player.play_media
+#       entity_id: media_player.yandex_station_540078920110102034cf
+#       data:
+#         media_content_id: убавь громкость
+#         media_content_type: command 
+#   mode: single
+
+# - alias: "024_keypad_01_media_play_music_playlist_14"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_14_hold
+#     discovery_id: 0x00124b002442a2e7 action_button_14_hold
+#   condition: []
+#   action:
+#     - service: media_player.play_media
+#       entity_id: media_player.yandex_station_540078920110102034cf
+#       data:
+#         media_content_id: "включи любимый плейлист в перемешку"
+#         media_content_type: command 
+#   mode: single
+
+# - alias: "024_keypad_01_light_strip_down_10"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_10_single
+#     discovery_id: 0x00124b002442a2e7 action_button_10_single
+#   condition: []
+#   action:
+#   - type: brightness_decrease
+#     device_id: 2b1775b486ba4b50a6a123d0e915d610
+#     entity_id: light.gyver_lamp_esp_3c2b07
+#     domain: light
+#   mode: single
+
+# - alias: "024_keypad_01_light_strip_random_palette_11"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_11_single
+#     discovery_id: 0x00124b002442a2e7 action_button_11_single
+#   condition: []
+#   action:
+#     service: wled.effect
+#     data:
+#       entity_id: light.wled
+#       palette: "{{ range(0,53) | random }}"
+#   mode: single
+  
+# - alias: "024_keypad_01_humidifier_on/off_8"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_8_single
+#     discovery_id: 0x00124b002442a2e7 action_button_8_single
+#   condition: []
+#   action:
+#   - service: fan.toggle
+#     target:
+#       entity_id: fan.xiaomi_air_humidifier
+#   mode: single
+  
+# - alias: "024_keypad_01_light_strip_random_effect_7"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_7_single
+#     discovery_id: 0x00124b002442a2e7 action_button_7_single
+#   condition: []
+#   action:
+#     service: wled.effect
+#     data:
+#       entity_id: light.wled
+#       effect: "{{ state_attr('light.wled', 'effect_list') | random }}"
+#   mode: single
+
+# - alias: "024_keypad_01_lamp_strip_up_6"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_6_single
+#     discovery_id: 0x00124b002442a2e7 action_button_6_single
+#   condition: []
+#   action:
+#   - type: brightness_increase
+#     device_id: 2b1775b486ba4b50a6a123d0e915d610
+#     entity_id: light.gyver_lamp_esp_3c2b07
+#     domain: light
+#   mode: single
+
+# - alias: "024_keypad_01_light_strip_down_9"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_9_single
+#     discovery_id: 0x00124b002442a2e7 action_button_9_single
+#   condition: []
+#   action:
+#   - type: brightness_decrease
+#     device_id: 74f618890967fe0de63bf749d22803b6
+#     entity_id: light.wled
+#     domain: light
+#   mode: single
+
+# - alias: "024_keypad_01_light_strip_up_5"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_5_single
+#     discovery_id: 0x00124b002442a2e7 action_button_5_single
+#   condition: []
+#   action:
+#   - type: brightness_increase
+#     device_id: 74f618890967fe0de63bf749d22803b6
+#     entity_id: light.wled
+#     domain: light
+#   mode: single
+
+# - alias: "024_keypad_01_hummidifier__toogle_4"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_4_single
+#     discovery_id: 0x00124b002442a2e7 action_button_4_single
+#   condition: []
+#   action:
+#   - service: input_boolean.toggle
+#     data: {}
+#     entity_id: input_boolean.auto_fan_xiaomi_on_off
+#   mode: single
+
+# - alias: "024_keypad_01_light_on_strip_lamp_3"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_3_single
+#     discovery_id: 0x00124b002442a2e7 action_button_3_single
+#   condition: []
+#   action:
+#   - type: toggle
+#     device_id: 74f618890967fe0de63bf749d22803b6
+#     entity_id: light.wled
+#     domain: light
+#     brightness_pct: 50
+#   - type: toggle
+#     device_id: 2b1775b486ba4b50a6a123d0e915d610
+#     entity_id: light.gyver_lamp_esp_3c2b07
+#     domain: light
+#     brightness_pct: 30
+#   mode: single
+  
+# - alias: "024_keypad_01_light_night_lamp_toogle_2"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_2_single
+#     discovery_id: 0x00124b002442a2e7 action_button_2_single
+#   condition: []
+#   action:
+#   - type: toggle
+#     device_id: 2b1775b486ba4b50a6a123d0e915d610
+#     entity_id: light.gyver_lamp_esp_3c2b07
+#     domain: light
+#   mode: single
+
+# - alias: "024_keypad_01_light_strip_toogle_1"
+#   description: ''
+#   trigger:
+#   - platform: device
+#     domain: mqtt
+#     device_id: 5d11b0085f9aa8d47b0c0132bd9f9753
+#     type: action
+#     subtype: button_1_single
+#     discovery_id: 0x00124b002442a2e7 action_button_1_single
+#   condition: []
+#   action:
+#   - type: toggle
+#     device_id: 74f618890967fe0de63bf749d22803b6
+#     entity_id: light.wled
+#     domain: light
+#   mode: single
