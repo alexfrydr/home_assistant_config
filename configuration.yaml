@@ -18,6 +18,7 @@ input_boolean: !include includes/input_booleans.yaml
 input_select: !include includes/input_selects.yaml
 input_number: !include includes/input_numbers.yaml
 input_datetime: !include includes/input_datetimes.yaml
+input_button: !include includes/input_button.yaml
 shell_command: !include includes/shell_command.yaml
 notify: !include includes/notify.yaml
 plant: !include includes/plant.yaml
