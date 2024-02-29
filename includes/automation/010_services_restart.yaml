@@ -1,4 +1,3 @@
-#тест
 - alias: "010_Let's_Encrypt_Renewal"
   trigger:
   - platform: time
