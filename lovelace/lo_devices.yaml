@@ -137,6 +137,15 @@ cards:
                 show_oscillate_control: false
                 collapsible_controls: false
                 layout: horizontal
+              - show_name: true
+                show_icon: true
+                type: button
+                tap_action:
+                  action: call-service
+                  service: shell_command.pushupdates_to_github
+                  target: {}
+                show_state: false
+                icon: mdi:smoke-detector-variant
 
 ##########################################################################
 #                                                                        #
