@@ -42,3 +42,4 @@
 - Matrix intercom auto opener
 - WLED ESP8266
 - Xiaomi Mi Smart Power Plug
+- Xiaomi Mi 1C
