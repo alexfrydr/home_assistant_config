@@ -1,5 +1,9 @@
+# -----------------------------------------------------------
+# Автоматизации управления увлажнителем
+# -----------------------------------------------------------
+
 - alias: "018_Xiaomi_humidifier_OFF"
-  description: ''
+  description: 'Включение увлажнителя в заданном диапозоне влажности'
   trigger:
   - platform: time_pattern
     minutes: '/1'
@@ -49,7 +53,7 @@
 #              ⚠  Для эффективной работы увлажнителя, закройте окна и двери {{ states('sensor.date_time') }}
 
 - alias: "018_Xiaomi_humidifier_ON"
-  description: ''
+  description: 'Проверка и включение скорости вентилятора medium'
   trigger:
   - platform: time_pattern
     minutes: '/1'
@@ -61,12 +65,6 @@
     - condition: state
       entity_id: fan.xiaomi_air_humidifier
       state: 'off'
-    # - condition: state
-    #   entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
-    #   state: 'off'
-    # - condition: state
-    #   entity_id: binary_sensor.door_window_contact_sensor_kitchen_contact
-    #   state: 'off'
     - type: is_humidity
       condition: device
       device_id: b8b9d5a5b339f482983a535dbd3474bc
@@ -84,7 +82,7 @@
       entity_id: fan.xiaomi_air_humidifier
 
 - alias: "018_Xiaomi_humidifier_buzzer_off"
-  description: ''
+  description: 'Отключение бипера при включении увлажнителя'
   trigger:
   - platform: state
     entity_id: fan.xiaomi_air_humidifier
@@ -99,7 +97,7 @@
     entity_id: switch.xiaomi_airpurifier_buzzer
 
 - alias: "018_Xiaomi_humidifier_No_water"
-  description: ''
+  description: 'Оповещение об отсутсвии воды в увлажнителе'
   trigger:
   - platform: state
     entity_id: sensor.hum_tank_state
@@ -126,7 +124,7 @@
         message: В увлажнителе закончилась вода.
 
 - alias: "018_humidifier_auto_on"
-  description: ''
+  description: 'Пикание бипером о включении автоматического режима увлажнителя'
   trigger:
   - platform: state
     entity_id: input_boolean.auto_fan_xiaomi_on_off
@@ -143,7 +141,7 @@
   mode: single
   
 - alias: "018_humidifier_auto_off"
-  description: ''
+  description: 'Пикание бипером о выключении автоматического режима увлажнителя'
   trigger:
   - platform: state
     entity_id: input_boolean.auto_fan_xiaomi_on_off

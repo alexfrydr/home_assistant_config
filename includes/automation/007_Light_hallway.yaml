@@ -3,6 +3,7 @@
 # -----------------------------------------------------------
 
 - alias: "007_Hallway_turn_on_light"
+  description: 'Включении освещения при открытии входной двери и отсутвии движения 10 минут'
   trigger:
   - type: opened
     platform: device
@@ -31,6 +32,7 @@
   mode: single
     
 - alias: "007_Hallway_turn_off_light_5_min_(no_motion)"
+  description: 'Отключение освещения при отсутвии движения 10 минут'
   trigger:
   - platform: state
     entity_id:
@@ -59,11 +61,10 @@
       device_id: b7ac3d1f31d1b58c2c1ee0ac3cc4f04b
   mode: single
       
-## Запись последнего движения в коридоре
 - alias: "007_motion_hallway_time"
+  description: 'Запись последнего движения в коридоре'
   initial_state: true
   trigger:
-## Движение в коридоре
   - platform: state
     entity_id: binary_sensor.kam02_home_cell_motion_detection
     to: 'on'
@@ -75,11 +76,10 @@
       payload: "{{ states('sensor.date_time')}}"
       retain: true
       
-## Запись последнего открытия входной двери
 - alias: "007_motion_hallway_time"
+  description: 'Запись последнего открытия входной двери'
   initial_state: true
   trigger:
-## Открытие входной двери
   - platform: state
     entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
     to: 'on'

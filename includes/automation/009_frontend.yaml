@@ -3,7 +3,7 @@
 # -----------------------------------------------------------
 
 - alias: "009_Auto_Theme_Selector_IOS_Dark/Light_mode"
-  description: Automatically changes theme depending on the time of day
+  description: "Автоматическое назначение темы"
   trigger:
   - event: start
     platform: homeassistant

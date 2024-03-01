@@ -28,8 +28,6 @@ cards:
       - type: custom:battery-state-card
         color_thresholds: []
         entities:
-          #   - entity: sensor.lumi_lumi_sensor_cube_aqgl01_df854b05_power
-          #      name: "Aqara Cube"
           - entity: sensor.button_keypad_02_battery
             name: "key Pad 02"
           - entity: sensor.door_window_contact_sensor_hallway_battery
@@ -108,18 +106,6 @@ cards:
             name: "Aqara temperature, humidity Bathroom"
           - entity: sensor.aqara_t_h_living_room_battery
             name: "Aqara temperature, humidity Living room"
-        #   - entity: sensor.plant04_battery
-        #     name: "Plant Ficus Elastica"
-        #   - entity: sensor.plant05_battery
-        #     name: "Plant Dracaena Marginata"
-#         - entity: sensor.plant03_battery
-#           name: "Plant Ficus Benjamina"
-#         - entity: sensor.plant02_battery
-#           name: "Plant Codiaeum"
-#         - entity: sensor.plant06_battery
-#           name: "Plant Yucca Elephantipes"
-#         - entity: "{% if is_state('binary_sensor.termostat_02_battery_low', 'on') %} Заряжена {% else %} Разряжена {% endif %}"
-#           name: "Termostat 02"
 
       ################# Потребление более 5 Ватт #################
 
@@ -223,32 +209,6 @@ cards:
           exclude:
             - entity_id: light.*virtual*
 
-      # - type: custom:mushroom-cover-card
-      #   entity: sensor.consumption_new_day
-      #   show_buttons_control: false
-      #   show_position_control: false
-      #   hide_state: false
-      #   tap_action:
-      #     action: none
-      #   name: Потребление медиа за текущий день
-
-      # - type: custom:mushroom-cover-card
-      #   entity: sensor.consumption_new_month
-      #   show_buttons_control: false
-      #   show_position_control: false
-      #   hide_state: false
-      #   tap_action:
-      #     action: none
-      #   name: Потребление медиа за текущую неделю
-
-      # - type: custom:mushroom-cover-card
-      #   entity: sensor.consumption_new_week
-      #   show_buttons_control: false
-      #   show_position_control: false
-      #   hide_state: false
-      #   tap_action:
-      #     action: none
-      #   name: Потребление медиа за текущий месяц
 
   ##########################################################################
   #                                                                        #

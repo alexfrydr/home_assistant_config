@@ -101,10 +101,6 @@ cards:
               - entity: input_boolean.cleaned_today
               - entity: input_boolean.doorbell_mode
               - entity: input_boolean.intercom_mode
-              # - entity: switch.termostat_02_window_detection
-              #   name: Window detection
-              # - entity: lock.termostat_02_child_lock
-              #   name: Termostat lock
               - entity: input_number.aqara_cube
         - type: custom:auto-entities
           show_empty: false
@@ -127,9 +123,6 @@ cards:
                state: 'idle'
         - type: vertical-stack
           cards: 
-            # - type: custom:mini-humidifier
-            #   entity: fan.xiaomi_air_humidifier
-            #   model: 'deerma.humidifier.mjjsq'
               - type: custom:mushroom-fan-card
                 entity: fan.xiaomi_air_humidifier
                 icon_animation: true
@@ -178,43 +171,7 @@ cards:
               - type: todo-list
                 entity: todo.shopping_list
                 title: Список покупок
-    #           #- type: custom:mushroom-fan-card
-    #           - type: custom:mushroom-climate-card
-    #             entity: climate.termostat_02
-    #             name: Termostat Kitchen
-    #             icon_animation: true
-    #             show_oscillate_control: false
-    #             show_percentage_control: false
-    #             tap_action:
-    #               action: more-info
-    #             hold_action:
-    #               action: more-info
-    #             double_tap_action:
-    #               action: more-info
-    #           - type: custom:mushroom-cover-card
-    #             show_position_control: false
-    #             entity: sensor.termostat_02_position
-    #             show_buttons_control: false
-    #             hide_state: false
-    #             name: Thermostat position
-    #             tap_action:
-    #               action: none
-    #             hold_action:
-    #               action: none
-    #             double_tap_action:
-    #               action: none
-    #         #   - type: custom:mushroom-fan-card
-    #         #     entity: climate.342bbf45_2
-    #         #     name: Air Conditioner
-    #         #     icon_animation: true
-    #         #     show_oscillate_control: false
-    #         #     show_percentage_control: false
-    #         #     tap_action:
-    #         #       action: more-info
-    #         #     hold_action:
-    #         #       action: more-info
-    #         #     double_tap_action:
-    #         #       action: more-info
+
 
 
 
@@ -316,14 +273,14 @@ cards:
                 action: more-info
               name: Последнее открытие входной двери -
     
-            # - type: custom:mushroom-cover-card
-            #   entity: sensor.mqtt_binary_sensor_4kspcdam44
-            #   show_buttons_control: false
-            #   show_position_control: false
-            #   hide_state: false
-            #   tap_action:
-            #     action: more-info
-            #   name: Последнее включение света в ванной -
+            - type: custom:mushroom-cover-card
+              entity: sensor.mqtt_binary_sensor_4kspcdam44
+              show_buttons_control: false
+              show_position_control: false
+              hide_state: false
+              tap_action:
+                action: more-info
+              name: Последнее включение света в ванной -
     
             - type: custom:mushroom-cover-card
               entity: sensor.mqtt_binary_sensor_oaqxqzt1kh

@@ -43,7 +43,6 @@ telegramm:
                  🔧  Свичей недоступно - {{ states('sensor.unavailable_now_switch') }} 
                  🔧  Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }} 
                  🔧  Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
-
                  
       temp_report:
         alias: "Pakage: Отправка отчета о состоянии температуры в доме"
@@ -97,7 +96,6 @@ telegramm:
         #         {% endfor %}
         #         {{ data.text|join("") }}
 
-
       home_arrived_report:
         alias: "Pakage: Отправка отчета о прибытии домой Алексей"
         sequence:
@@ -106,7 +104,6 @@ telegramm:
              title: "Приветики 👋"
              message: |
                  Алексей, вы в домашней зоне 🎉
-
                  
       home_arrived_report_viktoriya:
         alias: "Pakage: Отправка отчета о прибытии домой Виктория"
@@ -116,7 +113,6 @@ telegramm:
              title: "Приветики 👋"
              message: |
                  Виктория, вы в домашней зоне 🎉
-
 
       telegramm_keyboard_start:
         alias: "Pakage: Cтарт клавиатуры"
@@ -278,25 +274,3 @@ telegramm:
             - service: telegram_bot.send_message
               data_template:
                 message: "Получена команда. Выключить всё."
-
-        # - id: "Pakage: Главное меню управления телеграм"
-        #   alias: telegram_menu_control
-        #   initial_state: true
-        #   trigger:
-        #     - platform: event
-        #       event_type: telegram_callback
-        #       event_data: {}
-        #   action:
-        #     - choose:
-        #         - conditions: []
-        #           sequence:
-        #             - service: telegram_bot.send_message
-        #               data:
-        #                 message: |
-        #                   {{'\U0001F527'}} *Управление умным домом*
-        #                   * *            
-        #                 inline_keyboard:
-        #                   - '🗒 Статус системы:/report, {{"\U0001F3E0"}} Статус дома:/temp' 
-        #                   - '🔒 Поставить на охрану:/armed, 🔒 Снять с охраны:/disarm'
-        #                   - '🔘 Начать уборку:/clean, 🔘 Закончить уборку:/clean_stop'
-        #                   - '💡 Выключить всё:/turn_off'                  

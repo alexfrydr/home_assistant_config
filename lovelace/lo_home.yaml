@@ -44,10 +44,10 @@ cards:
             entity: person.alex
           - type: custom:mushroom-person-card
             entity: person.victoriya
-          - type: custom:mushroom-person-card
-            entity: person.semen
-          - type: custom:mushroom-person-card
-            entity: person.katerina
+          # - type: custom:mushroom-person-card
+          #   entity: person.semen
+          # - type: custom:mushroom-person-card
+          #   entity: person.katerina
       - type: markdown
         content: "## Lights"
         style: |
@@ -146,9 +146,6 @@ cards:
             name: Fan bathroom
             entity: fan.rele01
             icon_animation: true
-
-      - type: vertical-stack
-        cards:
           - type: custom:mushroom-light-card
             entity: light.wled_strip_elka
             name: Christmas tree
@@ -162,6 +159,8 @@ cards:
             icon: mdi:pine-tree
             icon_animation: true
 
+        - type: horizontal-stack
+          cards:
           - type: custom:mushroom-fan-card
             name: Balcony light
             entity: switch.0x00158d0003985898_switch
@@ -178,8 +177,6 @@ cards:
             icon_animation: true
             show_percentage_control: false
             show_oscillate_control: false
-            
-
 
 
 
@@ -574,7 +571,6 @@ cards:
           }
       - type: horizontal-stack
         cards:
-          ############### Новые сенсоры
           - type: custom:mushroom-light-card
             entity: binary_sensor.door_window_contact_sensor_kitchen_contact
             layout: vertical
@@ -615,7 +611,6 @@ cards:
               action: none
       - type: horizontal-stack
         cards:
-          ############### Новые сенсоры
           - type: custom:mushroom-light-card
             entity: binary_sensor.honeywell_detector_smoke
             layout: vertical
@@ -652,51 +647,3 @@ cards:
               action: none
             hold_action:
               action: none
-    #   - type: horizontal-stack
-    #     cards:
-    #       - type: entities
-    #         entities:
-    #           - entity: sensor.speedtest_download
-    #             name: Загрузка
-    #           - entity: sensor.speedtest_upload
-    #             name: Передача
-    #           - entity: sensor.speedtest_ping
-    #             name: Пинг
-    #         title: SpeedTest
-
-
-      # - type: custom:swipe-card
-      #   start_card: 1
-      #   parameters:
-      #     roundLengths: true
-      #     effect: coverflow
-      #     speed: 650
-      #     spaceBetween: 20
-      #     threshold: 7
-      #     coverflowEffect:
-      #       rotate: 80
-      #       depth: 300
-      #   style:
-      #     top: 56.55%
-      #     left: 35.8%
-      #     width: 20.97%
-      #     height: 1px
-      #   cards:
-#          - type: plant-status
-#            name: Yucca Elephantipes
-#            entity: plant.yucca_elephantipes
-#          - type: plant-status
-#            name: Codiaeum
-#            entity: plant.codiaeum
-#          - type: plant-status
-#            name: Eucharis amazonica
-#            entity: plant.ficus_benjamina
-          # - type: plant-status
-          #   name: Ficus Elastica
-          #   entity: plant.ficus_elastica
-          # - type: plant-status
-          #   name: Dracaena Marginata
-          #   entity: plant.dracaena_marginata
-#          - type: plant-status
-#            name: Zamioculcas
-#            entity: plant.zamioculcas

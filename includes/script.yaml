@@ -81,19 +81,6 @@
         media_content_id: Приветствую Вас Виктория!
         media_content_type: text
 
-#   yandex_tts10:
-#     alias: TTS Семён! Делай уроки!
-#     sequence:
-#     - service: media_player.play_media
-#       entity_id: media_player.yandex_station_540078920110102034cf  # замените на вашу колонку
-#       data:
-#         media_content_id: >
-#                     {{ [
-#                     "Делай домашку!",
-#                     "Делай уроки"
-#                     ] | random }
-#         media_content_type: text
-        
   yandex_command_01:  
     alias: Yandex Station Play Music Alarm Clock
     sequence:
@@ -199,18 +186,18 @@
       - service: media_player.volume_set
         data:
           volume_level: 0
-        entity_id: media_player.yandex_station_540078920110102034cf  # поменяйте на свою колонку
+        entity_id: media_player.yandex_station_540078920110102034cf  
       - delay: '00:00:10'
       - service: media_player.play_media
         data:
           media_content_id: Сними трубку
           media_content_type: command
-        entity_id: media_player.yandex_station_540078920110102034cf  # поменяйте на свою колонку
+        entity_id: media_player.yandex_station_540078920110102034cf 
       - delay: '00:00:01'
       - service: media_player.volume_set
         data:
           volume_level: 0.5
-        entity_id: media_player.yandex_station_540078920110102034cf  # поменяйте на свою колонку
+        entity_id: media_player.yandex_station_540078920110102034cf  
     mode: single
     icon: 'mdi:phone-classic'
 
@@ -220,12 +207,12 @@
       - service: media_player.volume_set
         data:
           volume_level: 0
-        entity_id: media_player.yandex_station_540078920110102034cf  # поменяйте на свою колонку
+        entity_id: media_player.yandex_station_540078920110102034cf 
       - delay: '00:00:10'
       - service: media_player.play_media
         data:
           media_content_id: Сними трубку
           media_content_type: command
-        entity_id: media_player.yandex_station_540078920110102034cf  # поменяйте на свою колонку
+        entity_id: media_player.yandex_station_540078920110102034cf  
     mode: single
     icon: 'mdi:phone-classic'

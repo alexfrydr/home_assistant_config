@@ -39,7 +39,7 @@ cards:
             cards: 
             - type: custom:mini-graph-card
               entities:
-                - entity: sensor.processor_use #sensor.cpu_speed #
+                - entity: sensor.processor_use 
                   name: CPU 
                   hours_to_show: 12
                   points_per_hour: 4
@@ -113,7 +113,6 @@ cards:
               icon: mdi:calendar-check-outline
             - entity: sensor.uptime
               icon: mdi:home-assistant
-            # - entity: sensor.supervisor_updates
             - entity: sensor.last_boot
               icon: mdi:calendar
             - entity: sensor.maria_db_size
@@ -217,28 +216,10 @@ cards:
         - type: entities
           cards:
           entities:
-          ############## Гостинная ###############
-          ############## Кухня ###################
-            # - entity: sensor.aqara_t_h_kitchen_temperature
-            #   name: Kitchen
-            # - entity: sensor.aqara_t_h_kitchen_humidity
-            #   name: Kitchen
-            # - type: divider
-            # - entity: sensor.aqara_t_h_refregerator_temperature
-            #   name: Refrigerator
-            # - entity: sensor.aqara_t_h_refregerator_humidity
-            #   name: Refrigerator
-            # - type: divider
-         ############## Балкон ###################
+
             - entity: sensor.outdoor_temperature
               name: Outdoor
             - type: divider
-            # - entity: sensor.speedtest_download
-            #   name: Download
-            # - entity: sensor.speedtest_ping
-            #   name: Ping
-            # - entity: sensor.speedtest_upload
-            #   name: Upload
         - type: custom:auto-entities
           show_empty: false
           card:
@@ -286,9 +267,6 @@ cards:
           - type: entities
             show_header_toggle: false
             entities:
-            #  - entity: sensor.last_google_backup_train
-            #  - entity: sensor.snapshots_in_google_drive_train
-            #  - entity: sensor.snapshots_in_hassio_train
               - entity: sensor.last_google_backup_main
               - entity: sensor.backups_in_google_drive
                 type: custom:multiple-entity-row
@@ -321,26 +299,7 @@ cards:
             entities:
               - entity: person.alex
               - entity: person.victoriya
-              - entity: person.semen
               - entity: sun.sun
-              - type: divider
-             ############## Прихожая ###############
-              - entity: binary_sensor.honeywell_detector_smoke
-                name: Honeywell smoke detector
-              - type: divider
-              - entity: binary_sensor.door_window_contact_sensor_hallway_contact
-                name: Door hallway
-                icon: mdi:door
-             ############## Кухня ##################
-              - entity: binary_sensor.door_window_contact_sensor_kitchen_contact
-                name: Window kitchen
-                icon: mdi:window-closed-variant
-              - type: divider
-             ############## Ванная ###############
-              - entity: binary_sensor.water_leak_sensor_bathroom_water_leak
-                name: Water sensor bathroom
-              - entity: binary_sensor.water_leak_sensor_kitchen_water_leak
-                name: Water sensor kitchen
               - type: divider
               - entity: binary_sensor.motion_in_home
                 name: Movement in the house

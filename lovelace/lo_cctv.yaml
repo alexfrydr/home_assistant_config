@@ -22,7 +22,5 @@ cards:
               font-family: var(--primary-font-family);
               --card-background-color: none
             }
-        # - type: picture-entity
-        #   entity: camera.m1011_0
         - type: picture-entity
           entity: camera.kam02_home_profile0 

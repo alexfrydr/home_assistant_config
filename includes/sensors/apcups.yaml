@@ -5,22 +5,3 @@
          unit_of_measurement: '%'
          friendly_name: UPS Battery custom
 
-#   - platform: apcupsd
-#     resources:
-#       - apc
-#       - version
-#       - upsmode
-#       - model
-#       - linev
-#       - loadpct
-#       - bcharge
-#       - mbattchg
-#       - mintimel
-#       - maxtime
-#       - outputv
-#       - itemp
-#       - nombattv
-#       - nompower
-
-
-      

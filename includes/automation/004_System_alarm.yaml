@@ -59,7 +59,7 @@
         ⚠  Cвязь с Zigbee координатором  восстановлена {{ states('sensor.date_time') }}
 
 - alias: "004_Zigbee_unhealthy_alert"
-  description: ''
+  description: 'Оповещение о неисправности z2m'
   trigger:
   - platform: state
     entity_id: binary_sensor.z2m_health
@@ -78,6 +78,7 @@
         {{"*"}}{{state_attr('binary_sensor.z2m_health', 'data')}}{{"*: "}}
         
 - alias: "004_Zigbee_Device_Missing_Alert"
+  description: "Оповещение о недоступных устройствах"
   trigger:
       - platform: time
         at: '07:00'
@@ -110,6 +111,7 @@
   mode: single
 
 - alias: "004_internet_ping_lost"
+  description: "Оповещение о проблемах с интернетом"
   trigger:
   - platform: state
     entity_id:
@@ -129,6 +131,7 @@
         ⚠  Потеряна связь с интернетом {{ states('sensor.date_time') }}
         
 - alias: "004_internet_ping_available"
+  description: "Оповещение о восстновлении интренет соединения"
   trigger:
   - platform: state
     entity_id:

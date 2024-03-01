@@ -3,6 +3,7 @@
 # -----------------------------------------------------------
 
 - alias: "013_Smoke_Detector_Alarm_ON"
+  description: "Оповещение о обнаружении дыма"
   trigger:
     entity_id: binary_sensor.honeywell_detector_smoke
     platform: state
@@ -26,6 +27,7 @@
           - delay: 00:00:05
 
 - alias: "013_Smoke_Detector_Alarm_OFF"
+  description: "Оповещение о устранении дыма"
   trigger:
     entity_id: binary_sensor.honeywell_detector_smoke
     platform: state

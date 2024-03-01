@@ -3,6 +3,7 @@
 # -----------------------------------------------------------
 
 - alias: "012_Alarm_clock:_wake_up_with_Yandex_Station"
+  description: "Автоматическое включение будильника и подсветки"
   trigger:
   - platform: time
     at: input_datetime.alarm_clock
@@ -35,6 +36,7 @@
       option: Preset 3
 
 - alias: "012_Alarm_clock:_Off"
+  description: "Автоматическое отключение будильника в пятницу"
   trigger:
   - platform: time
     at: '08:00'

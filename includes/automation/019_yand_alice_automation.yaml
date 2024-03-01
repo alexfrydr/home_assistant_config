@@ -1,43 +1,9 @@
-- trigger:
-    platform: state
-    entity_id: sensor.alice_state
-    to: LISTENING
-  action:
-  - service: script.turn_off
-    entity_id: script.speaking
-  - service: light.turn_on
-    entity_id: light.gyver_lamp_esp_3c2b07
-    data:
-      brightness: 50
-  - service: script.turn_on
-    entity_id: script.listening
+# -----------------------------------------------------------
+# Автоматизации управления яндекс станциями
+# -----------------------------------------------------------
 
-- trigger:
-    platform: state
-    entity_id: sensor.alice_state
-    to: SPEAKING
-  action:
-  - service: script.turn_off
-    entity_id: script.listening
-  - service: light.turn_on
-    entity_id: light.gyver_lamp_esp_3c2b07
-    data:
-      brightness: 70
-  - service: script.turn_on
-    entity_id: script.speaking
-
-- trigger:
-    platform: state
-    entity_id: sensor.alice_state
-    to: IDLE
-  action:
-  - service: script.turn_off
-    entity_id: script.listening, script.speaking
-  - service: light.turn_off
-    entity_id: light.gyver_lamp_esp_3c2b07
-    
 - alias: 019_yand_alice_automation_homework
-  description: ''
+  description: 'Мучить мелкого что бы делал уроки'
   trigger:
   - platform: time_pattern
     minutes: '0'

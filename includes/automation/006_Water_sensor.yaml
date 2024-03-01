@@ -3,6 +3,7 @@
 # -----------------------------------------------------------
 
 - alias: "006_Alarm_Aqara_water_sensor_bathroom_ON"
+  description: "Оповещение о протечке в ванной"
   trigger:
     platform: state
     entity_id: binary_sensor.water_leak_sensor_bathroom_water_leak
@@ -31,7 +32,7 @@
           - delay: 00:00:05
 
 - alias: "006_Alarm_Aqara_water_sensor_bathroom_OFF"
-  description: ''
+  description: 'Оповещение о устранении протечки в ванной'
   trigger:
     entity_id: binary_sensor.water_leak_sensor_bathroom_water_leak
     platform: state
@@ -48,6 +49,7 @@
          - script.yandex_tts5
 
 - alias: "006_Alarm_Aqara_water_sensor_kitchen_ON"
+  description: "Оповещение о протечке на кухне"
   trigger:
     entity_id: binary_sensor.water_leak_sensor_kitchen_water_leak
     platform: state
@@ -76,6 +78,7 @@
           - delay: 00:00:05
              
 - alias: "006_Alarm_Aqara_water_sensor_kitchen_OFF"
+  description: 'Оповещение о устранении протечки на кухне'
   trigger:
     entity_id: binary_sensor.water_leak_sensor_kitchen_water_leak
     platform: state

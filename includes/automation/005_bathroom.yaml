@@ -3,6 +3,7 @@
 # -----------------------------------------------------------
 
 - alias: "005_Bathroom_Turn_ON_light_scene-1_(motion on)"
+  description: "Включение освещения в ванной"
   initial_state: true
   trigger:
     platform: state
@@ -22,6 +23,7 @@
       entity_id: switch.0x54ef4410008194ad_switch
 
 - alias: "005_Bathroom_Turn_OFF_light_above_10_min_(no motion)"
+  description: "Отключение освещения в ванной если не было движения 10 минут"
   initial_state: true
   trigger:
    - platform: state
@@ -42,6 +44,7 @@
       entity_id: switch.0x54ef4410008194ad_switch
       
 - alias: "005_Bathroom_Turn_OFF_light_above_15_min"
+  description: "Проверка если 005_Bathroom_Turn_OFF_light_above_10_min_(no motion) не сработала"
   initial_state: true
   trigger:
     - platform: time_pattern
@@ -63,11 +66,10 @@
     - service: switch.turn_off
       entity_id: switch.0x54ef4410008194ad_switch
       
-## Запись последнего движения в ванной
 - alias: "005_bathroom_motion_time"
+  description: "Запись последнего движения в ванной"
   initial_state: true
   trigger:
-## Движение в ванной
   - platform: state
     entity_id: binary_sensor.motion_in_bathroom
     to: 'on'
@@ -80,9 +82,9 @@
       retain: true
       
 - alias: "005_bathroom_lights_on"
+  description: "Запись последнего включения освещения"
   initial_state: true
   trigger:
-## Свет в ванной
   - platform: state
     entity_id: switch.0x54ef4410008194ad_switch
     to: 'on'
@@ -95,7 +97,7 @@
       retain: true   
       
 - alias: "005_fan_bathroom_ON"
-  description: ''
+  description: 'Включение вентиляции в ванной если есть движение'
   trigger:
     platform: state
     entity_id: binary_sensor.motion_in_bathroom
@@ -116,7 +118,7 @@
     entity_id: fan.rele01
   
 - alias: "005_fan_bathroom_OFF"
-  description: ''
+  description: 'Проверка и отключение вентиляции в ванной'
   trigger:
   - platform: time_pattern
     minutes: '/1'
