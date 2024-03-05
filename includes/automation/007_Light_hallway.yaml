@@ -11,26 +11,25 @@
     entity_id: a10f7d31ded43ca1d3510de02907d35a
     domain: binary_sensor
   condition:
-  - condition: and
-    conditions:
     - condition: state
       entity_id: input_boolean.auto_light_on_off_hallway
       state: 'on'
-  - condition: state
-    entity_id: binary_sensor.kam02_home_cell_motion_detection
-    state: 'on'
-    for:
-      hours: 0
-      minutes: 10
-      seconds: 0
+    - condition: and
+      conditions:
+          - condition: state
+            entity_id: binary_sensor.kam02_home_cell_motion_detection
+            state: 'on'
+            for:
+              hours: 0
+              minutes: 10
+              seconds: 0
+          - condition: state
+            entity_id: light.0x54ef4410008178c4_right
+            state: 'off'
   action:
   - service: light.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: light.0x54ef4410008178c4_right
-  mode: single
-    
+    entity_id: light.0x54ef4410008178c4_right
+
 - alias: "007_Hallway_turn_off_light_5_min_(no_motion)"
   description: 'Отключение освещения при отсутвии движения 10 минут'
   trigger:
@@ -43,23 +42,17 @@
       minutes: 10
       seconds: 0
   condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_on_off_hallway
+    state: 'on'
   - condition: and
     conditions:
     - condition: state
-      entity_id: input_boolean.auto_light_on_off_hallway
+      entity_id: light.0x54ef4410008178c4_right
       state: 'on'
-  - condition: device
-    type: is_on
-    device_id: b7ac3d1f31d1b58c2c1ee0ac3cc4f04b
-    entity_id: 19b06607011d23b2f415cb4b48819b90
-    domain: switch
   action:
   - service: light.turn_off
-    metadata: {}
-    data: {}
-    target:
-      device_id: b7ac3d1f31d1b58c2c1ee0ac3cc4f04b
-  mode: single
+    entity_id: light.0x54ef4410008178c4_right
       
 - alias: "007_motion_hallway_time"
   description: 'Запись последнего движения в коридоре'

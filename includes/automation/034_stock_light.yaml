@@ -1,20 +1,62 @@
-- alias: "034_stock_turn_off_light_5_min_(no_motion)"
+# -----------------------------------------------------------
+# Автоматизации управления освещением на складе
+# -----------------------------------------------------------
+
+- alias: "034_Stok_Turn_ON_light_(motion on)"
+  description: "Включение освещения на складе"
   initial_state: true
   trigger:
-    - platform: state
-      entity_id: switch.0x54ef4410008178c4_switch_left
-      to: 'on'
-      for:
-        minutes: 20
+    platform: state
+    entity_id: binary_sensor.human_body_movement_stok_occupancy
+    to: "on"
   condition:
   - condition: state
-    entity_id: input_boolean.auto_light_on_off_stock
+    entity_id: input_boolean.auto_light_on_off_stok
+    state: 'on'
+  action:
+    - service: light.turn_on
+      entity_id: light.0x54ef4410008178c4_left
+
+- alias: "034_Stok_Turn_OFF_light_above_10_min_(no motion)"
+  description: "Отключение освещения на складе если не было движения 10 минут"
+  initial_state: true
+  trigger:
+   - platform: state
+     entity_id: binary_sensor.human_body_movement_stok_occupancy
+     to: 'off'
+     for: 00:10:00
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_on_off_stok
     state: 'on'
   - condition: and
     conditions:
     - condition: state
-      entity_id: switch.0x54ef4410008178c4_switch_left
+      entity_id: light.0x54ef4410008178c4_left
       state: 'on'
   action:
-    - service: switch.turn_off
-      entity_id: switch.0x54ef4410008178c4_switch_left
+    - service: light.turn_off
+      entity_id: light.0x54ef4410008178c4_left
+      
+- alias: "034_Stok_Turn_OFF_light_above_20_min"
+  description: "Проверка если 034_Stok_Turn_OFF_light_above_10_min_(no motion) не сработала"
+  initial_state: true
+  trigger:
+    - platform: time_pattern
+      minutes: '/5'
+  condition:
+  - condition: state
+    entity_id: input_boolean.auto_light_on_off_stok
+    state: 'on'
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.human_body_movement_stok_occupancy
+      state: 'off'
+      for: 00:20:00
+    - condition: state
+      entity_id: light.0x54ef4410008178c4_left
+      state: 'on'
+  action:
+    - service: light.turn_off
+      entity_id: light.0x54ef4410008178c4_left

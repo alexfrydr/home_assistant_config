@@ -20,8 +20,8 @@ auto_light_on_off:
 auto_light_on_off_hallway:
   name: Auto light on hallway
   icon: mdi:brightness-auto
-auto_light_on_off_stock:
-  name: Auto light on stock
+auto_light_on_off_stok:
+  name: Auto light on stok
   icon: mdi:brightness-auto
 auto_light_on_off_girlianda_ws2811:
   name: Auto light on livin groom
