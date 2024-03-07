@@ -16,11 +16,11 @@
   - condition: and
     conditions:
      - condition: state
-       entity_id: switch.0x54ef4410008194ad_switch
+       entity_id: switch.0x54ef4410008194ad
        state: 'off'
   action:
     - service: switch.turn_on
-      entity_id: switch.0x54ef4410008194ad_switch
+      entity_id: switch.0x54ef4410008194ad
 
 - alias: "005_Bathroom_Turn_OFF_light_above_10_min_(no motion)"
   description: "Отключение освещения в ванной если не было движения 10 минут"
@@ -37,11 +37,11 @@
   - condition: and
     conditions:
     - condition: state
-      entity_id: switch.0x54ef4410008194ad_switch
+      entity_id: switch.0x54ef4410008194ad
       state: 'on'
   action:
     - service: switch.turn_off
-      entity_id: switch.0x54ef4410008194ad_switch
+      entity_id: switch.0x54ef4410008194ad
       
 - alias: "005_Bathroom_Turn_OFF_light_above_15_min"
   description: "Проверка если 005_Bathroom_Turn_OFF_light_above_10_min_(no motion) не сработала"
@@ -60,11 +60,11 @@
       state: 'off'
       for: 00:20:00
     - condition: state
-      entity_id: switch.0x54ef4410008194ad_switch
+      entity_id: switch.0x54ef4410008194ad
       state: 'on'
   action:
     - service: switch.turn_off
-      entity_id: switch.0x54ef4410008194ad_switch
+      entity_id: switch.0x54ef4410008194ad
       
 - alias: "005_bathroom_motion_time"
   description: "Запись последнего движения в ванной"
@@ -86,7 +86,7 @@
   initial_state: true
   trigger:
   - platform: state
-    entity_id: switch.0x54ef4410008194ad_switch
+    entity_id: switch.0x54ef4410008194ad
     to: 'on'
   condition: []
   action: 
