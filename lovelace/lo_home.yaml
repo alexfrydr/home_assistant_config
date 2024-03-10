@@ -161,14 +161,25 @@ cards:
 
         - type: horizontal-stack
           cards:
-          - type: custom:mushroom-fan-card
-            name: Balcony light
-            entity: switch.0x00158d0003985898_switch
-            icon_animation: false
+        #   - type: custom:mushroom-fan-card
+        #     name: Balcony light
+        #     entity: switch.0x00158d0003985898_switch
+        #     icon_animation: false
+        #     fill_container: false
+        #     show_oscillate_control: false
+        #     collapsible_controls: false
+        #     layout: horizontal
+          - type: custom:mushroom-light-card
+            entity: light.wled_lamp
+            name: LED Lamp
+            secondary_info: state
             fill_container: false
-            show_oscillate_control: false
-            collapsible_controls: false
+            use_light_color: true
+            show_brightness_control: true
+            collapsible_controls: true
+            show_color_control: false
             layout: horizontal
+            icon_animation: true
 
           - type: custom:mushroom-fan-card
             entity: vacuum.mi_robot
