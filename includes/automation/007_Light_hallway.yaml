@@ -21,7 +21,7 @@
             state: 'on'
             for:
               hours: 0
-              minutes: 10
+              minutes: 5
               seconds: 0
           - condition: state
             entity_id: light.0x54ef4410008178c4_right
@@ -38,7 +38,7 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 10
+      minutes: 5
       seconds: 0
   condition:
   - condition: state
