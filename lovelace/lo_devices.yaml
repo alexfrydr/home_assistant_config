@@ -155,22 +155,22 @@ cards:
 
 
     
-    - type: vertical-stack
-      cards:
-        - type: markdown
-          content: '## Shopping'
-          style: |
-            ha-card {
-              box-shadow: none;
-              border: none;
-              background: none;
-              font-family: var(--primary-font-family);
-              --card-background-color: none
-            }
-        - type: vertical-stack
-          cards:
-              - type: todo-list
-                entity: todo.shopping_list
+    # - type: vertical-stack
+    #   cards:
+    #     - type: markdown
+    #       content: '## Shopping'
+    #       style: |
+    #         ha-card {
+    #           box-shadow: none;
+    #           border: none;
+    #           background: none;
+    #           font-family: var(--primary-font-family);
+    #           --card-background-color: none
+    #         }
+    #     - type: vertical-stack
+    #       cards:
+    #           - type: todo-list
+    #             entity: todo.shopping_list
 
 
 
@@ -181,45 +181,6 @@ cards:
 ##########################################################################
 
 
-
-    - type: vertical-stack
-      cards:
-        - type: markdown
-          content: '## Vacuum cleaner'
-          style: |
-            ha-card {
-              box-shadow: none;
-              border: none;
-              background: none;
-              font-family: var(--primary-font-family);
-              --card-background-color: none
-            }
-        - type: vertical-stack
-          cards: 
-          - type: custom:mushroom-fan-card
-            entity: vacuum.mi_robot
-            tap_action:
-              action: more-info
-            icon_animation: true
-            show_percentage_control: false
-            show_oscillate_control: false
-
-          - type: entities
-            entities:
-              - entity: sensor.transmission_active_torrents
-              - entity: sensor.transmission_total_torrents
-              - entity: sensor.transmission_completed_torrents
-              - entity: sensor.transmission_started_torrents
-              - entity: sensor.transmission_paused_torrents
-              - entity: sensor.transmission_download_speed
-              - entity: sensor.transmission_upload_speed
-
-
-##########################################################################
-#                                                                        #
-#                              * КОЛОНКА 4 *                             #
-#                                                                        #
-##########################################################################
 
     - type: vertical-stack
       cards:
@@ -288,4 +249,13 @@ cards:
               tap_action:
                 action: more-info
               name: Последнее включение света на кухне -
+
+
+##########################################################################
+#                                                                        #
+#                              * КОЛОНКА 4 *                             #
+#                                                                        #
+##########################################################################
+
+
 
