@@ -179,6 +179,15 @@
         - service: telegram_bot.send_message
           data_template:
             message: "Команда: Выключить всё. Выполнена."
+            
+  intercom_open_once:
+    alias: Однократное открытие
+    sequence:
+      - device_id: 9147fee40ae85524b833701a3a16c0b9
+        domain: select
+        entity_id: 372bf4569c8fb1490c41a3c8180caefe
+        type: select_option
+        option: once
 
   call_on_yandex:
     alias: Звонок на станцию, автоответ
