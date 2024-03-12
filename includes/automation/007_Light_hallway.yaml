@@ -34,8 +34,7 @@
   description: 'Отключение освещения при отсутвии движения 10 минут'
   trigger:
   - platform: state
-    entity_id:
-    - binary_sensor.kam02_home_cell_motion_detection
+    entity_id: binary_sensor.kam02_home_cell_motion_detection
     to: 'off'
     for:
       hours: 0

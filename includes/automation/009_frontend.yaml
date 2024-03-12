@@ -13,6 +13,6 @@
     state: "on"
   action:
   - data_template:
-      name: "waves"
+      name: "clear"
     service_template: frontend.set_theme
   mode: single

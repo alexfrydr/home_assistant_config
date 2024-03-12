@@ -7,4 +7,5 @@
         value_template: >-
           {{ is_state('binary_sensor.human_body_movement_bathroom_occupancy', 'on')
              or is_state('binary_sensor.human_body_movement_hallway_occupancy', 'on')
-             or is_state('binary_sensor.door_window_contact_sensor_hallway_contact', 'on')  }}   
+             or is_state('binary_sensor.kam02_home_cell_motion_detection', 'on')
+             or is_state('binary_sensor.human_body_movement_stok_occupancy', 'on')  }}   

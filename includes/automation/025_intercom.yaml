@@ -9,14 +9,44 @@
     to: "ring"
   condition: 
     - condition: state
-      entity_id: input_boolean.control_mode
+      entity_id: input_boolean.intercom_mode
       state: 'on'
   action:
-  - service: telegram_bot.send_message
-    data:
-     title: "*Intercom*"
-     message: | 
-        "Кто-то звонит в домофон!" {{ states('sensor.date_time') }}
+    - service: telegram_bot.send_message
+      data:
+        title: "*Intercom*"
+        message: "Кто-то звонит в домофон! {{ states('sensor.date_time') }}"
+        inline_keyboard:
+          - 'Открыть?:/door_open'
+        
+- alias: "025_doorbell_notify_intercom_open"
+  description: "Открыть дверь при звонке"
+  trigger:
+    platform: event
+    event_type: telegram_callback
+    event_data:
+      command: '/door_open'
+  condition:
+    - condition: state
+      entity_id: input_boolean.intercom_mode
+      state: 'on'
+  action:
+    - service: script.turn_on
+      entity_id: script.intercom_open_once
+      
+- alias: "025_intercom_notify_reset_mode"
+  trigger:
+  - platform: time
+    at: '22:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.intercom_mode
+        state: 'on'
+  action:
+    - service: script.turn_on
+      entity_id: script.intercom_open_never
 
 - alias: "025_intercom_notify_Off"
   trigger:

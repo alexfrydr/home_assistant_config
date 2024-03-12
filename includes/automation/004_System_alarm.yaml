@@ -5,10 +5,9 @@
 - alias: "004_System_CPU_Temperature_alarm"
   description: "Тревога превышение температуры ЦПУ"
   trigger:
-  - entity_id: sensor.processor_temperature
-    for: 00:01:00
-    platform: state
-    above: '30'
+    platform: numeric_state
+    entity_id: sensor.processor_temperature
+    above: 50
   condition:
   - condition: state
     entity_id: input_boolean.control_mode
@@ -19,17 +18,14 @@
     data_template:
       title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
       message: >
-        ⚠  Превышение температуры процессора {{ states('sensor.date_time') }}
+        ⚠  Превышение температуры процессора {{ states('sensor.processor_temperature') }}
         
 - alias: "004_System_CPU_usage_alarm"
   description: "Тревога превышение порога утилизации процессора"
   trigger:
-  - type: value
-    platform: device
-    device_id: 80571189ddbc66c3270d82cd2b748f5c
-    entity_id: d95e05f2df4dcc7cd7d4ff4772775232
-    domain: sensor
-    above: 50
+    platform: numeric_state
+    entity_id: sensor.processor_use
+    above: 80
   condition:
   - condition: state
     entity_id: input_boolean.control_mode
@@ -40,17 +36,14 @@
     data_template:
       title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
       message: >
-        ⚠  Тревого высокая утилизация процессорного времени{{ states('sensor.date_time') }}
+        ⚠  Тревога, высокая утилизация процессорного времени {{ states('sensor.processor_use') }}
     
 - alias: "004_System_Disk_usage_alarm"
   description: "Тревога превышение порога использования диска"
   trigger:
-  - type: value
-    platform: device
-    device_id: 80571189ddbc66c3270d82cd2b748f5c
-    entity_id: 117fc68ac6baaaca9bb044f6b32b0e19
-    domain: sensor
-    above: 50
+    platform: numeric_state
+    entity_id: sensor.disk_use_percent
+    above: 60
   condition:
   - condition: state
     entity_id: input_boolean.control_mode
@@ -61,17 +54,14 @@
     data_template:
       title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
       message: >
-        ⚠  Превышение используемого объёма диска {{ states('sensor.date_time') }}
+        ⚠  Превышение используемого объёма диска {{ states('sensor.disk_use_percent') }}
     
 - alias: "004_System_Memory_usage_alarm"
   description: "Тревога превышение порога использования памяти"
   trigger:
-  - type: value
-    platform: device
-    device_id: 80571189ddbc66c3270d82cd2b748f5c
-    entity_id: b78c3bf0c2537b65653f1f98cb855330
-    domain: sensor
-    above: 50
+    platform: numeric_state
+    entity_id: sensor.memory_use_percent
+    above: 70
   condition:
   - condition: state
     entity_id: input_boolean.control_mode
