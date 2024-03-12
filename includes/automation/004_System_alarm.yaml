@@ -1,11 +1,18 @@
+# -----------------------------------------------------------
+# Системные статусы и автоматизации
+# -----------------------------------------------------------
+
 - alias: "004_System_CPU_Temperature_alarm"
   description: "Тревога превышение температуры ЦПУ"
   trigger:
-  - entity_id: sensor.cpu_temp
-    for: 00:05:00
+  - entity_id: sensor.processor_temperature
+    for: 00:01:00
     platform: state
-    to: '60'
-  condition: []
+    above: '30'
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
   action:
   - data: {}
     service: telegram_bot.send_message
@@ -13,7 +20,70 @@
       title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
       message: >
         ⚠  Превышение температуры процессора {{ states('sensor.date_time') }}
-
+        
+- alias: "004_System_CPU_usage_alarm"
+  description: "Тревога превышение порога утилизации процессора"
+  trigger:
+  - type: value
+    platform: device
+    device_id: 80571189ddbc66c3270d82cd2b748f5c
+    entity_id: d95e05f2df4dcc7cd7d4ff4772775232
+    domain: sensor
+    above: 50
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+      message: >
+        ⚠  Тревого высокая утилизация процессорного времени{{ states('sensor.date_time') }}
+    
+- alias: "004_System_Disk_usage_alarm"
+  description: "Тревога превышение порога использования диска"
+  trigger:
+  - type: value
+    platform: device
+    device_id: 80571189ddbc66c3270d82cd2b748f5c
+    entity_id: 117fc68ac6baaaca9bb044f6b32b0e19
+    domain: sensor
+    above: 50
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+      message: >
+        ⚠  Превышение используемого объёма диска {{ states('sensor.date_time') }}
+    
+- alias: "004_System_Memory_usage_alarm"
+  description: "Тревога превышение порога использования памяти"
+  trigger:
+  - type: value
+    platform: device
+    device_id: 80571189ddbc66c3270d82cd2b748f5c
+    entity_id: b78c3bf0c2537b65653f1f98cb855330
+    domain: sensor
+    above: 50
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+      message: >
+        ⚠  Превышение используемого объёма памяти {{ states('sensor.date_time') }}
+    
 - alias: "004_Purge_Database"
   description: "Очистка базы данных"
   initial_state: True
@@ -33,7 +103,10 @@
     from: online
     platform: state
     to: offline
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
   action:
   - data: {}
     service: telegram_bot.send_message
@@ -49,7 +122,10 @@
     from: offline
     platform: state
     to: online
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
   action:
   - data: {}
     service: telegram_bot.send_message
@@ -68,7 +144,10 @@
     at: '08:00:00'
   - platform: time
     at: '20:00:00'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
   action:
   - data: {}
     service: telegram_bot.send_message

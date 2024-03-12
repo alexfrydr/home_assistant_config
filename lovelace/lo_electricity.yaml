@@ -38,8 +38,8 @@ cards:
             name: "Bathroom motion sensor"
           - entity: sensor.human_body_movement_bathroom_2_battery
             name: "Bathroom motion sensor 2"
-          - entity: sensor.human_body_movement_hallway_battery
-            name: "Hallway motion sensor"
+          - entity: sensor.human_body_movement_stok_battery
+            name: "Stok motion sensor"
           - entity: sensor.water_leak_sensor_bathroom_battery
             name: "Water leak bathroom sensor"
           - entity: sensor.water_leak_sensor_kitchen_battery
