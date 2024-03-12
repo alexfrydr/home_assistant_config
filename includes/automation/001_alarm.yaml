@@ -156,10 +156,8 @@
 - alias: "001_Security:_Signaling._Forgot_to_put_it?"
   description: "Постановка на охрану если ни кого нет дома"
   trigger:
-    - platform: state
-      entity_id: group.persons
-      from: home
-      to: not_home
+    - platform: time_pattern
+      minutes: /5
   condition:
     - condition: state
       entity_id: alarm_control_panel.home_alarm
@@ -167,6 +165,10 @@
     - condition: state
       entity_id: group.persons
       state: not_home
+      for:
+        hours: 0
+        minutes: 15
+        seconds: 0
     - condition: state
       entity_id: input_boolean.control_mode
       state: 'on'
