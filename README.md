@@ -56,7 +56,6 @@
 
 Я использую [Supervised install](https://www.home-assistant.io/getting-started/) со следующими дополнениями:
 
-<!-- start-addons -->
 - [Advanced SSH & Web Terminal](https://github.com/hassio-addons/addon-ssh) version 17.2.0 by @hassio-addons
 - [ESPHome](https://github.com/esphome/) version 2024.2.2 by @esphome
 - [File editor](https://github.com/home-assistant/addons/tree/master/configurator) version 5.8.0 by @home-assistant
@@ -70,6 +69,5 @@
 - [Vaultwarden (Bitwarden)](https://github.com/hassio-addons/addon-bitwarden) version 0.21.1 by @hassio-addons
 - [Zigbee2MQTT](https://github.com/zigbee2mqtt/hassio-zigbee2mqtt/tree/master/zigbee2mqtt) version 1.35.1-1 by @zigbee2mqtt
 - [Zigbee2MQTT Edge](https://github.com/zigbee2mqtt/hassio-zigbee2mqtt/tree/master/zigbee2mqtt-edge) version edge by @zigbee2mqtt
-<!-- end-addons -->
 
 🏡🔧📱💡🚪🚿🛋️🔌
