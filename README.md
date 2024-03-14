@@ -1,6 +1,6 @@
 # Конфигурация Home Assistant 
 
-
+![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/screen.JPG)
 
 Содержит конфигурацию для моего проекта домашней автоматизации. Значительное количество конфигураций на самом деле хранятся
 в базе данных homeassistant и, следовательно, здесь не показаны.
@@ -34,18 +34,18 @@
 - Панель управления для детей.
 
 ## Аппаратное обеспечение:
-- TuYa TS0011
-- Aqara E1
-- Aqara water leak sensor
-- Mi door and window sensor
-- Aqara motion sensor
-- Aqara temperature and humidity sensor
-- Aqara wireless mini switch
-- Aqara Cube 
-- Matrix intercom auto opener
-- WLED ESP8266
-- Xiaomi Mi Smart Power Plug
-- Xiaomi Mi 1C
-- Mijia Smart Sterilization Humidifier S
+- Выключатель TuYa TS0011
+- Выключатель Aqara E1
+- Датчик протечки Aqara water leak sensor
+- Датчик открытия Mi door and window sensor
+- Датчик движения Aqara motion sensor
+- Датчик температуры и влажности Aqara temperature and humidity sensor
+- Беспроводная кнопка Aqara wireless mini switch
+- Беспроводной кубик Aqara Cube 
+- Контроллер открытия  домофона Matrix intercom auto opener
+- Контроллер управления адресной лентой WLED ESP8266
+- Беспроводная розетка Xiaomi Mi Smart Power Plug
+- Робот пылесос Xiaomi Mi 1C
+- Увлажнитель воздуха Mijia Smart Sterilization Humidifier S
 
 🏡🔧📱💡🚪🚿🛋️🔌
