@@ -1,5 +1,7 @@
 # Конфигурация Home Assistant 
 
+[![GitHub stars](https://img.shields.io/github/stars/alexfrydr/home-assistant-config.svg?style=plasticr)](https://github.com/alexfrydr/home_assistant_config/stargazers)
+
 ![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/screen.JPG)
 
 Содержит конфигурацию для моего проекта домашней автоматизации. Значительное количество конфигураций на самом деле хранятся
