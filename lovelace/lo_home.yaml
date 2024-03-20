@@ -44,10 +44,6 @@ cards:
             entity: person.alex
           - type: custom:mushroom-person-card
             entity: person.victoriya
-          # - type: custom:mushroom-person-card
-          #   entity: person.semen
-          # - type: custom:mushroom-person-card
-          #   entity: person.katerina
       - type: markdown
         content: "## Lights"
         style: |
@@ -161,14 +157,6 @@ cards:
 
         - type: horizontal-stack
           cards:
-        #   - type: custom:mushroom-fan-card
-        #     name: Balcony light
-        #     entity: switch.0x00158d0003985898_switch
-        #     icon_animation: false
-        #     fill_container: false
-        #     show_oscillate_control: false
-        #     collapsible_controls: false
-        #     layout: horizontal
           - type: custom:mushroom-light-card
             entity: light.wled_lamp
             name: LED Lamp
@@ -183,6 +171,7 @@ cards:
 
           - type: custom:mushroom-fan-card
             entity: vacuum.mi_robot
+            name: Robot
             tap_action:
               action: more-info
             icon_animation: true
