@@ -7,7 +7,7 @@
 
 
 title: CCTV
-icon: mdi:video
+icon: mdi:cctv
 cards:
     
       - type: vertical-stack
