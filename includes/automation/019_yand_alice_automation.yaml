@@ -65,7 +65,7 @@
   description: 'Останавливать воспроизведение станции мини ночью'
   trigger:
   - platform: time_pattern
-    minutes: '/10'
+    minutes: '/30'
   condition:
   - condition: state
     entity_id: input_boolean.yand_mini_night_mode
@@ -83,7 +83,7 @@
       data:
         volume_level: 0.1
       entity_id: media_player.yandex_station_m003nh2007vwab
-    - delay: '00:05:00'
+    - delay: '00:15:00'
     - service: media_player.play_media
       entity_id: media_player.yandex_station_m003nh2007vwab
       data:
