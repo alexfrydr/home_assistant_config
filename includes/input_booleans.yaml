@@ -51,6 +51,9 @@ intercom_mode:
 alice_homework_mode:
   name: Auto Alice homework
   icon: mdi:music-off
+yand_mini_night_mode:
+  name: Yand mini night mode
+  icon: mdi:music-off
 control_mode:
   name: Control mode
 auto_light_child_room:

@@ -61,5 +61,31 @@
           media_content_type: text
           media_content_id: '{{ ["Делай уроки!", "Делай домашку!", "А ты пропылесосил пол?", "Помой посуду!", "Займись чем-нибудь полезным!", "Ты поел?", "Не пакости дома!", "Собери игрушки и прибери одежду!"]|random }}'
 
-      
-    
+- alias: 019_yand_mini_automation_night
+  description: 'Останавливать воспроизведение станции мини ночью'
+  trigger:
+  - platform: time_pattern
+    minutes: '/1'
+  condition:
+  - condition: state
+    entity_id: input_boolean.yand_mini_night_mode
+    state: 'on'
+  - condition: device
+    device_id: 5a7c5d5544e0570bcf472b5d9fd789a1
+    domain: media_player
+    entity_id: e1693769471f7475ea11c2211575d5c4
+    type: is_playing
+  - condition: time
+    after: '22:30:00'
+    before: "08:00:00"
+  action:
+    - service: media_player.volume_set
+      data:
+        volume_level: 0.1
+      entity_id: media_player.yandex_station_m003nh2007vwab
+    - delay: '00:15:00'
+    - service: media_player.play_media
+      entity_id: media_player.yandex_station_m003nh2007vwab
+      data:
+        media_content_id: Стоп
+        media_content_type: command

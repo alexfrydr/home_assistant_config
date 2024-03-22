@@ -98,7 +98,8 @@ cards:
                 name: Auto theme
               - entity: input_boolean.auto_fan_xiaomi_on_off
                 name: Auto mode humidifier
-              - entity: input_boolean.alice_homework_mode                
+              - entity: input_boolean.alice_homework_mode
+              - entity: input_boolean.yand_mini_night_mode
               - entity: input_boolean.cleaned_today
               - entity: input_boolean.doorbell_mode
               - entity: input_boolean.intercom_mode
