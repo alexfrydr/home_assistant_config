@@ -1,8 +1,5 @@
 # Конфигурация Home Assistant 
 
-[![GitHub last commit](https://img.shields.io/github/last-commit/alexfrydr/home_assistant_config?style=plasticr)](https://github.com/alexfrydr/home_assistant_config/commits/master)
-[![HA Version](https://img.shields.io/badge/Running%20Home%20Asssistant-2024.3.1%20-darkblue)](https://github.com/home-assistant/core/releases/tag/2024.3.1)
-
 ![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/screen.JPG)
 
 Содержит конфигурацию для моего проекта домашней автоматизации. Значительное количество конфигураций на самом деле хранятся
