@@ -53,7 +53,7 @@
 Я использую [Supervised install](https://www.home-assistant.io/getting-started/) со следующими дополнениями:
 
 - [Advanced SSH & Web Terminal](https://github.com/hassio-addons/addon-ssh) version 17.2.0 by @hassio-addons
-- [ESPHome](https://github.com/esphome/) version 2024.3.0 by @esphome
+- [ESPHome](https://github.com/esphome/) version 2024.3.1 by @esphome
 - [File editor](https://github.com/home-assistant/addons/tree/master/configurator) version 5.8.0 by @home-assistant
 - [Home Assistant Google Drive Backup](https://github.com/sabeechen/hassio-google-drive-backup) version 0.112.1 by @sabeechen
 - [Let's Encrypt](https://github.com/home-assistant/addons/tree/master/letsencrypt) version 5.0.15 by @home-assistant
