@@ -89,10 +89,14 @@
 - alias: "004_Zigbee_Bridge_state_offline"
   description: "Уведомление о потере связи с координатором"
   trigger:
-  - entity_id: sensor.bridge_state
+  - entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state
     from: online
     platform: state
     to: offline
+  - entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state_2
+    from: online
+    platform: state
+    to: offline    
   condition:
   - condition: state
     entity_id: input_boolean.control_mode
@@ -108,7 +112,11 @@
 - alias: "004_Zigbee_Bridge_state_online"
   description: 'Отпрвка уведомления о восстановлении связи с координатором.'
   trigger:
-  - entity_id: sensor.bridge_state
+  - entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state
+    from: offline
+    platform: state
+    to: online
+  - entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state_2
     from: offline
     platform: state
     to: online
