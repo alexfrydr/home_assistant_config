@@ -186,7 +186,6 @@
     - service: alarm_control_panel.alarm_arm_away
       entity_id: alarm_control_panel.home_alarm
 
-          
 - alias: "001_Security:_Signaling._Cancellation"
   description: "Отмена постановки на охрану командой в телеграмм"
   trigger:
@@ -237,8 +236,8 @@
         entity_id: 'alarm_control_panel.home_alarm'
         state: 'pending'
   action:
-      - service: alarm_control_panel.alarm_disarm
-        entity_id: alarm_control_panel.home_alarm
+  - service: alarm_control_panel.alarm_disarm
+    data: {}
 
 - alias: "001_Security:_Signaling._disarming_door_open"
   description: "Снятие с охраны при открытии двери и нахождении персон в домашней зоне"
@@ -254,6 +253,6 @@
       entity_id: group.persons
       state: home
   action:
-      - service: alarm_control_panel.alarm_disarm
-        entity_id: alarm_control_panel.home_alarm
+  - service: alarm_control_panel.alarm_disarm
+    data: {}
 
