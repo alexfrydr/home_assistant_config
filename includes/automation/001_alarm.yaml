@@ -225,34 +225,40 @@
         message: "Получена команда. Постановка на сигнализацию."
         
 - alias: "001_Security:_Signaling._disarming"
-  description: "Снятие с охраны при нахождении персон в домашней зоне и статусе охраны в ожидании"
+  description: "Снятие с охраны при нахождении персон в домашней зоне и статусе охраны не дома"
   trigger:
   - platform: geo_location
     source: group.persons
     zone: zone.home
     event: enter
   condition:
-      - condition: state
-        entity_id: 'alarm_control_panel.home_alarm'
-        state: 'pending'
-  action:
-  - service: alarm_control_panel.alarm_disarm
-    data: {}
-
-- alias: "001_Security:_Signaling._disarming_door_open"
-  description: "Снятие с охраны при открытии двери и нахождении персон в домашней зоне"
-  trigger:
-    - platform: state
-      entity_id: binary_sensor.door_window_contact_sensor_hallway_contact
-      to: 'on'
-  condition:
     - condition: state
       entity_id: 'alarm_control_panel.home_alarm'
       state: 'armed_away'
     - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+      - service: alarm_control_panel.alarm_disarm
+        target:
+          entity_id: alarm_control_panel.home_alarm
+
+- alias: "001_Security:_Signaling._disarming_door_open"
+  description: "Снятие с охраны при открытии двери и нахождении персон в домашней зоне"
+  trigger:
+  - platform: state
+    entity_id:
+      - binary_sensor.door_window_contact_sensor_hallway_contact
+    to: "on"
+  condition:
+    - condition: state
+      entity_id: 'alarm_control_panel.home_alarm'
+      state: 'pending'
+    - condition: state
       entity_id: group.persons
       state: home
   action:
-  - service: alarm_control_panel.alarm_disarm
-    data: {}
+      - service: alarm_control_panel.alarm_disarm
+        target:
+          entity_id: alarm_control_panel.home_alarm
 
