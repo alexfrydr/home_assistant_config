@@ -68,7 +68,7 @@
 - alias: "025_intercom_notify_On"
   trigger:
   - platform: time
-    at: '09:00'
+    at: '08:00'
   condition:
     condition: and
     conditions:

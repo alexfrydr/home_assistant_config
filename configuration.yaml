@@ -44,6 +44,7 @@ binary_sensor: !include_dir_merge_list includes/binsensors
 group: !include includes/groups.yaml
 
 wake_on_lan:
+browser:
 
 http:
   use_x_forwarded_for: true
