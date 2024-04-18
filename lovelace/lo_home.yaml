@@ -205,20 +205,24 @@ cards:
               - entity: sensor.aqara_t_h_living_room_temperature
                 name: Living Room
             color_thresholds:
-              - value: 24
-                color: "#00ff21"
-              - value: 21
-                color: "#ff6600"
-              - value: 22
-                color: "#f6ff00"
-              - value: 19
-                color: "#ff1800"
-              - value: 26
-                color: "#f6ff00"
-              - value: 28
-                color: "#ff6600"
+              - value: "-40"
+                color: "#000099"
+              - value: "-30"
+                color: "#0033cc"
+              - value: "-20"
+                color: "#3399ff"
+              - value: "-10"
+                color: "#99ccff"
+              - value: 0
+                color: "gray"
+              - value: 10
+                color: "#99ccff"
+              - value: 20
+                color: "#99ff66"
               - value: 30
-                color: "#ff1800"
+                color: "#ff6600"
+              - value: 40
+                color: "#ff0000"
             group_by: hour
             hour24: true
             line_width: 2
@@ -299,20 +303,24 @@ cards:
               - entity: sensor.aqara_t_h_bedroom_temperature
                 name: Bedroom
             color_thresholds:
-              - value: 24
-                color: "#00ff21"
-              - value: 21
-                color: "#ff6600"
-              - value: 22
-                color: "#f6ff00"
-              - value: 19
-                color: "#ff1800"
-              - value: 26
-                color: "#f6ff00"
-              - value: 28
-                color: "#ff6600"
+              - value: "-40"
+                color: "#000099"
+              - value: "-30"
+                color: "#0033cc"
+              - value: "-20"
+                color: "#3399ff"
+              - value: "-10"
+                color: "#99ccff"
+              - value: 0
+                color: "gray"
+              - value: 10
+                color: "#99ccff"
+              - value: 20
+                color: "#99ff66"
               - value: 30
-                color: "#ff1800"
+                color: "#ff6600"
+              - value: 40
+                color: "#ff0000"
             group_by: hour
             hour24: true
             line_width: 2
@@ -351,20 +359,24 @@ cards:
               - entity: sensor.aqara_t_h_bathroom_temperature
                 name: Bathroom
             color_thresholds:
-              - value: 24
-                color: "#00ff21"
-              - value: 21
-                color: "#ff6600"
-              - value: 22
-                color: "#f6ff00"
-              - value: 19
-                color: "#ff1800"
-              - value: 26
-                color: "#f6ff00"
-              - value: 28
-                color: "#ff6600"
+              - value: "-40"
+                color: "#000099"
+              - value: "-30"
+                color: "#0033cc"
+              - value: "-20"
+                color: "#3399ff"
+              - value: "-10"
+                color: "#99ccff"
+              - value: 0
+                color: "gray"
+              - value: 10
+                color: "#99ccff"
+              - value: 20
+                color: "#99ff66"
               - value: 30
-                color: "#ff1800"
+                color: "#ff6600"
+              - value: 40
+                color: "#ff0000"
             group_by: hour
             hour24: true
             line_width: 2
@@ -403,20 +415,24 @@ cards:
               - entity: sensor.aqara_t_h_child_room_temperature
                 name: Child. room
             color_thresholds:
-              - value: 24
-                color: "#00ff21"
-              - value: 21
-                color: "#ff6600"
-              - value: 22
-                color: "#f6ff00"
-              - value: 19
-                color: "#ff1800"
-              - value: 26
-                color: "#f6ff00"
-              - value: 28
-                color: "#ff6600"
+              - value: "-40"
+                color: "#000099"
+              - value: "-30"
+                color: "#0033cc"
+              - value: "-20"
+                color: "#3399ff"
+              - value: "-10"
+                color: "#99ccff"
+              - value: 0
+                color: "gray"
+              - value: 10
+                color: "#99ccff"
+              - value: 20
+                color: "#99ff66"
               - value: 30
-                color: "#ff1800"
+                color: "#ff6600"
+              - value: 40
+                color: "#ff0000"
             group_by: hour
             hour24: true
             line_width: 2

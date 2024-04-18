@@ -57,7 +57,7 @@
 - [File editor](https://github.com/home-assistant/addons/tree/master/configurator) version 5.8.0 by @home-assistant
 - [Home Assistant Google Drive Backup](https://github.com/sabeechen/hassio-google-drive-backup) version 0.112.1 by @sabeechen
 - [Let's Encrypt](https://github.com/home-assistant/addons/tree/master/letsencrypt) version 5.0.15 by @home-assistant
-- [MariaDB](https://github.com/home-assistant/addons/tree/master/mariadb) version 2.6.1 by @home-assistant
+- [MariaDB](https://github.com/home-assistant/addons/tree/master/mariadb) version 2.7.1 by @home-assistant
 - [Mopidy](https://github.com/bestlibre/hassio-addons/tree/master/mopidy) version 0.2.7 by @bestlibre
 - [Mosquitto broker](https://github.com/home-assistant/addons/tree/master/mosquitto) version 6.4.0 by @home-assistant
 - [NGINX Home Assistant SSL proxy](https://github.com/home-assistant/addons/tree/master/nginx_proxy) version 3.9.0 by @home-assistant
