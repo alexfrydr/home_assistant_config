@@ -56,7 +56,7 @@
 - [ESPHome](https://github.com/esphome/) version 2024.3.1 by @esphome
 - [File editor](https://github.com/home-assistant/addons/tree/master/configurator) version 5.8.0 by @home-assistant
 - [Home Assistant Google Drive Backup](https://github.com/sabeechen/hassio-google-drive-backup) version 0.112.1 by @sabeechen
-- [Let's Encrypt](https://github.com/home-assistant/addons/tree/master/letsencrypt) version 5.0.15 by @home-assistant
+- [Let's Encrypt](https://github.com/home-assistant/addons/tree/master/letsencrypt) version 5.0.18 by @home-assistant
 - [MariaDB](https://github.com/home-assistant/addons/tree/master/mariadb) version 2.7.1 by @home-assistant
 - [Mopidy](https://github.com/bestlibre/hassio-addons/tree/master/mopidy) version 0.2.7 by @bestlibre
 - [Mosquitto broker](https://github.com/home-assistant/addons/tree/master/mosquitto) version 6.4.0 by @home-assistant
