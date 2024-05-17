@@ -189,6 +189,21 @@
         type: select_option
         option: once
         
+  intercom_open_drop:
+    alias: Сброс открытия
+    sequence:
+      - device_id: 9147fee40ae85524b833701a3a16c0b9
+        domain: select
+        entity_id: 372bf4569c8fb1490c41a3c8180caefe
+        type: select_option
+        option: drop
+      - delay: '00:00:05'
+      - device_id: 9147fee40ae85524b833701a3a16c0b9
+        domain: select
+        entity_id: 372bf4569c8fb1490c41a3c8180caefe
+        type: select_option
+        option: never
+        
   intercom_open_never:
     alias: Cброс состояния домофона
     sequence:

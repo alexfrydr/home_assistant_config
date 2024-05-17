@@ -3,6 +3,7 @@
 # -----------------------------------------------------------
 
 - alias: "025_Intercom_ring"
+  description: "Отправка уведомления в телеграмм"
   trigger:
     platform: state
     entity_id: sensor.0x00124b002262723d_state
@@ -18,6 +19,7 @@
         message: "Кто-то звонит в домофон! {{ states('sensor.date_time') }}"
         inline_keyboard:
           - 'Открыть?:/door_open'
+          - 'Не открывать!:/door_drop'
         
 - alias: "025_doorbell_notify_intercom_open"
   description: "Открыть дверь при звонке"
@@ -33,6 +35,21 @@
   action:
     - service: script.turn_on
       entity_id: script.intercom_open_once
+      
+- alias: "025_doorbell_notify_intercom_drop"
+  description: "Не открывать дверь при звонке"
+  trigger:
+    platform: event
+    event_type: telegram_callback
+    event_data:
+      command: '/door_drop'
+  condition:
+    - condition: state
+      entity_id: input_boolean.intercom_mode
+      state: 'on'
+  action:
+    - service: script.turn_on
+      entity_id: script.intercom_open_drop
       
 - alias: "025_intercom_notify_reset_mode"
   trigger:

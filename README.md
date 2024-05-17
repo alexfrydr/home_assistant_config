@@ -65,7 +65,7 @@
 - [NGINX Home Assistant SSL proxy](https://github.com/home-assistant/addons/tree/master/nginx_proxy) version 3.9.0 by @home-assistant
 - [Studio Code Server](https://github.com/hassio-addons/addon-vscode) version 5.15.0 by @hassio-addons
 - [Vaultwarden (Bitwarden)](https://github.com/hassio-addons/addon-bitwarden) version 0.21.1 by @hassio-addons
-- [Zigbee2MQTT](https://github.com/zigbee2mqtt/hassio-zigbee2mqtt/tree/master/zigbee2mqtt) version 1.37.0-1 by @zigbee2mqtt
+- [Zigbee2MQTT](https://github.com/zigbee2mqtt/hassio-zigbee2mqtt/tree/master/zigbee2mqtt) version 1.37.1-1 by @zigbee2mqtt
 - [Zigbee2MQTT Edge](https://github.com/zigbee2mqtt/hassio-zigbee2mqtt/tree/master/zigbee2mqtt-edge) version edge by @zigbee2mqtt
 
 🏡🔧📱💡🚪🚿🛋️🔌
