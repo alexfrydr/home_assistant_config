@@ -226,3 +226,35 @@
       title: "*Problem with Internet!* ⚠️"
       message: >
         👍  Cвязь с интернетом восстановлена {{ states('sensor.date_time') }}
+
+- alias: "004_Torrent_Completed"
+  trigger:
+  - type: value
+    platform: device
+    device_id: 9fe90303300721798204a27de18b6855
+    entity_id: 9504f16264552dae040cc48d077ffd58
+    domain: sensor
+    below: 1
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    service: telegram_bot.send_message
+    data_template:
+      message: "Загрузка torrent-файла завершена"
+
+- alias: "004_Полнолуние"
+  trigger:
+    platform: state
+    entity_id: sensor.moon_phase
+    to: "full_moon"
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  action:
+    service: telegram_bot.send_message
+    data_template:
+      message: "Сегодня полнолуние!"
+
