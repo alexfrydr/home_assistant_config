@@ -290,7 +290,7 @@
     platform: template
     value_template: "{{ states('sensor.home_assistant_versions') < states('sensor.docker_hub') }}"
   action:
-    service: notify.telegram_group_system
+    service: telegram_bot.send_message
     data_template:
       message: "_INFO:_ Доступна новая версия Home Assistant OS ({{ states('sensor.docker_hub') }})"
 
