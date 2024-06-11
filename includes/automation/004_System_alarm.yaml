@@ -232,9 +232,9 @@
   - type: value
     platform: device
     device_id: 9fe90303300721798204a27de18b6855
-    entity_id: 9504f16264552dae040cc48d077ffd58
+    entity_id: ac81c608d6277c377994b65f16852fcd
     domain: sensor
-    below: 1
+    below: 0
   condition:
     - condition: state
       entity_id: input_boolean.control_mode
