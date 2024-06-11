@@ -117,5 +117,7 @@ lovelace:
       type: module
     - url: /hacsfiles/lovelace-fan-xiaomi/xiaomi-fan-card.js
       type: module
+    - url: /hacsfiles/Bubble-Card/bubble-card.js
+      type: module
 
 
