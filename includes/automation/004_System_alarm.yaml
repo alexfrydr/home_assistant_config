@@ -8,6 +8,10 @@
     platform: numeric_state
     entity_id: sensor.processor_temperature
     above: 50
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
   condition:
   - condition: state
     entity_id: input_boolean.control_mode
@@ -26,6 +30,10 @@
     platform: numeric_state
     entity_id: sensor.processor_use
     above: 80
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
   condition:
   - condition: state
     entity_id: input_boolean.control_mode
@@ -44,6 +52,10 @@
     platform: numeric_state
     entity_id: sensor.disk_use_percent
     above: 60
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
   condition:
   - condition: state
     entity_id: input_boolean.control_mode
@@ -62,6 +74,10 @@
     platform: numeric_state
     entity_id: sensor.memory_use_percent
     above: 70
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
   condition:
   - condition: state
     entity_id: input_boolean.control_mode

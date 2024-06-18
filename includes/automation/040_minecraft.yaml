@@ -1,0 +1,38 @@
+- alias: "040_minecraft_users_online"
+  trigger:
+  - type: value
+    platform: device
+    device_id: 0e6e04bdbb2d7ab63677505acaf06c3b
+    entity_id: 71e101de83cc880f43c7aa8bdc842ca8
+    domain: sensor
+    above: 0
+  condition: []
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: '*Minecraft:*'
+      message: >
+        Игроков на сервере онлайн {{ states('sensor.minecraft_server_players_online') }}
+        
+- alias: "040_minecraft_not_connected"
+  description: ''
+  trigger:
+  - type: not_connected
+    platform: device
+    device_id: 0e6e04bdbb2d7ab63677505acaf06c3b
+    entity_id: ab630bf47a65e7736d159f43662881ef
+    domain: binary_sensor
+  - type: connected
+    platform: device
+    device_id: 0e6e04bdbb2d7ab63677505acaf06c3b
+    entity_id: ab630bf47a65e7736d159f43662881ef
+    domain: binary_sensor
+  condition: []
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: '*Minecraft:*'
+      message: >
+        Сервер minecraft {% if is_state('binary_sensor.minecraft_server_status', 'on') %} Включен {% else %} Выключен {% endif %}
