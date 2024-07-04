@@ -301,18 +301,6 @@
       data_template:
         message: "_INFO:_ Доступна новая версия Supervisor ({{ state_attr('update.home_assistant_supervisor_update', 'latest_version') }})"
         
-- alias: "004_HASSIO:_New_Home_Assistant_OS_Version_Available"
-  trigger:
-  - type: is_update
-    condition: device
-    device_id: 19d4d960bd60e915e329874140bcf74e
-    entity_id: 58a102ffa5bc377876118d59b4698200
-    domain: binary_sensor
-  action:
-    service: telegram_bot.send_message
-    data_template:
-      message: "_INFO:_ Доступна новая версия Home Assistant ({{ states('sensor.home_assistant_versions') }})"
-
 
 
 

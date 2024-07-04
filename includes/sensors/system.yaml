@@ -1,14 +1,3 @@
-- platform: systemmonitor
-  resources:
-  - type: processor_temperature
-  - type: processor_use
-  - type: disk_use_percent
-    arg: /
-  - type: memory_use_percent
-  - type: last_boot
-  - type: disk_free
-    arg: /
-  
 - platform: time_date
   display_options:
       - 'time'
