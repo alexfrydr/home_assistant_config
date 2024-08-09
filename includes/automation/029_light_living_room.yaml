@@ -5,7 +5,7 @@
 - alias: "029_light_living_room_off"
   trigger:
   - platform: time
-    at: '09:30:00'
+    at: '08:00:00'
   condition:
   - condition: state
     entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
