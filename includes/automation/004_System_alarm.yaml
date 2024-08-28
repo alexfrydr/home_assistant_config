@@ -7,10 +7,10 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.processor_temperature
-    above: 50
+    above: 60
     for:
       hours: 0
-      minutes: 5
+      minutes: 15
       seconds: 0
   condition:
   - condition: state
@@ -29,10 +29,10 @@
   trigger:
     platform: numeric_state
     entity_id: sensor.processor_use
-    above: 80
+    above: 90
     for:
       hours: 0
-      minutes: 5
+      minutes: 15
       seconds: 0
   condition:
   - condition: state
@@ -290,16 +290,24 @@
         {{ repo.display_name }} (_{{ repo.installed_version }}_ -> _{{ repo.available_version }}_){% if not loop.last %}, {% endif %}
         {%- endfor -%}
 
-- alias: "004_HASSIO:_New_Supervisor_Version_Available"
+- alias: "004_HASSIO:_New_Home_Assistant_Version_Available"
+  description: ''
   trigger:
-    - platform: state
-      entity_id: update.home_assistant_supervisor_update
-      from: "off"
-      to: "on"
+  - type: update
+    platform: device
+    device_id: 19d4d960bd60e915e329874140bcf74e
+    entity_id: 58a102ffa5bc377876118d59b4698200
+    domain: binary_sensor
+  condition: 
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
   action:
     - service: telegram_bot.send_message
       data_template:
-        message: "_INFO:_ Доступна новая версия Supervisor ({{ state_attr('update.home_assistant_supervisor_update', 'latest_version') }})"
+        message: "_INFO:_ Доступна новая версия Home Assistant ({{ state_attr('binary_sensor.home_assistant_versions_update_available') }})"
+
+
         
 
 
