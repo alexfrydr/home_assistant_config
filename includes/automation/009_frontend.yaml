@@ -2,17 +2,58 @@
 # Автоматизации принудительного применения темы
 # -----------------------------------------------------------
 
-- alias: "009_Auto_Theme_Selector_IOS_Dark/Light_mode"
-  description: "Автоматическое назначение темы"
+# - alias: "009_Auto_Theme_Selector_IOS_Dark/Light_mode"
+#   description: "Автоматическое назначение темы"
+#   trigger:
+#   - event: start
+#     platform: homeassistant
+#   condition:
+#     condition: state
+#     entity_id: input_boolean.auto_theme_selector
+#     state: "on"
+#   action:
+#   - data_template:
+#       name: "clear"
+#     service_template: frontend.set_theme
+#   mode: single
+
+- alias: "Frontend: turn on dark mode"
   trigger:
-  - event: start
-    platform: homeassistant
-  condition:
-    condition: state
-    entity_id: input_boolean.auto_theme_selector
-    state: "on"
+    - platform: time
+      at: "20:00"
+    - platform: sun
+      event: sunset
+  condition: "{{ is_state('input_boolean.dark_mode', 'off') }}"
   action:
-  - data_template:
-      name: "clear"
-    service_template: frontend.set_theme
-  mode: single
+    entity_id: input_boolean.dark_mode
+    service: input_boolean.turn_on
+
+- alias: "Frontend: turn on light mode"
+  trigger:
+    - platform: time
+      at: "06:00"
+    - platform: sun
+      event: sunrise
+  condition: "{{ is_state('input_boolean.dark_mode', 'on') }}"
+  action:
+    entity_id: input_boolean.dark_mode
+    service: input_boolean.turn_off
+
+- alias: "Frontend: change theme"
+  trigger:
+    - platform: state
+      entity_id: input_select.theme
+    - platform: state
+      entity_id: input_boolean.dark_mode
+    - platform: state
+      entity_id: input_boolean.theme_alternative
+    - platform: homeassistant
+      event: start
+  action:
+    service: frontend.set_theme
+    data:
+      name: >
+        {% set which = "dark" if is_state("input_boolean.dark_mode", "on") else "light" -%}
+        {% set name = states("input_select.theme") -%}
+        {% set suffix = "-alternative" if is_state("input_boolean.theme_alternative", "on") else "" -%}
+        ios-{{ which }}-mode-{{ name }}{{ suffix }}
