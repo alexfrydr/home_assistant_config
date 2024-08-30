@@ -37,7 +37,7 @@
   condition: "{{ is_state('input_boolean.dark_mode', 'on') }}"
   action:
     entity_id: input_boolean.dark_mode
-    service: input_boolean.turn_off
+    service: input_boolean.turn_on
 
 - alias: "Frontend: change theme"
   trigger:
