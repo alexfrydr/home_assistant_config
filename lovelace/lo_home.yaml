@@ -663,15 +663,7 @@ cards:
               action: none
             hold_action:
               action: none
-      - type: horizontal-stack
-        cards:              
-          - type: entities
-            entities:
-              - entity: input_select.theme
-              - entity: input_boolean.theme_alternative
-              - entity: input_boolean.dark_mode
-            title: Theme
-            show_header_toggle: false
+
 
 
 
