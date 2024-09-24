@@ -242,6 +242,47 @@
       title: "*Problem with Internet!* ⚠️"
       message: >
         👍  Cвязь с интернетом восстановлена {{ states('sensor.date_time') }}
+        
+- alias: "The camera on the 7th floor is unavailable"
+  description: ''
+  trigger:
+  - type: not_connected
+    platform: device
+    device_id: 20e98bc5be4b8613732f00a06a0e4db7
+    entity_id: 40cd5912aca5be9712a3a8150cafdc21
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: "*Problem with Cam* ⚠️"
+      message: >
+        ⚠  Потеряна связь с камерой на 7 этаже {{ states('sensor.date_time') }}
+
+- alias: "The camera on the 7th floor is available"
+  description: ''
+  trigger:
+  - type: connected
+    platform: device
+    device_id: 20e98bc5be4b8613732f00a06a0e4db7
+    entity_id: 40cd5912aca5be9712a3a8150cafdc21
+    domain: binary_sensor
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: "*Problem with Cam* ⚠️"
+      message: >
+        👍  Связь с камерой на 7 этаже восстановлена {{ states('sensor.date_time') }}
+
 
 - alias: "004_Torrent_Completed"
   trigger:
