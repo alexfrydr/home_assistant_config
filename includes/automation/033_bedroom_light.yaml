@@ -5,7 +5,7 @@
 - alias: "033_light_bedroom_off"
   trigger:
   - platform: time
-    at: '08:00:00'
+    at: '09:00:00'
   condition:
   - condition: state
     entity_id: input_boolean.auto_light_bedroom_on_off
