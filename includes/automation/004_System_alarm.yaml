@@ -102,51 +102,86 @@
         keep_days: 3
         repack: true
 
-- alias: "004_Zigbee_Bridge_state_offline"
-  description: "Уведомление о потере связи с координатором"
+- alias: "004_Zigbee_Bridge_state_change"
+  description: "Уведомление о изменении состояния связи с Zigbee координатором"
   trigger:
-  - entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state
+  - platform: state
+    entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state
     from: online
-    platform: state
     to: offline
-  - entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state_2
+  - platform: state
+    entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state
+    from: offline
+    to: online
+  - platform: state
+    entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state_2
     from: online
-    platform: state
-    to: offline    
+    to: offline
+  - platform: state
+    entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state_2
+    from: offline
+    to: online
   condition:
   - condition: state
     entity_id: input_boolean.control_mode
     state: 'on'
   action:
-  - data: {}
-    service: telegram_bot.send_message
+  - service: telegram_bot.send_message
     data_template:
       title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
       message: >
-        ⚠  Потеряна связь с Zigbee координатором {{ states('sensor.date_time') }}
+        {% if trigger.to_state.state == 'offline' %}
+          ⚠ Потеряна связь с Zigbee координатором {{ states('sensor.date_time') }}
+        {% elif trigger.to_state.state == 'online' %}
+          ⚠ Связь с Zigbee координатором восстановлена {{ states('sensor.date_time') }}
+        {% endif %}
+
+
+# - alias: "004_Zigbee_Bridge_state_offline"
+#   description: "Уведомление о потере связи с координатором"
+#   trigger:
+#   - entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state
+#     from: online
+#     platform: state
+#     to: offline
+#   - entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state_2
+#     from: online
+#     platform: state
+#     to: offline    
+#   condition:
+#   - condition: state
+#     entity_id: input_boolean.control_mode
+#     state: 'on'
+#   action:
+#   - data: {}
+#     service: telegram_bot.send_message
+#     data_template:
+#       title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+#       message: >
+#         ⚠  Потеряна связь с Zigbee координатором {{ states('sensor.date_time') }}
         
-- alias: "004_Zigbee_Bridge_state_online"
-  description: 'Отпрвка уведомления о восстановлении связи с координатором.'
-  trigger:
-  - entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state
-    from: offline
-    platform: state
-    to: online
-  - entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state_2
-    from: offline
-    platform: state
-    to: online
-  condition:
-  - condition: state
-    entity_id: input_boolean.control_mode
-    state: 'on'
-  action:
-  - data: {}
-    service: telegram_bot.send_message
-    data_template:
-      title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
-      message: >
-        ⚠  Cвязь с Zigbee координатором  восстановлена {{ states('sensor.date_time') }}
+# - alias: "004_Zigbee_Bridge_state_online"
+#   description: 'Отпрвка уведомления о восстановлении связи с координатором.'
+#   trigger:
+#   - entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state
+#     from: offline
+#     platform: state
+#     to: online
+#   - entity_id: binary_sensor.zigbee2mqtt_bridge_connection_state_2
+#     from: offline
+#     platform: state
+#     to: online
+#   condition:
+#   - condition: state
+#     entity_id: input_boolean.control_mode
+#     state: 'on'
+#   action:
+#   - data: {}
+#     service: telegram_bot.send_message
+#     data_template:
+#       title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+#       message: >
+#         ⚠  Cвязь с Zigbee координатором  восстановлена {{ states('sensor.date_time') }}
 
 - alias: "004_Zigbee_unhealthy_alert"
   description: 'Оповещение о неисправности z2m'
@@ -242,7 +277,7 @@
       title: "*Problem with Internet!* ⚠️"
       message: >
         👍  Cвязь с интернетом восстановлена {{ states('sensor.date_time') }}
-        
+
 - alias: "The camera on the 7th floor is unavailable"
   description: ''
   trigger:
@@ -282,7 +317,6 @@
       title: "*Problem with Cam* ⚠️"
       message: >
         👍  Связь с камерой на 7 этаже восстановлена {{ states('sensor.date_time') }}
-
 
 - alias: "004_Torrent_Completed"
   trigger:
