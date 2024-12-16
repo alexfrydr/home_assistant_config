@@ -3,9 +3,10 @@
 # -----------------------------------------------------------
 
 - alias: "029_light_living_room_off"
+  description: 'Выключение подсветки по времени'
   trigger:
   - platform: time
-    at: '09:00:00'
+    at: input_datetime.light_living_room_off
   condition:
   - condition: state
     entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
@@ -23,10 +24,9 @@
   action:
     - service: light.turn_off
       entity_id: light.wled
-    # - service: switch.turn_off
-    #   entity_id: switch.0x00158d0003985898_switch
 
-- alias: "029_light_living_room_3%_22:00"
+- alias: "029_light_living_room_3%"
+  description: 'Изменение яркости подсветки по времени в 22:00'
   trigger:
   - platform: time
     at: '22:00:00'
@@ -50,10 +50,11 @@
         entity_id: light.wled
         brightness_pct: 3
 
-- alias: "029_light_living_room_50%_lamp_on"
+- alias: "029_light_living_room_50%_on"
+  description: 'Включение подсветки по времени'
   trigger:
   - platform: time
-    at: input_datetime.light_clock
+    at: input_datetime.light_living_room_on
   condition:
   - condition: state
     entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
@@ -73,11 +74,9 @@
       data:
         entity_id: light.wled
         brightness_pct: 50
-    # - service: switch.turn_on
-    #   entity_id: switch.0x00158d0003985898_switch
 
 - alias: "029_light_living_room_turn_on_automatic"
-  description: ''
+  description: 'Применение пресета после сброса питания'
   trigger:
   - platform: state
     entity_id:

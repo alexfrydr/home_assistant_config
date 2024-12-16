@@ -3,9 +3,10 @@
 # -----------------------------------------------------------
 
 - alias: "032_light_child_room_off"
+  description: 'Выключение подсветки по времени'
   trigger:
   - platform: time
-    at: '09:00:00'
+    at: input_datetime.light_child_room_off
   condition:
   - condition: state
     entity_id: input_boolean.auto_light_child_room
@@ -25,6 +26,7 @@
       entity_id: light.wled_2
 
 - alias: "032_light_child_room_3%_strip_on_22:00"
+  description: 'Изменение яркости подсветки в 22:00'
   trigger:
     - platform: time_pattern
       minutes: "/10"
@@ -46,11 +48,11 @@
         entity_id: light.wled_2
         brightness_pct: 15
               
-
-- alias: "032_light_child_room_50%_on_19:00"
+- alias: "032_light_child_room_50%_on"
+  description: 'Включение подсветки по времени'
   trigger:
   - platform: time
-    at: input_datetime.light_clock
+    at: input_datetime.light_child_room_on
   condition:
   - condition: state
     entity_id: input_boolean.auto_light_child_room
@@ -72,7 +74,7 @@
         brightness_pct: 50
         
 - alias: "032_light_child_room_turn_on_automatic_wled_2"
-  description: ''
+  description: 'Применение пресета после сброса питания'
   trigger:
   - platform: state
     entity_id:

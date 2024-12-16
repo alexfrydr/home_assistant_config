@@ -12,3 +12,30 @@ light_clock:
   name: Light clock
   has_date: false
   has_time: true
+  
+light_bedroom_on:
+  name: Light bedroom on
+  has_date: false
+  has_time: true
+light_bedroom_off:
+  name: Light bedroom off
+  has_date: false
+  has_time: true
+
+light_living_room_on:
+  name: Light living room on
+  has_date: false
+  has_time: true
+light_living_room_off:
+  name: Light living room off
+  has_date: false
+  has_time: true
+  
+light_child_room_on:
+  name: Light child room on
+  has_date: false
+  has_time: true
+light_child_room_off:
+  name: Light child room off
+  has_date: false
+  has_time: true

@@ -3,9 +3,10 @@
 # -----------------------------------------------------------
 
 - alias: "033_light_bedroom_off"
+  description: 'Выключение подсветки по времени'
   trigger:
   - platform: time
-    at: '09:00:00'
+    at: input_datetime.light_bedroom_off
   condition:
   - condition: state
     entity_id: input_boolean.auto_light_bedroom_on_off
@@ -25,6 +26,7 @@
       entity_id: light.wled_bedroom
 
 - alias: "033_light_bedroom_3%_strip_on_22:00"
+  description: 'Измение яркости после 22:00'
   trigger:
     - platform: time_pattern
       minutes: '/10'
@@ -47,9 +49,10 @@
         brightness_pct: 5
 
 - alias: "033_light_bedroom_50%_on"
+  description: 'Включение подсветки по времени'
   trigger:
   - platform: time
-    at: input_datetime.light_clock
+    at: input_datetime.light_bedroom_on
   condition:
   - condition: state
     entity_id: input_boolean.auto_light_bedroom_on_off
@@ -76,6 +79,7 @@
         entity_id: select.wled_bedroom_preset
 
 - alias: "033_light_bedroom_turn_on_automatic_preset_3"
+  description: 'Применение пресета после сброса питания'
   trigger:
   - platform: state
     entity_id:

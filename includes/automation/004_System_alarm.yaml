@@ -383,6 +383,9 @@
         message: "_INFO:_ Доступна новая версия Home Assistant ({{ state_attr('binary_sensor.home_assistant_versions_update_available') }})"
 
 
+
+
+
         
 
 
