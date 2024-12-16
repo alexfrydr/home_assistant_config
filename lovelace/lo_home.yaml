@@ -158,15 +158,9 @@ cards:
         - type: horizontal-stack
           cards:
           - type: custom:mushroom-light-card
-            entity: light.wled_lamp
-            name: LED Lamp
-            secondary_info: state
-            fill_container: false
-            use_light_color: true
-            show_brightness_control: true
-            collapsible_controls: true
-            show_color_control: false
-            layout: horizontal
+            entity: light.0x00158d0003985898
+            name: Light Balkon
+            icon: mdi:ceiling-light
             icon_animation: true
 
           - type: custom:mushroom-fan-card
