@@ -24,6 +24,8 @@
   action:
     - service: light.turn_off
       entity_id: light.wled
+    - service: switch.turn_off
+      entity_id: switch.0x00158d0003985898
 
 - alias: "029_light_living_room_3%"
   description: 'Изменение яркости подсветки по времени в 22:00'
@@ -74,6 +76,8 @@
       data:
         entity_id: light.wled
         brightness_pct: 50
+    - service: switch.turn_on
+      entity_id: switch.0x00158d0003985898
 
 - alias: "029_light_living_room_turn_on_automatic"
   description: 'Применение пресета после сброса питания'
