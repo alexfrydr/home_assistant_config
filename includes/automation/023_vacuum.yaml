@@ -5,7 +5,7 @@
 - alias: "023_Vacuum_started_cleaning"
   trigger:
     platform: state
-    entity_id: vacuum.mi_robot
+    entity_id: vacuum.pylesos_2
     to: cleaning
   action:
   - service: telegram_bot.send_message
@@ -17,7 +17,7 @@
 - alias: "023_Vacuum_stopped_cleaning"
   trigger:
     platform: state
-    entity_id: vacuum.mi_robot
+    entity_id: vacuum.pylesos_2
     from: returning
     to: docked
   action:
@@ -29,11 +29,11 @@
 - alias: "023_Vacuum_reset_to_standard_mode"
   trigger:
     platform: state
-    entity_id: vacuum.mi_robot
+    entity_id: vacuum.pylesos_2
     to: docked
   action:
     service: vacuum.set_fan_speed
-    entity_id: vacuum.mi_robot
+    entity_id: vacuum.pylesos_2
     data:
       fan_speed: Standard
       
@@ -41,7 +41,7 @@
   initial_state: "on"
   trigger:
     platform: state
-    entity_id: vacuum.mi_robot
+    entity_id: vacuum.pylesos_2
     to: docked
   action:
     service: input_boolean.turn_off
@@ -83,9 +83,9 @@
        minutes: 30
   action:
   - service: vacuum.start
-    entity_id: vacuum.mi_robot
+    entity_id: vacuum.pylesos_2
   - service: vacuum.set_fan_speed
-    entity_id: vacuum.mi_robot
+    entity_id: vacuum.pylesos_2
     data:
       fan_speed: Strong
     

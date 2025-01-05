@@ -164,7 +164,7 @@ cards:
             icon_animation: true
 
           - type: custom:mushroom-fan-card
-            entity: vacuum.mi_robot
+            entity: vacuum.pylesos_2
             name: Robot
             tap_action:
               action: more-info
