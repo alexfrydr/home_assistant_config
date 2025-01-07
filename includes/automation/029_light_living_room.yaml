@@ -101,5 +101,27 @@
     type: select_option
     option: Preset 3
   mode: single
+ 
+- alias: "029_light_living_room_Christmas_tree" 
+  description: "Переключение пресетов на ёлке"
+  mode: single
+  triggers:
+    - platform: time_pattern
+      minutes: '/15'
+  conditions:
+    - condition: device
+      type: is_on
+      device_id: c8e395bfdad8c52e8cd70265ff22459f
+      entity_id: c5d4876ae57a4d0376d8af628a9ced88
+      domain: light
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  actions:
+    - device_id: c8e395bfdad8c52e8cd70265ff22459f
+      domain: select
+      entity_id: 40f94190fffce08de1ad8c65a3e6019b
+      type: select_next
+      cycle: true
   
 

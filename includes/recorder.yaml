@@ -94,6 +94,7 @@ include:
     - light.wled_kitchen
     - light.wled_bedroom
     - light.gyver_lamp_esp_ce2392
+    - light.wled_strip_elka
     - switch.aqara_single_key_bathroom
     - switch.hallway_one_gang
     - switch.0x00158d00028b38b0_switch
