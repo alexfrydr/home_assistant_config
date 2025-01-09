@@ -5,7 +5,7 @@
 - alias: "023_Vacuum_started_cleaning"
   trigger:
     platform: state
-    entity_id: vacuum.pylesos_2
+    entity_id: vacuum.dreame_mc1808_e6fb_robot_cleaner
     to: cleaning
   action:
   - service: telegram_bot.send_message
@@ -17,7 +17,7 @@
 - alias: "023_Vacuum_stopped_cleaning"
   trigger:
     platform: state
-    entity_id: vacuum.pylesos_2
+    entity_id: vacuum.dreame_mc1808_e6fb_robot_cleaner
     from: returning
     to: docked
   action:
@@ -29,19 +29,20 @@
 - alias: "023_Vacuum_reset_to_standard_mode"
   trigger:
     platform: state
-    entity_id: vacuum.pylesos_2
+    entity_id: vacuum.dreame_mc1808_e6fb_robot_cleaner
     to: docked
   action:
-    service: vacuum.set_fan_speed
-    entity_id: vacuum.pylesos_2
-    data:
-      fan_speed: Standard
+  - device_id: 0becfdd23f8e874142bdc8a3bf15df57
+    domain: select
+    entity_id: 62767688245e424b4b2164e28fd5b3f4
+    type: select_option
+    option: 标准
       
 - alias: "023_Vacuum_reset_cleaned_today"
   initial_state: "on"
   trigger:
     platform: state
-    entity_id: vacuum.pylesos_2
+    entity_id: vacuum.dreame_mc1808_e6fb_robot_cleaner
     to: docked
   action:
     service: input_boolean.turn_off
@@ -82,12 +83,15 @@
       for:
        minutes: 30
   action:
-  - service: vacuum.start
-    entity_id: vacuum.pylesos_2
-  - service: vacuum.set_fan_speed
-    entity_id: vacuum.pylesos_2
-    data:
-      fan_speed: Strong
+  - device_id: 0becfdd23f8e874142bdc8a3bf15df57
+    domain: vacuum
+    entity_id: 7e1b21955d240e260cc6153548dc9d93
+    type: clean
+  - device_id: 0becfdd23f8e874142bdc8a3bf15df57
+    domain: select
+    entity_id: 62767688245e424b4b2164e28fd5b3f4
+    type: select_option
+    option: 中档
     
 - alias: "023_Vacuum_cleanup:_ON_away"
   description: ''

@@ -1,7 +1,5 @@
 homeassistant:
-  customize:
-    person.alex:
-      entity_picture: /local/person/person_alex.jpg
+  customize: !include includes_private/customize.yaml
   packages: !include_dir_merge_named includes/packages
   allowlist_external_dirs:
    - /config/
@@ -34,7 +32,6 @@ mqtt: !include includes/mqtt_sensors.yaml
 
 ### Includes private
 fan: !include includes_private/fan.yaml
-vacuum: !include includes_private/vacuum.yaml
 media_player: !include includes_private/media_players.yaml
 
 ##### Вынос в папки
@@ -52,7 +49,7 @@ http:
     - 127.0.0.1
     - 172.16.0.0/12
     - ::1
-
+    
 lovelace:
   mode: yaml
   resources:

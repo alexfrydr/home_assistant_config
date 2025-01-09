@@ -1,7 +1,0 @@
-  - platform: template
-    sensors: 
-       apc_ups_battery_custom: 
-         value_template: "{{ states('sensor.ups_battery') | round (0) }}"
-         unit_of_measurement: '%'
-         friendly_name: UPS Battery custom
-
