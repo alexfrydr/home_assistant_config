@@ -212,8 +212,10 @@ telegramm:
             event_data:
               command: '/clean'                
           action:
-            service: vacuum.start
-            entity_id: vacuum.mi_robot
+          - device_id: 0becfdd23f8e874142bdc8a3bf15df57
+            domain: vacuum
+            entity_id: 7e1b21955d240e260cc6153548dc9d93
+            type: clean
             
         - alias: "Pakage: send_vacuum_clean_stop"
           initial_state: true
@@ -223,8 +225,10 @@ telegramm:
             event_data:
               command: '/clean_stop'                
           action:
-            service: vacuum.return_to_base
-            entity_id: vacuum.mi_robot
+          - device_id: 0becfdd23f8e874142bdc8a3bf15df57
+            domain: vacuum
+            entity_id: 7e1b21955d240e260cc6153548dc9d93
+            type: dock
 
         - alias: "Pakage: telegram_keyboard"
           initial_state: true

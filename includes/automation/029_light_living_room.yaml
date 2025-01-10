@@ -123,5 +123,43 @@
       entity_id: 40f94190fffce08de1ad8c65a3e6019b
       type: select_next
       cycle: true
+      
+- alias: "029_light_living_room_Christmas_tree_on_off_segment"
+  description: "Синхронизация включения и отключения сегментов ёлки"
+  triggers:
+  - type: changed_states
+    device_id: c8e395bfdad8c52e8cd70265ff22459f
+    entity_id: c5d4876ae57a4d0376d8af628a9ced88
+    domain: light
+    trigger: device
+  conditions:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  actions:
+  - choose:
+    - conditions:
+      - condition: device
+        type: is_on
+        device_id: c8e395bfdad8c52e8cd70265ff22459f
+        entity_id: c5d4876ae57a4d0376d8af628a9ced88
+        domain: light
+      sequence:
+      - type: turn_on
+        device_id: c8e395bfdad8c52e8cd70265ff22459f
+        entity_id: c93276eb1b6e97d703ea6ca5d8f05337
+        domain: light
+    - conditions:
+      - condition: device
+        type: is_off
+        device_id: c8e395bfdad8c52e8cd70265ff22459f
+        entity_id: c5d4876ae57a4d0376d8af628a9ced88
+        domain: light
+      sequence:
+      - type: turn_off
+        device_id: c8e395bfdad8c52e8cd70265ff22459f
+        entity_id: c93276eb1b6e97d703ea6ca5d8f05337
+        domain: light
+  mode: single
   
 
