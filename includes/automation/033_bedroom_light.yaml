@@ -48,25 +48,55 @@
         entity_id: light.wled_bedroom
         brightness_pct: 5
 
+# - alias: "033_light_bedroom_50%_on"
+#   description: 'Включение подсветки по времени'
+#   trigger:
+#   - platform: time
+#     at: input_datetime.light_bedroom_on
+#   condition:
+#   - condition: state
+#     entity_id: input_boolean.auto_light_bedroom_on_off
+#     state: 'on'
+#   - condition: state
+#     entity_id: input_boolean.control_mode
+#     state: 'on'
+#   - condition: and
+#     conditions:
+#       - condition: state
+#         entity_id:
+#             - light.wled_bedroom
+#         match: any
+#         state: "off"
+#   action:
+#     - service: light.turn_on
+#       data:
+#         entity_id: light.wled_bedroom
+#         brightness_pct: 25
+#     - service: select.select_option
+#       data:
+#         option: Preset 3
+#       target:
+#         entity_id: select.wled_bedroom_preset
+
 - alias: "033_light_bedroom_50%_on"
-  description: 'Включение подсветки по времени'
+  description: 'Включение подсветки по времени с уведомлением о задержке и повторным включением'
   trigger:
-  - platform: time
-    at: input_datetime.light_bedroom_on
+    - platform: time
+      at: input_datetime.light_bedroom_on
   condition:
-  - condition: state
-    entity_id: input_boolean.auto_light_bedroom_on_off
-    state: 'on'
-  - condition: state
-    entity_id: input_boolean.control_mode
-    state: 'on'
-  - condition: and
-    conditions:
-      - condition: state
-        entity_id:
+    - condition: state
+      entity_id: input_boolean.auto_light_bedroom_on_off
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id:
             - light.wled_bedroom
-        match: any
-        state: "off"
+          match: any
+          state: "off"
   action:
     - service: light.turn_on
       data:
@@ -77,6 +107,25 @@
         option: Preset 3
       target:
         entity_id: select.wled_bedroom_preset
+    - repeat:
+        count: 3  # Повторить дважды, всего 4 попытки (первая + 3 повтора)
+        sequence:
+          - delay: "00:01:00"  # Задержка в 1 минут между попытками
+          - condition: state
+            entity_id: light.wled_bedroom
+            state: "off"  # Проверка, что свет не включился
+          - service: light.turn_on
+            data:
+              entity_id: light.wled_bedroom
+              brightness_pct: 50  # Повторная попытка включить свет
+    - condition: state
+      entity_id: light.wled_bedroom
+      state: "off"  # Если после всех попыток свет все еще выключен
+    - service: telegram_bot.send_message
+      data:
+        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+        message: |
+          ⚠️ Лента в спальне не включилась в течение 5 минут.
 
 - alias: "033_light_bedroom_turn_on_automatic_preset_3"
   description: 'Применение пресета после сброса питания'

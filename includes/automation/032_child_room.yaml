@@ -48,30 +48,74 @@
         entity_id: light.wled_2
         brightness_pct: 15
               
+# - alias: "032_light_child_room_50%_on"
+#   description: 'Включение подсветки по времени'
+#   trigger:
+#   - platform: time
+#     at: input_datetime.light_child_room_on
+#   condition:
+#   - condition: state
+#     entity_id: input_boolean.auto_light_child_room
+#     state: 'on'
+#   - condition: state
+#     entity_id: input_boolean.control_mode
+#     state: 'on'
+#   - condition: and
+#     conditions:
+#       - condition: state
+#         entity_id:
+#             - light.wled_2
+#         match: any
+#         state: "off"
+#   action:
+#     - service: light.turn_on
+#       data:
+#         entity_id: light.wled_2
+#         brightness_pct: 50
+
 - alias: "032_light_child_room_50%_on"
-  description: 'Включение подсветки по времени'
+  description: 'Включение подсветки по времени с уведомлением о задержке и повторным включением'
   trigger:
-  - platform: time
-    at: input_datetime.light_child_room_on
+    - platform: time
+      at: input_datetime.light_child_room_on
   condition:
-  - condition: state
-    entity_id: input_boolean.auto_light_child_room
-    state: 'on'
-  - condition: state
-    entity_id: input_boolean.control_mode
-    state: 'on'
-  - condition: and
-    conditions:
-      - condition: state
-        entity_id:
+    - condition: state
+      entity_id: input_boolean.auto_light_child_room
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id:
             - light.wled_2
-        match: any
-        state: "off"
+          match: any
+          state: "off"
   action:
     - service: light.turn_on
       data:
         entity_id: light.wled_2
         brightness_pct: 50
+    - repeat:
+        count: 3  # Повторить дважды, всего 4 попытки (первая + 3 повтора)
+        sequence:
+          - delay: "00:01:00"  # Задержка в 1 минут между попытками
+          - condition: state
+            entity_id: light.wled_2
+            state: "off"  # Проверка, что свет не включился
+          - service: light.turn_on
+            data:
+              entity_id: light.wled_2
+              brightness_pct: 50  # Повторная попытка включить свет
+    - condition: state
+      entity_id: light.wled_2
+      state: "off"  # Если после всех попыток свет все еще выключен
+    - service: telegram_bot.send_message
+      data:
+        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+        message: |
+          ⚠️ Лента в детской не включилась в течение 5 минут.
         
 - alias: "032_light_child_room_turn_on_automatic_wled_2"
   description: 'Применение пресета после сброса питания'

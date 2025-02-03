@@ -52,32 +52,78 @@
         entity_id: light.wled
         brightness_pct: 3
 
+# - alias: "029_light_living_room_50%_on"
+#   description: 'Включение подсветки по времени'
+#   trigger:
+#   - platform: time
+#     at: input_datetime.light_living_room_on
+#   condition:
+#   - condition: state
+#     entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
+#     state: 'on'
+#   - condition: state
+#     entity_id: input_boolean.control_mode
+#     state: 'on'
+#   - condition: and
+#     conditions:
+#       - condition: state
+#         entity_id:
+#             - light.wled
+#         match: any
+#         state: "off"
+#   action:
+#     - service: light.turn_on
+#       data:
+#         entity_id: light.wled
+#         brightness_pct: 50
+#     - service: switch.turn_on
+#       entity_id: switch.0x00158d0003985898
+
 - alias: "029_light_living_room_50%_on"
-  description: 'Включение подсветки по времени'
+  description: 'Включение подсветки по времени с уведомлением о задержке и повторным включением'
   trigger:
-  - platform: time
-    at: input_datetime.light_living_room_on
+    - platform: time
+      at: input_datetime.light_living_room_on
   condition:
-  - condition: state
-    entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
-    state: 'on'
-  - condition: state
-    entity_id: input_boolean.control_mode
-    state: 'on'
-  - condition: and
-    conditions:
-      - condition: state
-        entity_id:
+    - condition: state
+      entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id:
             - light.wled
-        match: any
-        state: "off"
+          match: any
+          state: "off"
   action:
     - service: light.turn_on
       data:
         entity_id: light.wled
         brightness_pct: 50
-    - service: switch.turn_on
+    - service: switch.turn_on   # Включение гирлянды на балконе
       entity_id: switch.0x00158d0003985898
+    - repeat:
+        count: 3  # Повторить дважды, всего 4 попытки (первая + 3 повтора)
+        sequence:
+          - delay: "00:01:00"  # Задержка в 1 минут между попытками
+          - condition: state
+            entity_id: light.wled
+            state: "off"  # Проверка, что свет не включился
+          - service: light.turn_on
+            data:
+              entity_id: light.wled
+              brightness_pct: 50  # Повторная попытка включить свет
+    - condition: state
+      entity_id: light.wled
+      state: "off"  # Если после всех попыток свет все еще выключен
+    - service: telegram_bot.send_message
+      data:
+        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+        message: |
+          ⚠️ Лента в гостинной не включилась в течение 5 минут.
 
 - alias: "029_light_living_room_turn_on_automatic"
   description: 'Применение пресета после сброса питания'
