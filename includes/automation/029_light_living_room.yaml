@@ -45,8 +45,8 @@
   action:
     - service: light.turn_off
       entity_id: light.wled
-    - service: switch.turn_off
-      entity_id: switch.0x00158d0003985898
+    # - service: switch.turn_off
+    #   entity_id: switch.0x00158d0003985898
     - repeat:
         count: 10  # 10 попыток выключения (итого 10 минут)
         sequence:
@@ -58,14 +58,14 @@
             entity_id: light.wled  # Повторное выключение
           - service: switch.turn_off
             entity_id: switch.0x00158d0003985898
-    - condition: state
-      entity_id: light.wled
-      state: "on"  # Если после всех попыток лента все еще включена
-    - service: telegram_bot.send_message
-      data:
-        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
-        message: |
-          ⚠️ Лента в гостинной не выключилась в течение 10 минут.
+          - condition: state
+            entity_id: light.wled
+            state: "on"  # Если после всех попыток лента все еще включена
+          - service: telegram_bot.send_message
+            data:
+              title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+              message: |
+                  ⚠️ Лента в гостинной не выключилась в течение 10 минут.
 
 - alias: "029_light_living_room_3%"
   description: 'Изменение яркости подсветки по времени в 22:00'
@@ -156,14 +156,14 @@
             data:
               entity_id: light.wled
               brightness_pct: 50  # Повторная попытка включить свет
-    - condition: state
-      entity_id: light.wled
-      state: "off"  # Если после всех попыток свет все еще выключен
-    - service: telegram_bot.send_message
-      data:
-        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
-        message: |
-          ⚠️ Лента в гостинной не включилась в течение 5 минут.
+          - condition: state
+            entity_id: light.wled
+            state: "off"  # Если после всех попыток свет все еще выключен
+          - service: telegram_bot.send_message
+            data:
+              title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+              message: |
+                ⚠️ Лента в гостинной не включилась в течение 5 минут.
 
 - alias: "029_light_living_room_turn_on_automatic"
   description: 'Применение пресета после сброса питания'
