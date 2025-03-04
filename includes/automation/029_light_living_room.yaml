@@ -2,30 +2,7 @@
 # Автоматизации управления светом в гостинной
 # -----------------------------------------------------------
 
-# - alias: "029_light_living_room_off"
-#   description: 'Выключение подсветки по времени'
-#   trigger:
-#   - platform: time
-#     at: input_datetime.light_living_room_off
-#   condition:
-#   - condition: state
-#     entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
-#     state: 'on'
-#   - condition: state
-#     entity_id: input_boolean.control_mode
-#     state: 'on'
-#   - condition: and
-#     conditions:
-#       - condition: state
-#         entity_id:
-#             - light.wled
-#         match: any
-#         state: "on"
-#   action:
-#     - service: light.turn_off
-#       entity_id: light.wled
-#     - service: switch.turn_off
-#       entity_id: switch.0x00158d0003985898
+
 
 - alias: "029_light_living_room_off"
   description: 'Выключение подсветки по времени с повторными попытками и уведомлением'
@@ -45,27 +22,43 @@
   action:
     - service: light.turn_off
       entity_id: light.wled
-    # - service: switch.turn_off
-    #   entity_id: switch.0x00158d0003985898
     - repeat:
-        count: 10  # 10 попыток выключения (итого 10 минут)
+        while:
+            condition: or
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity_id: light.wled
+                    state: "off"
+                  - condition: state
+                    entity_id: light.wled
+                    state: unavailable
+                  - condition: state
+                    entity_id: light.wled
+                    state: unknown
         sequence:
-          - delay: "00:01:00"  # Задержка 1 минута перед повторной проверкой
-          - condition: state
-            entity_id: light.wled
-            state: "on"  # Проверка, выключилась ли лента
-          - service: light.turn_off
-            entity_id: light.wled  # Повторное выключение
-          - service: switch.turn_off
-            entity_id: switch.0x00158d0003985898
-          - condition: state
-            entity_id: light.wled
-            state: "on"  # Если после всех попыток лента все еще включена
-          - service: telegram_bot.send_message
-            data:
-              title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
-              message: |
-                  ⚠️ Лента в гостинной не выключилась в течение 10 минут.
+            - service: light.turn_off
+              entity_id: light.wled
+            - delay: 00:02:00
+            - service: light.turn_off
+              entity_id: light.wled
+            - delay: 00:02:00
+            - service: light.turn_off
+              entity_id: light.wled
+            - delay: 00:02:00
+            - service: light.turn_off
+              entity_id: light.wled
+            - delay: 00:02:00
+            - service: light.turn_off
+              entity_id: light.wled
+            - delay: 00:02:00
+            - service: light.turn_off
+              entity_id: light.wled
+            - service: telegram_bot.send_message
+              data:
+                message: |
+                    ⚠️ Лента в гостинной не выключилась в течение 10 минут.
 
 - alias: "029_light_living_room_3%"
   description: 'Изменение яркости подсветки по времени в 22:00'
@@ -92,33 +85,6 @@
         entity_id: light.wled
         brightness_pct: 3
 
-# - alias: "029_light_living_room_50%_on"
-#   description: 'Включение подсветки по времени'
-#   trigger:
-#   - platform: time
-#     at: input_datetime.light_living_room_on
-#   condition:
-#   - condition: state
-#     entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
-#     state: 'on'
-#   - condition: state
-#     entity_id: input_boolean.control_mode
-#     state: 'on'
-#   - condition: and
-#     conditions:
-#       - condition: state
-#         entity_id:
-#             - light.wled
-#         match: any
-#         state: "off"
-#   action:
-#     - service: light.turn_on
-#       data:
-#         entity_id: light.wled
-#         brightness_pct: 50
-#     - service: switch.turn_on
-#       entity_id: switch.0x00158d0003985898
-
 - alias: "029_light_living_room_50%_on"
   description: 'Включение подсветки по времени с уведомлением о задержке и повторным включением'
   trigger:
@@ -143,27 +109,43 @@
       data:
         entity_id: light.wled
         brightness_pct: 50
-    - service: switch.turn_on   # Включение гирлянды на балконе
-      entity_id: switch.0x00158d0003985898
     - repeat:
-        count: 3  # Повторить дважды, всего 4 попытки (первая + 3 повтора)
+        while:
+            condition: or
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity_id: light.wled
+                    state: "off"
+                  - condition: state
+                    entity_id: light.wled
+                    state: unavailable
+                  - condition: state
+                    entity_id: light.wled
+                    state: unknown
         sequence:
-          - delay: "00:01:00"  # Задержка в 1 минут между попытками
-          - condition: state
-            entity_id: light.wled
-            state: "off"  # Проверка, что свет не включился
-          - service: light.turn_on
-            data:
+            - service: light.turn_on
               entity_id: light.wled
-              brightness_pct: 50  # Повторная попытка включить свет
-          - condition: state
-            entity_id: light.wled
-            state: "off"  # Если после всех попыток свет все еще выключен
-          - service: telegram_bot.send_message
-            data:
-              title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
-              message: |
-                ⚠️ Лента в гостинной не включилась в течение 5 минут.
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.wled
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.wled
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.wled
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.wled
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.wled
+            - service: telegram_bot.send_message
+              data:
+                message: |
+                    ⚠️ Лента в гостинной не включилась в течение 10 минут.
 
 - alias: "029_light_living_room_turn_on_automatic"
   description: 'Применение пресета после сброса питания'
