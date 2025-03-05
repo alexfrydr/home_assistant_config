@@ -30,7 +30,7 @@
                 conditions:
                   - condition: state
                     entity_id: light.wled
-                    state: "off"
+                    state: "on"
                   - condition: state
                     entity_id: light.wled
                     state: unavailable

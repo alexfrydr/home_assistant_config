@@ -2,28 +2,7 @@
 # Автоматизации управления освещением в спальне
 # -----------------------------------------------------------
 
-# - alias: "033_light_bedroom_off"
-#   description: 'Выключение подсветки по времени'
-#   trigger:
-#   - platform: time
-#     at: input_datetime.light_bedroom_off
-#   condition:
-#   - condition: state
-#     entity_id: input_boolean.auto_light_bedroom_on_off
-#     state: 'on'
-#   - condition: state
-#     entity_id: input_boolean.control_mode
-#     state: 'on'
-#   - condition: and
-#     conditions:
-#       - condition: state
-#         entity_id:
-#             - light.wled_bedroom
-#         match: any
-#         state: "on"
-#   action:
-#     - service: light.turn_off
-#       entity_id: light.wled_bedroom
+
 
 - alias: "033_light_bedroom_off"
   description: 'Выключение подсветки в спальне по времени с повторными попытками и уведомлением'
@@ -44,22 +23,42 @@
     - service: light.turn_off
       entity_id: light.wled_bedroom
     - repeat:
-        count: 10  # 10 попыток выключения (10 минут)
+        while:
+            condition: or
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity_id: light.wled_bedroom
+                    state: "on"
+                  - condition: state
+                    entity_id: light.wled_bedroom
+                    state: unavailable
+                  - condition: state
+                    entity_id: light.wled_bedroom
+                    state: unknown
         sequence:
-          - delay: "00:01:00"  # Задержка 1 минута перед повторной проверкой
-          - condition: state
-            entity_id: light.wled_bedroom
-            state: "on"  # Проверка, выключилась ли лента
-          - service: light.turn_off
-            entity_id: light.wled_bedroom  # Повторное выключение
-    - condition: state
-      entity_id: light.wled_bedroom
-      state: "on"  # Если после всех попыток лента все еще включена
-    - service: telegram_bot.send_message
-      data:
-        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
-        message: |
-          ⚠️ Лента в спальне не выключилась в течение 10 минут.
+            - service: light.turn_off
+              entity_id: light.wled_bedroom
+            - delay: 00:02:00
+            - service: light.turn_off
+              entity_id: light.wled_bedroom
+            - delay: 00:02:00
+            - service: light.turn_off
+              entity_id: light.wled_bedroom
+            - delay: 00:02:00
+            - service: light.turn_off
+              entity_id: light.wled_bedroom
+            - delay: 00:02:00
+            - service: light.turn_off
+              entity_id: light.wled_bedroom
+            - delay: 00:02:00
+            - service: light.turn_off
+              entity_id: light.wled_bedroom
+            - service: telegram_bot.send_message
+              data:
+                message: |
+                    ⚠️ Лента в спальне не выключилась в течение 10 минут.
 
 - alias: "033_light_bedroom_3%_strip_on_22:00"
   description: 'Измение яркости после 22:00'
@@ -83,36 +82,6 @@
       data:
         entity_id: light.wled_bedroom
         brightness_pct: 5
-
-# - alias: "033_light_bedroom_50%_on"
-#   description: 'Включение подсветки по времени'
-#   trigger:
-#   - platform: time
-#     at: input_datetime.light_bedroom_on
-#   condition:
-#   - condition: state
-#     entity_id: input_boolean.auto_light_bedroom_on_off
-#     state: 'on'
-#   - condition: state
-#     entity_id: input_boolean.control_mode
-#     state: 'on'
-#   - condition: and
-#     conditions:
-#       - condition: state
-#         entity_id:
-#             - light.wled_bedroom
-#         match: any
-#         state: "off"
-#   action:
-#     - service: light.turn_on
-#       data:
-#         entity_id: light.wled_bedroom
-#         brightness_pct: 25
-#     - service: select.select_option
-#       data:
-#         option: Preset 3
-#       target:
-#         entity_id: select.wled_bedroom_preset
 
 - alias: "033_light_bedroom_50%_on"
   description: 'Включение подсветки по времени с уведомлением о задержке и повторным включением'
@@ -144,24 +113,42 @@
       target:
         entity_id: select.wled_bedroom_preset
     - repeat:
-        count: 3  # Повторить дважды, всего 4 попытки (первая + 3 повтора)
+        while:
+            condition: or
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity_id: light.wled_bedroom
+                    state: "off"
+                  - condition: state
+                    entity_id: light.wled_bedroom
+                    state: unavailable
+                  - condition: state
+                    entity_id: light.wled_bedroom
+                    state: unknown
         sequence:
-          - delay: "00:01:00"  # Задержка в 1 минут между попытками
-          - condition: state
-            entity_id: light.wled_bedroom
-            state: "off"  # Проверка, что свет не включился
-          - service: light.turn_on
-            data:
+            - service: light.turn_on
               entity_id: light.wled_bedroom
-              brightness_pct: 50  # Повторная попытка включить свет
-    - condition: state
-      entity_id: light.wled_bedroom
-      state: "off"  # Если после всех попыток свет все еще выключен
-    - service: telegram_bot.send_message
-      data:
-        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
-        message: |
-          ⚠️ Лента в спальне не включилась в течение 5 минут.
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.wled_bedroom
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.wled_bedroom
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.wled_bedroom
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.wled_bedroom
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.wled_bedroom
+            - service: telegram_bot.send_message
+              data:
+                message: |
+                    ⚠️ Лента в спальне не включилась в течение 10 минут.
 
 - alias: "033_light_bedroom_turn_on_automatic_preset_3"
   description: 'Применение пресета после сброса питания'
