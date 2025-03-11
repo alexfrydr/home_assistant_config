@@ -39,6 +39,8 @@ auto_fan_xiaomi_on_off:
   name: Auto humidifier
 cube_mode:
   name: Aqara Cube mode On/Off
+water_mode_alarm:
+  name: Leak alert 
 cleaned_today:
   name: Auto vacuum cleaned today
   icon: mdi:broom

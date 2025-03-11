@@ -2,6 +2,31 @@
 # Автоматизации управления датчиками протечки
 # -----------------------------------------------------------
 
+- alias: "006_temporarily_disable_notification"
+  description: "Временно отключить оповещение о протечке"
+  trigger:
+    platform: event
+    event_type: telegram_callback
+    event_data:
+      command: '/disable_notification_leak'
+  condition: []
+  action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.water_mode_alarm
+  - service: telegram_bot.send_message
+    data:
+      message: |
+           ⚠  Отключение режима отслеживания датчиков протечки на 1 час.
+  - delay: 01:00:00
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.water_mode_alarm
+  - service: telegram_bot.send_message
+    data:
+      message: |
+           ⚠  Режим отслеживания датчиков протечки включен.
+
 - alias: "006_Alarm_Aqara_water_sensor_bathroom_ON"
   description: "Оповещение о протечке в ванной"
   trigger:
@@ -15,12 +40,16 @@
           - condition: state
             entity_id: binary_sensor.water_leak_sensor_bathroom_water_leak
             state: 'on'
+          - condition: state
+            entity_id: input_boolean.water_mode_alarm
+            state: 'on'
         sequence:
           - service: telegram_bot.send_message
             data:
               title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
-              message: |
-                   ⚠  Протечка в ванной {{ states('sensor.date_time') }}
+              message: "⚠  Протечка в ванной {{ states('sensor.date_time') }}"
+              inline_keyboard: 
+                - 'Временно отключить?:/disable_notification_leak'
           - service: script.turn_on
             entity_id: 
                 - script.yandex_tts3
@@ -29,7 +58,7 @@
                 entity_id: media_player.mpd
                 media_content_id: "http://10.123.10.84:8123/local/sound/alarm_2.mp3"
                 media_content_type: 'music'
-          - delay: 00:00:05
+          - delay: 00:01:00
 
 - alias: "006_Alarm_Aqara_water_sensor_bathroom_OFF"
   description: 'Оповещение о устранении протечки в ванной'
@@ -61,12 +90,16 @@
           - condition: state
             entity_id: binary_sensor.water_leak_sensor_kitchen_water_leak
             state: 'on'
+          - condition: state
+            entity_id: input_boolean.water_mode_alarm
+            state: 'on'
         sequence:
           - service: telegram_bot.send_message
             data:
               title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
-              message: | 
-                   ⚠  Протечка на кухне {{ states('sensor.date_time') }}
+              message: "⚠  Протечка на кухне {{ states('sensor.date_time') }}"
+              inline_keyboard: 
+                - 'Временно отключить?:/disable_notification_leak'
           - service: script.turn_on
             entity_id: 
                 - script.yandex_tts4
@@ -75,7 +108,7 @@
                 entity_id: media_player.mpd
                 media_content_id: "http://10.123.10.84:8123/local/sound/alarm_2.mp3"
                 media_content_type: 'music'
-          - delay: 00:00:05
+          - delay: 00:01:00
              
 - alias: "006_Alarm_Aqara_water_sensor_kitchen_OFF"
   description: 'Оповещение о устранении протечки на кухне'

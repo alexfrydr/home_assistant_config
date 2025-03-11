@@ -124,6 +124,7 @@ cards:
               padding: 5
               entities:
               - entity: input_boolean.control_mode
+              - entity: input_boolean.water_mode_alarm
               - entity: input_boolean.alarm_clock
               - entity: input_boolean.cube_mode
               - entity: input_boolean.control_fan_mode
@@ -137,6 +138,7 @@ cards:
               - entity: input_boolean.doorbell_mode
               - entity: input_boolean.intercom_mode
               - entity: input_number.aqara_cube
+
         - type: custom:auto-entities
           show_empty: false
           card:
