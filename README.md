@@ -6,9 +6,9 @@
 в базе данных homeassistant и, следовательно, здесь не показаны.
 
 ## Что интересного:
-- Голосовое управление через Яндекс станции.
+- [Голосовое управление через Яндекс станции.](https://github.com/dext0r/yandex_smart_home)
 - Автоматическое управление подсветкой.
-- Автоматическое управление освещением в ванной, прихожей и складом.
+- Автоматическое управление освещением в [ванной](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/005_bathroom.yaml), [прихожей](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/007_Light_hallway.yaml) и [складом](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/034_stock_light.yaml). 
 - Автоматическое управление вентиляцией.
 - Автоматическое управление домофоном.
 - Автоматическое управление увлажнителем.
