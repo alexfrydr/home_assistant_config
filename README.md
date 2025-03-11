@@ -9,16 +9,15 @@
 - [Голосовое управление через Яндекс станции.](https://github.com/dext0r/yandex_smart_home)
 - Автоматическое управление подсветкой.
 - Автоматическое управление освещением в [ванной](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/005_bathroom.yaml), [прихожей](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/007_Light_hallway.yaml) и [складом](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/034_stock_light.yaml). 
-- Автоматическое управление вентиляцией.
-- Автоматическое управление домофоном.
+- Автоматическое управление [вентиляцией](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/005_bathroom.yaml).
+- Автоматическое управление [домофоном](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/025_intercom.yaml).
 - Автоматическое управление увлажнителем.
 - Автоматическая уборка.
 - Автоматическая установка темы.
 - Управление будильником.
 - Управление умными колонками и телевизором.
-- Упрвление умным домом через telegramm.
-- Оповещение о протечках воды ванная и кухня.
-- Отключение оповещения о протечках не отключая автоматизацию 
+- Упрвление умным домом через [telegramm](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/packages/001_telegramm.yaml).
+- Оповещение о протечках воды [ванная и кухня](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/006_Water_sensor.yaml) с временным отключением.
 - Оповещение о наличии дыма на кухне.
 - Оповещение о открытой входной двери больше 5 минут.
 - Оповещения что я в домашней зоне.
@@ -55,18 +54,18 @@
 
 Я использую [Supervised install](https://www.home-assistant.io/getting-started/) со следующими дополнениями:
 
-- [Advanced SSH & Web Terminal](https://github.com/hassio-addons/addon-ssh) version 17.2.0 by @hassio-addons
+- [Advanced SSH & Web Terminal](https://github.com/hassio-addons/addon-ssh) by @hassio-addons
 - [ESPHome](https://github.com/esphome/) version 2024.3.1 by @esphome
-- [File editor](https://github.com/home-assistant/addons/tree/master/configurator) version 5.8.0 by @home-assistant
-- [Home Assistant Google Drive Backup](https://github.com/sabeechen/hassio-google-drive-backup) version 0.112.1 by @sabeechen
-- [Let's Encrypt](https://github.com/home-assistant/addons/tree/master/letsencrypt) version 5.0.18 by @home-assistant
-- [MariaDB](https://github.com/home-assistant/addons/tree/master/mariadb) version 2.7.1 by @home-assistant
-- [Mopidy](https://github.com/bestlibre/hassio-addons/tree/master/mopidy) version 0.2.7 by @bestlibre
-- [Mosquitto broker](https://github.com/home-assistant/addons/tree/master/mosquitto) version 6.4.0 by @home-assistant
-- [NGINX Home Assistant SSL proxy](https://github.com/home-assistant/addons/tree/master/nginx_proxy) version 3.9.0 by @home-assistant
-- [Studio Code Server](https://github.com/hassio-addons/addon-vscode) version 5.15.0 by @hassio-addons
-- [Vaultwarden (Bitwarden)](https://github.com/hassio-addons/addon-bitwarden) version 0.21.1 by @hassio-addons
-- [Zigbee2MQTT](https://github.com/zigbee2mqtt/hassio-zigbee2mqtt/tree/master/zigbee2mqtt) version 1.37.1-1 by @zigbee2mqtt
-- [Zigbee2MQTT Edge](https://github.com/zigbee2mqtt/hassio-zigbee2mqtt/tree/master/zigbee2mqtt-edge) version edge by @zigbee2mqtt
+- [File editor](https://github.com/home-assistant/addons/tree/master/configurator) by @home-assistant
+- [Home Assistant Google Drive Backup](https://github.com/sabeechen/hassio-google-drive-backup) by @sabeechen
+- [Let's Encrypt](https://github.com/home-assistant/addons/tree/master/letsencrypt) by @home-assistant
+- [MariaDB](https://github.com/home-assistant/addons/tree/master/mariadb) by @home-assistant
+- [Mopidy](https://github.com/bestlibre/hassio-addons/tree/master/mopidy) by @bestlibre
+- [Mosquitto broker](https://github.com/home-assistant/addons/tree/master/mosquitto) by @home-assistant
+- [NGINX Home Assistant SSL proxy](https://github.com/home-assistant/addons/tree/master/nginx_proxy) by @home-assistant
+- [Studio Code Server](https://github.com/hassio-addons/addon-vscode) by @hassio-addons
+- [Vaultwarden (Bitwarden)](https://github.com/hassio-addons/addon-bitwarden) by @hassio-addons
+- [Zigbee2MQTT](https://github.com/zigbee2mqtt/hassio-zigbee2mqtt/tree/master/zigbee2mqtt) by @zigbee2mqtt
+- [Zigbee2MQTT Edge](https://github.com/zigbee2mqtt/hassio-zigbee2mqtt/tree/master/zigbee2mqtt-edge) by @zigbee2mqtt
 
 🏡🔧📱💡🚪🚿🛋️🔌
