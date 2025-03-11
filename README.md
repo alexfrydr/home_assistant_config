@@ -71,21 +71,27 @@
 ## Некоторые скриншоты
 
 Уведомление в телеграмм о протечке.
+
 ![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/img/Screenshot_50.png)
 
 Статус системы после перезагрузки и вызов меню.
+
 ![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/img/Screenshot_51.png)
 
 Оповещение о звонке в дверь.
+
 ![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/img/Screenshot_52.png)
 
 Оповещение о том что я домашней зоне.
+
 ![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/img/Screenshot_54.png)
 
 Автоматическая постановка в режим охраны если дома никого нет.
+
 ![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/img/Screenshot_55.png)
 
 Оповещение о звонке в домофон и возможности открытия или сброса звонка.
+
 ![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/img/Screenshot_56.png)
 
 🏡🔧📱💡🚪🚿🛋️🔌
