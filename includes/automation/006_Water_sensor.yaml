@@ -16,6 +16,7 @@
       entity_id: input_boolean.water_mode_alarm
   - service: telegram_bot.send_message
     data:
+      title: "🎉 *Сообщение системы*" 
       message: |
            ⚠  Отключение режима отслеживания датчиков протечки на 1 час.
   - delay: 01:00:00
@@ -24,6 +25,7 @@
       entity_id: input_boolean.water_mode_alarm
   - service: telegram_bot.send_message
     data:
+      title: "🎉 *Сообщение системы*" 
       message: |
            ⚠  Режим отслеживания датчиков протечки включен.
 
@@ -46,8 +48,8 @@
         sequence:
           - service: telegram_bot.send_message
             data:
-              title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
-              message: "⚠  Протечка в ванной {{ states('sensor.date_time') }}"
+              title: "🎉 *Сообщение системы*" 
+              message: "⚠  Протечка в ванной"
               inline_keyboard: 
                 - 'Временно отключить?:/disable_notification_leak'
           - service: script.turn_on
@@ -70,9 +72,9 @@
   action:
     - service: telegram_bot.send_message
       data_template:
-        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+        title: "🎉 *Сообщение системы*" 
         message: | 
-             ⚠  Протечка в ванной устранена {{ states('sensor.date_time') }}
+             ⚠  Протечка в ванной устранена!
     - service: script.turn_on
       entity_id: 
          - script.yandex_tts5
@@ -96,8 +98,8 @@
         sequence:
           - service: telegram_bot.send_message
             data:
-              title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
-              message: "⚠  Протечка на кухне {{ states('sensor.date_time') }}"
+              title: "🎉 *Сообщение системы*" 
+              message: "⚠  Протечка на кухне"
               inline_keyboard: 
                 - 'Временно отключить?:/disable_notification_leak'
           - service: script.turn_on
@@ -120,9 +122,9 @@
   action:
     - service: telegram_bot.send_message
       data_template:
-        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+        title: "🎉 *Сообщение системы*" 
         message: | 
-             ⚠  Протечка на кухне устранена {{ states('sensor.date_time') }}
+             ⚠  Протечка на кухне устранена 
     - service: script.turn_on
       entity_id: 
          - script.yandex_tts5

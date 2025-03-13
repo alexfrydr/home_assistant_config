@@ -20,7 +20,7 @@
   - data: {}
     service: telegram_bot.send_message
     data_template:
-      title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+      title: "🎉 *Сообщение системы*"
       message: >
         ⚠  Превышение температуры процессора {{ states('sensor.processor_temperature') }}
         
@@ -42,7 +42,7 @@
   - data: {}
     service: telegram_bot.send_message
     data_template:
-      title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+      title: "🎉 *Сообщение системы*"
       message: >
         ⚠  Тревога, высокая утилизация процессорного времени {{ states('sensor.processor_use') }}
     
@@ -64,7 +64,7 @@
   - data: {}
     service: telegram_bot.send_message
     data_template:
-      title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+      title: "🎉 *Сообщение системы*"
       message: >
         ⚠  Превышение используемого объёма диска {{ states('sensor.disk_use_percent') }}
     
@@ -86,7 +86,7 @@
   - data: {}
     service: telegram_bot.send_message
     data_template:
-      title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+      title: "🎉 *Сообщение системы*"
       message: >
         ⚠  Превышение используемого объёма памяти {{ states('sensor.date_time') }}
     
@@ -128,7 +128,7 @@
   action:
   - service: telegram_bot.send_message
     data_template:
-      title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+      title: "🎉 *Сообщение системы*"
       message: >
         {% if trigger.to_state.state == 'offline' %}
           ⚠ Потеряна связь с Zigbee координатором {{ states('sensor.date_time') }}
@@ -254,7 +254,7 @@
   - data: {}
     service: telegram_bot.send_message
     data_template:
-      title: "*Problem with Internet!* ⚠️"
+      title: "🎉 *Сообщение системы*" 
       message: >
         ⚠  Потеряна связь с интернетом {{ states('sensor.date_time') }}
         
@@ -274,7 +274,7 @@
   - data: {}
     service: telegram_bot.send_message
     data_template:
-      title: "*Problem with Internet!* ⚠️"
+      title: "🎉 *Сообщение системы*" 
       message: >
         👍  Cвязь с интернетом восстановлена {{ states('sensor.date_time') }}
 
@@ -294,7 +294,7 @@
   - data: {}
     service: telegram_bot.send_message
     data_template:
-      title: "*Problem with Cam* ⚠️"
+      title: "🎉 *Сообщение системы*" 
       message: >
         ⚠  Потеряна связь с камерой на 7 этаже {{ states('sensor.date_time') }}
 
@@ -314,7 +314,7 @@
   - data: {}
     service: telegram_bot.send_message
     data_template:
-      title: "*Problem with Cam* ⚠️"
+      title: "🎉 *Сообщение системы*" 
       message: >
         👍  Связь с камерой на 7 этаже восстановлена {{ states('sensor.date_time') }}
 
@@ -333,7 +333,8 @@
   action:
     service: telegram_bot.send_message
     data_template:
-      message: "Загрузка torrent-файла завершена"
+        title: "🎉 *Сообщение системы*" 
+        message: "Загрузка torrent-файла завершена"
 
 - alias: "004_Полнолуние"
   trigger:
@@ -347,7 +348,8 @@
   action:
     service: telegram_bot.send_message
     data_template:
-      message: "Сегодня полнолуние!"
+        title: "🎉 *Сообщение системы*" 
+        message: "Сегодня полнолуние!"
       
 - alias: "004_HACS:_New_Component_Version_Available"
   trigger:

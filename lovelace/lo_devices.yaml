@@ -138,6 +138,7 @@ cards:
               - entity: input_boolean.doorbell_mode
               - entity: input_boolean.intercom_mode
               - entity: input_number.aqara_cube
+              - entity: switch.deti_block_windows 
 
         - type: custom:auto-entities
           show_empty: false
@@ -285,8 +286,7 @@ cards:
               tap_action:
                 action: more-info
               name: Последнее включение света на кухне -
-
-
+              
 ##########################################################################
 #                                                                        #
 #                              * КОЛОНКА 4 *                             #

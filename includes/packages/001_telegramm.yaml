@@ -36,13 +36,13 @@ telegramm:
          - service: telegram_bot.send_message
            data:
              message: | 
-                 📢  *ОПОВЕЩЕНИЕ СИСТЕМЫ*
-                 🗒 Отчет за {{ states('sensor.time') }}
-                 🌡 Температура CPU - {{ states('sensor.processor_temperature') }} °C
-                 💡 Светильников недоступно - {{ states('sensor.unavailable_now_light') }} 
-                 🔧  Свичей недоступно - {{ states('sensor.unavailable_now_switch') }} 
-                 🔧  Сенсоров недоступно - {{ states('sensor.unavailable_now_sensor') }} 
-                 🔧  Бинарных сенсоров недоступно - {{ states('sensor.unavailable_now_binary_sensor') }}
+                🎉 *Сообщение системы*  
+                ⏰ Время: {{ states('sensor.time') }}  
+                🔥 CPU: {{ states('sensor.processor_temperature') }} °C  
+                💡 Недоступно светильников: {{ states('sensor.unavailable_now_light') }}  
+                🔧 Недоступно свичей: {{ states('sensor.unavailable_now_switch') }}  
+                📡 Недоступно сенсоров: {{ states('sensor.unavailable_now_sensor') }}  
+                🤖 Недостпно бинарных сенсоров: {{ states('sensor.unavailable_now_binary_sensor') }}
                  
       temp_report:
         alias: "Pakage: Отправка отчета о состоянии температуры в доме"
@@ -149,9 +149,9 @@ telegramm:
              - service: telegram_bot.send_message
                data:
                  message: | 
-                     📢 *ОПОВЕЩЕНИЕ СИСТЕМЫ* 
-                     📝  Зафиксирован запуск сервера в {{ states('sensor.time') }} 
-                     👉  Отчет о состоянии будет через 1 минуту...            
+                    🎉 *Сообщение системы* 
+                    📝  Зафиксирован запуск сервера в {{ states('sensor.time') }} 
+                    👉  Отчет о состоянии будет через 1 минуту...            
              - delay: 00:01:10
              - service: script.turn_on
                entity_id: script.system_report

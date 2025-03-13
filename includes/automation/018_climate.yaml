@@ -106,9 +106,9 @@
   action:
     - service: telegram_bot.send_message
       data_template:
-        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+        title: "🎉 *Сообщение системы*" 
         message: | 
-             ⚠  В увлажнителе  закончилась вода {{ states('sensor.date_time') }}
+             ⚠  В увлажнителе  закончилась вода 
     - service: input_boolean.turn_off
       entity_id: input_boolean.auto_fan_xiaomi_on_off
     - service: media_player.volume_set
@@ -120,7 +120,7 @@
     - service: tts.yandex_station_say
       entity_id: media_player.yandex_station_540078920110102034cf
       data_template:
-        title: '*ОПОВЕЩЕНИЕ СИСТЕМЫ:*'
+        title: "🎉 *Сообщение системы*" 
         message: В увлажнителе закончилась вода.
 
 - alias: "018_humidifier_auto_on"
