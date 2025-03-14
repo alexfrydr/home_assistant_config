@@ -1,0 +1,254 @@
+
+    title: Home
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: Погода
+            icon: mdi:thermometer
+          - type: weather-forecast
+            entity: weather.home
+            show_forecast: false
+            forecast_type: daily
+            grid_options:
+              columns: 12
+              rows: 2
+      - type: grid
+        cards:
+          - type: heading
+            heading: Коридор
+            heading_style: title
+            icon: mdi:coat-rack
+            badges:
+              - type: entity
+                show_state: false
+                show_icon: true
+                entity: binary_sensor.kam02_home_cell_motion_detection
+                color: blue
+              - type: entity
+                show_state: false
+                show_icon: true
+                entity: binary_sensor.door_window_contact_sensor_hallway_contact
+                color: blue
+            grid_options:
+              columns: 12
+              rows: 1
+          - type: custom:mushroom-light-card
+            entity: light.0x54ef4410008178c4_right
+            name: Коридор
+            grid_options:
+              columns: 6
+              rows: 1
+          - type: custom:mushroom-light-card
+            entity: light.0x54ef4410008178c4_left
+            name: Склад
+            grid_options:
+              columns: 6
+              rows: 1
+      - type: grid
+        cards:
+          - type: heading
+            heading: Кухня
+            heading_style: title
+            icon: mdi:fridge
+            badges:
+              - type: entity
+                show_state: false
+                show_icon: true
+                entity: binary_sensor.water_leak_sensor_kitchen_water_leak
+                color: blue
+              - type: entity
+                show_state: false
+                show_icon: true
+                entity: binary_sensor.honeywell_detector_smoke
+                color: blue
+          - type: custom:mushroom-light-card
+            entity: light.0xec1bbdfffe803961
+            name: Свет
+          - type: custom:mushroom-light-card
+            entity: light.0x00158d00028b38b0
+            name: Подсветка
+          - type: custom:mushroom-vacuum-card
+            entity: vacuum.dreame_mc1808_e6fb_robot_cleaner
+            name: Пылесос
+            commands:
+              - start_pause
+              - stop
+              - return_home
+            grid_options:
+              columns: 12
+              rows: 2
+      - type: grid
+        cards:
+          - type: heading
+            heading: Детская
+            heading_style: title
+            icon: mdi:teddy-bear
+            badges:
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.aqara_t_h_child_room_temperature
+                color: red
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.aqara_t_h_child_room_humidity
+                color: indigo
+              - type: entity
+                show_state: false
+                show_icon: true
+                entity: binary_sensor.door_window_contact_sensor_kitchen_contact
+                color: blue
+          - type: custom:mushroom-light-card
+            entity: light.wled_2
+            name: Подсветка
+            show_brightness_control: true
+          - type: custom:mushroom-media-player-card
+            entity: media_player.yandex_station_m003nh2007vwab
+      - type: grid
+        cards:
+          - type: heading
+            heading: Охрана
+            heading_style: title
+            icon: mdi:security
+          - type: custom:mushroom-alarm-control-panel-card
+            entity: alarm_control_panel.home_alarm
+            states:
+              - armed_home
+              - armed_away
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: tile
+            entity: script.turn_off_away_person
+            features_position: bottom
+            vertical: true
+            show_entity_picture: false
+            hide_state: true
+            icon: mdi:home-export-outline
+            name: Я ухожу
+          - type: tile
+            entity: script.turn_off_light
+            features_position: bottom
+            vertical: true
+            icon: mdi:lightbulb-group-off
+            name: Выключить свет везде
+            hide_state: true
+          - type: entities
+            entities:
+              - entity: select.0x00124b002262723d_mode
+                name: Действие
+              - entity: switch.0x00124b002262723d_sound
+                name: Звук
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: Гостинная
+            icon: mdi:sofa
+            badges:
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.aqara_t_h_living_room_temperature
+                color: red
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.aqara_t_h_living_room_humidity
+                color: indigo
+          - type: custom:mushroom-light-card
+            entity: light.wled
+            name: Подсветка
+            show_brightness_control: true
+            use_light_color: false
+          - type: custom:mushroom-media-player-card
+            entity: media_player.lg_webos_smart_tv
+            name: Телевизор
+          - type: custom:mushroom-media-player-card
+            entity: media_player.yandex_station_540078920110102034cf
+      - type: grid
+        cards:
+          - type: heading
+            heading: Ванная
+            heading_style: title
+            icon: mdi:shower
+            badges:
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.aqara_t_h_bathroom_temperature
+                color: red
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.aqara_t_h_bathroom_humidity
+                color: indigo
+              - type: entity
+                show_state: false
+                show_icon: true
+                entity: binary_sensor.motion_in_bathroom
+                color: blue
+              - type: entity
+                show_state: false
+                show_icon: true
+                entity: binary_sensor.water_leak_sensor_bathroom_water_leak
+                color: blue
+          - type: custom:mushroom-light-card
+            entity: light.0x54ef4410008194ad
+            name: Свет
+          - type: custom:mushroom-fan-card
+            entity: fan.rele01
+            icon_animation: true
+            name: Вентиляция
+      - type: grid
+        cards:
+          - type: heading
+            heading: Спальня
+            heading_style: title
+            icon: mdi:bed
+            badges:
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.aqara_t_h_bedroom_temperature
+                color: red
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.aqara_t_h_bedroom_humidity
+                color: indigo
+          - type: custom:mushroom-light-card
+            entity: light.wled_bedroom
+            name: Подсветка
+            show_brightness_control: true
+            grid_options:
+              columns: 12
+              rows: 2
+    badges:
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        color: red
+        entity: sensor.outdoor_temperature
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        color: ''
+        entity: person.alex
+        name: Alex
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        color: ''
+        entity: person.victoriya
+        name: Viktoriya
+    type: sections
+    max_columns: 4
+    icon: mdi:bed-king-outline
+    cards: []

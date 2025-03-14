@@ -160,26 +160,54 @@
     alias: Выключить всё?
     sequence:
         - service: light.turn_off
+          entity_id: light.wled_bedroom
+        - service: fan.turn_off
+          entity_id: fan.rele01
+        - service: light.turn_off
+          entity_id: light.0x54ef4410008194ad
+        - service: light.turn_off
+          entity_id: light.0xec1bbdfffe803961
+        - service: light.turn_off
+          entity_id: light.0x00158d00028b38b0
+        - service: light.turn_off
           entity_id: light.wled
-        - service: light.turn_off
-          entity_id: light.wled_2
-        - service: light.turn_off
-          entity_id: light.gyver_lamp_esp_ce2392
-        - delay: 00:00:05
         - service: media_player.turn_off
           entity_id: media_player.lg_webos_smart_tv
-        - delay: 00:00:05
+        - service: media_player.turn_off
+          entity_id: media_player.yandex_station_540078920110102034cf
+        - service: media_player.turn_off
+          entity_id: media_player.yandex_station_m003nh2007vwab          
+        - service: light.turn_off
+          entity_id: light.wled_2  
+        - service: light.turn_off
+          entity_id: light.0x54ef4410008178c4_left
         - service: switch.turn_off
-          entity_id: switch.hallway_one_gang
+          entity_id: switch.0x54ef4410008178c4_right
+        - service: alarm_control_panel.alarm_arm_away
+          entity_id: alarm_control_panel.home_alarm
+          
+  turn_off_light:
+    alias: Выключить свет?
+    sequence:
+        - service: light.turn_off
+          entity_id: light.wled_bedroom
+        - service: fan.turn_off
+          entity_id: fan.rele01
+        - service: light.turn_off
+          entity_id: light.0x54ef4410008194ad
+        - service: light.turn_off
+          entity_id: light.0xec1bbdfffe803961
+        - service: light.turn_off
+          entity_id: light.0x00158d00028b38b0
+        - service: light.turn_off
+          entity_id: light.wled
+        - service: light.turn_off
+          entity_id: light.wled_2  
+        - service: light.turn_off
+          entity_id: light.0x54ef4410008178c4_left
         - service: switch.turn_off
-          entity_id: switch.aqara_single_key_bathroom         
-        - service: switch.turn_off
-          entity_id: switch.0x00158d00028b38b0_switch
-        - delay: 00:00:05
-        - service: telegram_bot.send_message
-          data_template:
-            message: "Команда: Выключить всё. Выполнена."
-            
+          entity_id: switch.0x54ef4410008178c4_right
+
   intercom_open_once:
     alias: Однократное открытие
     sequence:
