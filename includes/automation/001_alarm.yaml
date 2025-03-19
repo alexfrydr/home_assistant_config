@@ -55,6 +55,11 @@
         title: '🔒 *Сигнализация*'
         message: |
             Сигнализация снята с охраны!
+    - delay: 00:01:00
+    - service: telegram_bot.delete_message
+      data:
+        chat_id: !secret telegram_bot_allowed_chat_id1
+        message_id: last
               
 - alias: '001_Send_notification_when_alarm_is_in_pending_status'
   description: "Отправка сообщения о режиме ожидания в телеграмм"
@@ -72,6 +77,11 @@
         title: '🔒 *Сигнализация*'
         message: |
             Сигнализация находится в состоянии ожидания!
+    - delay: 00:00:30
+    - service: telegram_bot.delete_message
+      data:
+        chat_id: !secret telegram_bot_allowed_chat_id1
+        message_id: last
 
 - alias: '001_Send_notification_when_alarm_is_Armed_in_Away_mode'
   description: "Отправка сообщения о режиме Не дома в телеграмм"
@@ -89,6 +99,11 @@
         title: '🔒 *Сигнализация*'
         message: |
             Сигнализация включена в режиме «Не дома»
+    - delay: 00:01:00
+    - service: telegram_bot.delete_message
+      data:
+        chat_id: !secret telegram_bot_allowed_chat_id1
+        message_id: last
            
 - alias: '001_Send_notification_when_alarm_is_Armed_in_Home_mode'
   description: "Отправка сообщения о домашнем режиме в телеграмм"
@@ -106,6 +121,11 @@
         title: '🔒 *Сигнализация*'
         message: |
             Сигнализация активирована в домашнем режиме!
+    - delay: 00:01:00
+    - service: telegram_bot.delete_message
+      data:
+        chat_id: !secret telegram_bot_allowed_chat_id1
+        message_id: last
 
 - alias: '001_Trigger_alarm_while_armed_home'
   description: "Тревога в режиме дома"
@@ -152,6 +172,11 @@
                 message: |
                     Входная дверь открыта больше 5 минут.
           - delay: 00:00:05
+          - service: telegram_bot.delete_message
+            data:
+              chat_id: !secret telegram_bot_allowed_chat_id1
+              message_id: last
+          - delay: 00:00:05
           
 - alias: "001_Security:_Signaling._Forgot_to_put_it?"
   description: "Постановка на охрану если ни кого нет дома"
@@ -185,6 +210,11 @@
     - delay: 00:00:02
     - service: alarm_control_panel.alarm_arm_away
       entity_id: alarm_control_panel.home_alarm
+    - delay: 00:00:30
+    - service: telegram_bot.delete_message
+      data:
+        chat_id: !secret telegram_bot_allowed_chat_id1
+        message_id: last
 
 - alias: "001_Security:_Signaling._Cancellation"
   description: "Отмена постановки на охрану командой в телеграмм"
@@ -204,6 +234,11 @@
       data_template:
         title: '🔒 *Сигнализация*'
         message: "Получена команда. Отменить постановку на сигнализацию."
+    - delay: 00:00:30
+    - service: telegram_bot.delete_message
+      data:
+        chat_id: !secret telegram_bot_allowed_chat_id1
+        message_id: last
         
 - alias: "001_Security:_Signaling._Armed"
   description: "Постановка на охрану командой в телеграмм"
@@ -223,6 +258,11 @@
       data_template:
         title: '🔒 *Сигнализация*'
         message: "Получена команда. Постановка на сигнализацию."
+    - delay: 00:00:30
+    - service: telegram_bot.delete_message
+      data:
+        chat_id: !secret telegram_bot_allowed_chat_id1
+        message_id: last
         
 - alias: "001_Security:_Signaling._disarming"
   description: "Снятие с охраны при нахождении персон в домашней зоне и статусе охраны не дома"

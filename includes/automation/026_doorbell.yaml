@@ -40,7 +40,12 @@
     data:
         title: "🎉 *Сообщение системы*"
         message: | 
-            "Кто-то звонит в дверь!" 
+            "Кто-то звонит в дверь!"
+  - delay: 00:00:05
+  - service: telegram_bot.delete_message
+    data:
+      chat_id: !secret telegram_bot_allowed_chat_id1
+      message_id: last
 
 - alias: "026_doorbell_notify_Off"
   trigger:

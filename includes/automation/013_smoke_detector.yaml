@@ -25,6 +25,11 @@
             entity_id: 
                 - script.yandex_tts8
           - delay: 00:00:05
+          - service: telegram_bot.delete_message
+            data:
+              chat_id: !secret telegram_bot_allowed_chat_id1
+              message_id: last
+          - delay: 00:00:05
 
 - alias: "013_Smoke_Detector_Alarm_OFF"
   description: "Оповещение о устранении дыма"
@@ -38,5 +43,10 @@
     data_template:
         title: "🎉 *Сообщение системы*" 
         message: | 
-             ⚠  Внимание! Источник дыма устранен! 
-             
+             ⚠  Внимание! Источник дыма устранен!
+  - delay: 00:00:05
+  - service: telegram_bot.delete_message
+    data:
+      chat_id: !secret telegram_bot_allowed_chat_id1
+      message_id: last
+     

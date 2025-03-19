@@ -23,6 +23,11 @@
       title: "🎉 *Сообщение системы*"
       message: >
         ⚠  Превышение температуры процессора {{ states('sensor.processor_temperature') }}
+  - delay: 00:00:30
+  - service: telegram_bot.delete_message
+    data:
+      chat_id: !secret telegram_bot_allowed_chat_id1
+      message_id: last
         
 - alias: "004_System_CPU_usage_alarm"
   description: "Тревога превышение порога утилизации процессора"
@@ -45,6 +50,11 @@
       title: "🎉 *Сообщение системы*"
       message: >
         ⚠  Тревога, высокая утилизация процессорного времени {{ states('sensor.processor_use') }}
+  - delay: 00:00:30
+  - service: telegram_bot.delete_message
+    data:
+      chat_id: !secret telegram_bot_allowed_chat_id1
+      message_id: last
     
 - alias: "004_System_Disk_usage_alarm"
   description: "Тревога превышение порога использования диска"
@@ -135,6 +145,11 @@
         {% elif trigger.to_state.state == 'online' %}
           ⚠ Связь с Zigbee координатором восстановлена {{ states('sensor.date_time') }}
         {% endif %}
+  - delay: 00:00:30
+  - service: telegram_bot.delete_message
+    data:
+      chat_id: !secret telegram_bot_allowed_chat_id1
+      message_id: last
 
 
 # - alias: "004_Zigbee_Bridge_state_offline"
@@ -256,7 +271,12 @@
     data_template:
       title: "🎉 *Сообщение системы*" 
       message: >
-        ⚠  Потеряна связь с интернетом {{ states('sensor.date_time') }}
+        ❌ Потеряна связь с интернетом {{ states('sensor.date_time') }}
+  - delay: 00:00:05
+  - service: telegram_bot.delete_message
+    data:
+      chat_id: !secret telegram_bot_allowed_chat_id1
+      message_id: last
         
 - alias: "004_internet_ping_available"
   description: "Оповещение о восстновлении интренет соединения"
@@ -276,7 +296,12 @@
     data_template:
       title: "🎉 *Сообщение системы*" 
       message: >
-        👍  Cвязь с интернетом восстановлена {{ states('sensor.date_time') }}
+        ✅  Cвязь с интернетом восстановлена {{ states('sensor.date_time') }}
+  - delay: 00:00:05
+  - service: telegram_bot.delete_message
+    data:
+      chat_id: !secret telegram_bot_allowed_chat_id1
+      message_id: last
 
 - alias: "The camera on the 7th floor is unavailable"
   description: ''

@@ -20,7 +20,7 @@
         inline_keyboard:
           - 'Открыть?:/door_open'
           - 'Не открывать!:/door_drop'
-        
+
 - alias: "025_doorbell_notify_intercom_open"
   description: "Открыть дверь при звонке"
   trigger:

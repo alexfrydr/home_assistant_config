@@ -20,8 +20,6 @@
       entity_id: light.wled
       state: "on"
   action:
-    - service: light.turn_off
-      entity_id: light.wled
     - repeat:
         while:
             condition: or
@@ -59,6 +57,7 @@
               data:
                 message: |
                     ⚠️ Лента в гостинной не выключилась в течение 10 минут.
+            - delay: 00:00:05
 
 - alias: "029_light_living_room_3%"
   description: 'Изменение яркости подсветки по времени в 22:00'
@@ -105,10 +104,6 @@
           match: any
           state: "off"
   action:
-    - service: light.turn_on
-      data:
-        entity_id: light.wled
-        brightness_pct: 50
     - repeat:
         while:
             condition: or
@@ -126,26 +121,39 @@
                     state: unknown
         sequence:
             - service: light.turn_on
-              entity_id: light.wled
+              data:
+                entity_id: light.wled
+                brightness_pct: 50
             - delay: 00:02:00
             - service: light.turn_on
-              entity_id: light.wled
+              data:
+                entity_id: light.wled
+                brightness_pct: 50
             - delay: 00:02:00
             - service: light.turn_on
-              entity_id: light.wled
+              data:
+                entity_id: light.wled
+                brightness_pct: 50
             - delay: 00:02:00
             - service: light.turn_on
-              entity_id: light.wled
+              data:
+                entity_id: light.wled
+                brightness_pct: 50
             - delay: 00:02:00
             - service: light.turn_on
-              entity_id: light.wled
+              data:
+                entity_id: light.wled
+                brightness_pct: 50
             - delay: 00:02:00
             - service: light.turn_on
-              entity_id: light.wled
+              data:
+                entity_id: light.wled
+                brightness_pct: 50
             - service: telegram_bot.send_message
               data:
                 message: |
                     ⚠️ Лента в гостинной не включилась в течение 10 минут.
+            - delay: 00:00:05
 
 - alias: "029_light_living_room_turn_on_automatic"
   description: 'Применение пресета после сброса питания'
