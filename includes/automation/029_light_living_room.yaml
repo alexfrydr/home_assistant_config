@@ -22,42 +22,51 @@
   action:
     - repeat:
         while:
-            condition: or
+          - condition: or
             conditions:
-              - condition: or
-                conditions:
-                  - condition: state
-                    entity_id: light.wled
-                    state: "on"
-                  - condition: state
-                    entity_id: light.wled
-                    state: unavailable
-                  - condition: state
-                    entity_id: light.wled
-                    state: unknown
+              - condition: state
+                entity_id: light.wled
+                state: "on"
+              - condition: state
+                entity_id: light.wled
+                state: unavailable
+              - condition: state
+                entity_id: light.wled
+                state: unknown
         sequence:
-            - service: light.turn_off
-              entity_id: light.wled
-            - delay: 00:02:00
-            - service: light.turn_off
-              entity_id: light.wled
-            - delay: 00:02:00
-            - service: light.turn_off
-              entity_id: light.wled
-            - delay: 00:02:00
-            - service: light.turn_off
-              entity_id: light.wled
-            - delay: 00:02:00
-            - service: light.turn_off
-              entity_id: light.wled
-            - delay: 00:02:00
-            - service: light.turn_off
-              entity_id: light.wled
-            - service: telegram_bot.send_message
-              data:
-                message: |
-                    ⚠️ Лента в гостинной не выключилась в течение 10 минут.
-            - delay: 00:00:05
+          - service: light.turn_off
+            entity_id: light.wled
+          - delay: 00:02:00
+          - service: light.turn_off
+            entity_id: light.wled
+          - delay: 00:02:00
+          - service: light.turn_off
+            entity_id: light.wled
+          - delay: 00:02:00
+          - service: light.turn_off
+            entity_id: light.wled
+          - delay: 00:02:00
+          - service: light.turn_off
+            entity_id: light.wled
+          - delay: 00:02:00
+          - service: light.turn_off
+            entity_id: light.wled
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: light.wled
+          state: "on"
+        - condition: state
+          entity_id: light.wled
+          state: unavailable
+        - condition: state
+          entity_id: light.wled
+          state: unknown
+    - service: telegram_bot.send_message
+      data:
+        message: |
+          ⚠️ Лента в гостинной не выключилась в течение 10 минут.
+    - delay: 00:00:05
 
 - alias: "029_light_living_room_3%"
   description: 'Изменение яркости подсветки по времени в 22:00'
@@ -149,11 +158,22 @@
               data:
                 entity_id: light.wled
                 brightness_pct: 50
-            - service: telegram_bot.send_message
-              data:
-                message: |
-                    ⚠️ Лента в гостинной не включилась в течение 10 минут.
-            - delay: 00:00:05
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: light.wled
+          state: "off"
+        - condition: state
+          entity_id: light.wled
+          state: unavailable
+        - condition: state
+          entity_id: light.wled
+          state: unknown
+    - service: telegram_bot.send_message
+      data:
+        message: |
+            ⚠️ Лента в гостинной не включилась в течение 10 минут.
+    - delay: 00:00:05
 
 - alias: "029_light_living_room_turn_on_automatic"
   description: 'Применение пресета после сброса питания'

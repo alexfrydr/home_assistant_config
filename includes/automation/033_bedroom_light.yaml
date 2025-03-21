@@ -22,19 +22,17 @@
   action:
     - repeat:
         while:
-            condition: or
+          - condition: or
             conditions:
-              - condition: or
-                conditions:
-                  - condition: state
-                    entity_id: light.wled_bedroom
-                    state: "on"
-                  - condition: state
-                    entity_id: light.wled_bedroom
-                    state: unavailable
-                  - condition: state
-                    entity_id: light.wled_bedroom
-                    state: unknown
+              - condition: state
+                entity_id: light.wled_bedroom
+                state: "on"
+              - condition: state
+                entity_id: light.wled_bedroom
+                state: unavailable
+              - condition: state
+                entity_id: light.wled_bedroom
+                state: unknown
         sequence:
             - service: light.turn_off
               entity_id: light.wled_bedroom
@@ -53,11 +51,22 @@
             - delay: 00:02:00
             - service: light.turn_off
               entity_id: light.wled_bedroom
-            - service: telegram_bot.send_message
-              data:
-                message: |
-                    ⚠️ Лента в спальне не выключилась в течение 10 минут.
-            - delay: 00:00:05
+    - condition: or
+      conditions:
+          - condition: state
+            entity_id: light.wled_bedroom
+            state: "on"
+          - condition: state
+            entity_id: light.wled_bedroom
+            state: unavailable
+          - condition: state
+            entity_id: light.wled_bedroom
+            state: unknown
+    - service: telegram_bot.send_message
+      data:
+        message: |
+            ⚠️ Лента в спальне не выключилась в течение 10 минут.
+    - delay: 00:00:05
 
 - alias: "033_light_bedroom_3%_strip_on_22:00"
   description: 'Измение яркости после 22:00'
@@ -104,19 +113,17 @@
   action:
     - repeat:
         while:
-            condition: or
+          - condition: or
             conditions:
-              - condition: or
-                conditions:
-                  - condition: state
-                    entity_id: light.wled_bedroom
-                    state: "off"
-                  - condition: state
-                    entity_id: light.wled_bedroom
-                    state: unavailable
-                  - condition: state
-                    entity_id: light.wled_bedroom
-                    state: unknown
+              - condition: state
+                entity_id: light.wled_bedroom
+                state: "off"
+              - condition: state
+                entity_id: light.wled_bedroom
+                state: unavailable
+              - condition: state
+                entity_id: light.wled_bedroom
+                state: unknown
         sequence:
             - service: light.turn_on
               data:
@@ -177,11 +184,22 @@
                 option: Preset 3
               target:
                 entity_id: select.wled_bedroom_preset
-            - service: telegram_bot.send_message
-              data:
-                message: |
-                    ⚠️ Лента в спальне не включилась в течение 10 минут.
-            - delay: 00:00:05
+    - condition: or
+      conditions:
+          - condition: state
+            entity_id: light.wled_bedroom
+            state: "off"
+          - condition: state
+            entity_id: light.wled_bedroom
+            state: unavailable
+          - condition: state
+            entity_id: light.wled_bedroom
+            state: unknown
+    - service: telegram_bot.send_message
+      data:
+        message: |
+            ⚠️ Лента в спальне не включилась в течение 10 минут.
+    - delay: 00:00:05
 
 - alias: "033_light_bedroom_turn_on_automatic_preset_3"
   description: 'Применение пресета после сброса питания'
