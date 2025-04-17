@@ -18,7 +18,7 @@
       conditions:
           - condition: state
             entity_id: binary_sensor.kam02_home_cell_motion_detection
-            state: 'on'
+            state: 'off'
             for:
               hours: 0
               minutes: 5
