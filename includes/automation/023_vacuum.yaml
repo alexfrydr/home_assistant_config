@@ -24,7 +24,7 @@
     - service: telegram_bot.send_message
       data:
         title: "🎉 *Сообщение системы*" 
-        message: "Уборка успешно завершена после {{ state_attr('vacuum.mi_robot', 'cleaning_time') }} минут."
+        message: "Уборка успешно завершена после {{ state_attr('vacuum.dreame_mc1808_e6fb_robot_cleaner', 'cleaning_timer') }} минут."
         
 - alias: "023_Vacuum_reset_to_standard_mode"
   trigger:
@@ -36,7 +36,7 @@
     domain: select
     entity_id: 62767688245e424b4b2164e28fd5b3f4
     type: select_option
-    option: 标准
+    option: Standard
       
 - alias: "023_Vacuum_reset_cleaned_today"
   initial_state: "on"
@@ -91,7 +91,7 @@
     domain: select
     entity_id: 62767688245e424b4b2164e28fd5b3f4
     type: select_option
-    option: 中档
+    option: Medium
     
 - alias: "023_Vacuum_cleanup:_ON_away"
   description: ''

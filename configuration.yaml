@@ -43,6 +43,9 @@ group: !include includes/groups.yaml
 wake_on_lan:
 browser:
 
+xiaomi_miot:
+  language: en
+
 http:
   use_x_forwarded_for: true
   trusted_proxies:
