@@ -31,9 +31,11 @@ cards:
                 font-family: var(--primary-font-family);
                 --card-background-color: none
       - type: custom:simple-weather-card
-        entity: weather.home
+        entity: weather.iot
+        name: Weather
         primary_info:
           - wind_bearing
+          - wind_speed
           - humidity
         secondary_info:
           - precipitation
