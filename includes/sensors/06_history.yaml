@@ -114,7 +114,7 @@
          
   - platform: history_stats
     name: light_kitchen
-    entity_id: light.kitchen_one_gang
+    entity_id: light.0xec1bbdfffe803961
     state: 'on'
     type: time
     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
