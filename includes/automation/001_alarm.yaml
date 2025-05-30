@@ -99,12 +99,7 @@
         title: '🔒 *Сигнализация*'
         message: |
             Сигнализация включена в режиме «Не дома»
-    - delay: 00:01:00
-    - service: telegram_bot.delete_message
-      data:
-        chat_id: !secret telegram_bot_allowed_chat_id1
-        message_id: last
-           
+
 - alias: '001_Send_notification_when_alarm_is_Armed_in_Home_mode'
   description: "Отправка сообщения о домашнем режиме в телеграмм"
   trigger:
@@ -171,11 +166,6 @@
                 title: '🔒 *Сигнализация*'
                 message: |
                     Входная дверь открыта больше 5 минут.
-          - delay: 00:00:05
-          - service: telegram_bot.delete_message
-            data:
-              chat_id: !secret telegram_bot_allowed_chat_id1
-              message_id: last
           - delay: 00:00:05
           
 - alias: "001_Security:_Signaling._Forgot_to_put_it?"

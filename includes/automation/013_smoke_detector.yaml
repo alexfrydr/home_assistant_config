@@ -24,7 +24,7 @@
           - service: script.turn_on
             entity_id: 
                 - script.yandex_tts8
-          - delay: 00:00:05
+          - delay: 00:00:20
           - service: telegram_bot.delete_message
             data:
               chat_id: !secret telegram_bot_allowed_chat_id1
