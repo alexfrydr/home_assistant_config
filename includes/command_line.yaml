@@ -1,0 +1,92 @@
+#Список покупок - сенсор
+#Объект: sensor.shopping_list_sensor
+  - sensor:
+      name: 'Список покупок - сенсор'
+      unique_id: shopping_list_sensor
+      command: 'python3 /config/python_scripts/send_shoppinglist.py'
+      json_attributes:
+        - not_complete
+        - content
+      value_template: '{{ value_json.state }}'
+      scan_interval: 60
+      
+#Список покупок. Кол-во не завершенных
+#Объект: sensor.shopping_list_not_complete
+  - sensor:
+      name: 'Список покупок. Кол-во не завершенных'
+      unique_id: shopping_list_not_complete
+      state: '{{ state_attr("sensor.shopping_list_sensor","not_complete") }}'
+      icon: mdi:cart-variant
+      
+  - sensor:
+    #Сенсор. Яндекс станция слушает или находится в ожидании
+      - platform: template
+        sensors:
+          yandex_station_waiting:
+            friendly_name: "Яндекс станция в ожидании"
+            value_template: >-
+              {% if expand('group.yandex_stations') | selectattr('attributes.alice_state', 'eq', 'LISTENING') | map(attribute='entity_id') | list %}
+              LISTENING
+              {% else %}
+              IDLE
+              {% endif %}
+            icon_template: >-
+              {% if is_state('sensor.yandex_station_waiting', 'IDLE') %}
+                mdi:account-tie-voice-off
+              {% else %}
+                mdi:account-tie-voice
+              {% endif %}    
+              
+#Сенсор последней активной яндекс колонки. Отображает имя колонки
+  - platform: template
+    sensors:
+      yandex_station_last_activity_name:
+        friendly_name: "Последняя активная яндекс станция. Имя"
+        value_template: >-
+          {% if expand('group.yandex_stations') | selectattr('attributes.alice_state', 'eq', 'LISTENING') | map(attribute='name') | list | join(",") %}
+          {{ expand('group.yandex_stations') | selectattr('attributes.alice_state', 'eq', 'LISTENING') | map(attribute='name') | list | join(",") }}
+          {% else %}
+          off
+          {% endif %}
+        icon_template: >-
+          {% if is_state('sensor.yandex_station_last_activity_entity_id', 'off') %}
+            mdi:account-tie-voice-off
+          {% else %}
+            mdi:account-tie-voice
+          {% endif %}
+
+#Сенсор отображает последнюю активную колонку по голосу
+  - platform: template
+    sensors:
+      yandex_station_last_activity_entity_id:
+        friendly_name: "Последняя активная яндекс станция. Слушает"
+        value_template: >-
+          {% if expand('group.yandex_stations') | selectattr('attributes.alice_state', 'eq', 'LISTENING') | map(attribute='entity_id') | list | join(",") %}
+          {{ expand('group.yandex_stations') | selectattr('attributes.alice_state', 'eq', 'LISTENING') | map(attribute='entity_id') | list | join(",") }}
+          {% else %}
+          off
+          {% endif %}
+        icon_template: >-
+          {% if is_state('sensor.yandex_station_last_activity_entity_id', 'off') %}
+            mdi:account-tie-voice-off
+          {% else %}
+            mdi:account-tie-voice
+          {% endif %}
+
+#Сенсор отображает какая колонка говорит
+  - platform: template
+    sensors:
+      yandex_station_speaking_entity_id:
+        friendly_name: "Последняя активная яндекс станция. Говорит"
+        value_template: >-
+          {% if expand('group.yandex_stations') | selectattr('attributes.alice_state', 'eq', 'SPEAKING') | map(attribute='entity_id') | list | join(",") %}
+          {{ expand('group.yandex_stations') | selectattr('attributes.alice_state', 'eq', 'SPEAKING') | map(attribute='entity_id') | list | join(",") }}
+          {% else %}
+          off
+          {% endif %}
+        icon_template: >-
+          {% if is_state('sensor.yandex_station_last_activity_entity_id', 'off') %}
+            mdi:account-tie-voice-off
+          {% else %}
+            mdi:account-tie-voice
+          {% endif %}

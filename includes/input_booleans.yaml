@@ -65,3 +65,4 @@ control_fan_mode:
   name: Auto fan mode bathroom
 google_calendar_mode:
   name: Google calendar mode
+

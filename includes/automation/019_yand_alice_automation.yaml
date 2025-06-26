@@ -89,3 +89,45 @@
       data:
         media_content_id: Стоп
         media_content_type: command
+        
+# - alias: "Список покупок: Диалог. Яндекс станция. Отправить список в телеграм"
+#   description: По просьбе Алисы список покупок будет отправлен в телеграм
+#   trigger:
+#       - platform: event
+#         event_type: yandex_intent
+#         event_data:
+#           text: отправь список продуктов на телефон
+#         alias: "Событие: Яндекс"
+#       - platform: state
+#         entity_id:
+#           - sensor.shopping_list_sensor
+#         from: Список пуст
+#         to: Список полон
+#         id: Список покупок - сенсор
+#         alias: Список покупок - сенсор
+#       - platform: state
+#         entity_id:
+#           - sensor.shopping_list_not_complete
+#         alias: Список покупок. Кол-во не завершенных
+#         id: Список покупок. Кол-во не завершенных
+#   condition: []
+#   action:
+#       - choose:
+#           - conditions:
+#               - condition: template
+#                 value_template: >-
+#                   {{ trigger.event.data.text in ["отправь список продуктов на
+#                   телефон"] }}
+#                 alias: Если сработал триггер на отправь список продуктов на телефон
+#             sequence:
+#               - service: script.shopping_list_update
+#                 data: {}
+#           - conditions:
+#               - condition: trigger
+#                 id: Список покупок. Кол-во не завершенных
+#                 alias: Список покупок. Кол-во не завершенных
+#             sequence:
+#               - service: script.shopping_list_telegram
+#                 data: {}
+#         default: []
+#   mode: single

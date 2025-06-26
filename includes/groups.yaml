@@ -5,3 +5,11 @@ persons:
     - person.victoriya
     - person.semen
     - person.katerina
+    
+yandex_stations:
+    name: "Яндекс станции"
+    all: false
+    entities:
+      - media_player.yandex_station_540078920110102034cf # Яндекс станция большая в гостиной
+      - media_player.yandex_station_m003nh2007vwab # Яндекс станция мини в детской
+

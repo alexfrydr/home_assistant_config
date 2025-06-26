@@ -12,6 +12,7 @@
 /automations.yaml
 /blueprints
 /custom_components
+/python_scripts
 /customize.yaml
 /deps
 /dev

@@ -147,14 +147,14 @@
     - service: input_boolean.turn_on
       entity_id: input_boolean.cleaned_today
 
-  update_shopping_list:
-    alias: Обновить список покупок
-    sequence:
-      - service: media_player.play_media
-        entity_id: media_player.yandex_station_540078920110102034cf  
-        data:
-          media_content_id: update
-          media_content_type: shopping_list
+#   update_shopping_list:
+#     alias: Обновить список покупок
+#     sequence:
+#       - service: media_player.play_media
+#         entity_id: media_player.yandex_station_540078920110102034cf  
+#         data:
+#           media_content_id: update
+#           media_content_type: shopping_list
 
   turn_off_away_person:
     alias: Выключить всё?
@@ -277,3 +277,26 @@
         entity_id: media_player.yandex_station_540078920110102034cf  
     mode: single
     icon: 'mdi:phone-classic'
+
+  shopping_list_update:
+      alias: Список покупок. Обновить
+      sequence:
+        - service: media_player.play_media
+          data:
+            media_content_id: update
+            media_content_type: shopping_list
+          target:
+            entity_id: "{{ states('input_text.yandex_station_last_activity') }}"
+      mode: single
+      icon: mdi:cart-arrow-down
+
+  shopping_list_telegram:  
+      alias: Список покупок. Телеграм
+      sequence:
+        - service: telegram_bot.send_message
+          data:
+            message: "{{ states.sensor.spisok_pokupok_sensor.attributes.content }}"
+            target: "{{ trigger.event.data.chat_id }}"
+            title: "*Список покупок:*"
+      mode: single
+      icon: mdi:cart-arrow-down  
