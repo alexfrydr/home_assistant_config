@@ -28,7 +28,7 @@ recorder: !include includes/recorder.yaml
 scene: !include includes/scenes.yaml
 script: !include includes/script.yaml
 timer: !include includes/timer.yaml
-telegram_bot: !include includes/telegram_bot.yaml
+#telegram_bot: !include includes/telegram_bot.yaml
 switch: !include includes/switch.yaml
 automation ui: !include automations.yaml
 person: !include includes/persons.yaml
