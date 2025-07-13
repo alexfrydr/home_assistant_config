@@ -1,0 +1,19 @@
+template:
+  - sensor:
+      - name: "BLE Местоположение"
+        state: >
+          {% set rssi = {
+            'Кухня': states('sensor.rssi_kitchen')|int(-100),
+            'Гостиная': states('sensor.rssi_livingroom')|int(-100),
+            'Спальня': states('sensor.rssi_bedroom')|int(-100),
+            'Детская': states('sensor.rssi_kidsroom')|int(-100),
+            'Коридор': states('sensor.rssi_hallway')|int(-100)
+          } %}
+          {{ rssi | dictsort(reverse=true, by='value') | first | first }}
+        attributes:
+          rssi_values: >
+            Кухня={{ states('sensor.rssi_kitchen') }},
+            Гостиная={{ states('sensor.rssi_livingroom') }},
+            Спальня={{ states('sensor.rssi_bedroom') }},
+            Детская={{ states('sensor.rssi_kidsroom') }},
+            Коридор={{ states('sensor.rssi_hallway') }}
