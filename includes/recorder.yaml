@@ -36,6 +36,7 @@ include:
     - sensor.ble_moisture_c47c8d67c259
     - sensor.ble_temperature_c47c8d67c259
     - sensor.apc_ups_battery_custom
+    - sensor.ups_line_frequency
     - sensor.aqara_cube_battery
     - sensor.button_keypad_01_battery
     - sensor.door_window_contact_sensor_hallway_battery

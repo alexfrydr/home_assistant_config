@@ -173,6 +173,7 @@ cards:
           - entity: sensor.ups_output_voltage
           - entity: sensor.ups_internal_temperature
           - entity: sensor.ups_load
+          - entity: sensor.ups_line_frequency
           - entity: sensor.ups_time_left
 
 

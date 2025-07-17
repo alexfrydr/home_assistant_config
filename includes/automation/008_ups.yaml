@@ -92,4 +92,15 @@
           🔍 Данные: {{ states('sensor.ups_last_self_test') }}
         parse_mode: markdown
         
+- alias: "APC: Низкая частота сети"
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.ups_line_freq
+    below: 49.5
+  action:
+  - service: telegram_bot.send_message
+    data:
+      title: "⚠️ Низкая частота сети!"
+      message: "{{ states('sensor.ups_line_freq') }} Гц (должно быть 50 Гц)"
+        
 
