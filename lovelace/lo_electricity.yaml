@@ -153,27 +153,28 @@ cards:
 
   - type: vertical-stack
     cards:
-    #   - type: markdown
-    #     content: "## APC UPS"
-    #     style: |
-    #       ha-card {
-    #         box-shadow: none;
-    #         border: none;
-    #         background: none;
-    #         font-family: var(--primary-font-family);
-    #         --card-background-color: none
-    #       }
-    #   - type: entities
-    #     show_header_toggle: false
-    #     entities:
-    #       - entity: sensor.ups_internal_temperature
-    #       - entity: sensor.apc_ups_battery_custom
-    #         icon: "mdi:battery"
-    #         name: UPS Battery
-    #       - entity: sensor.ups_load
-    #       - entity: sensor.ups_battery_shutdown
-    #       - entity: sensor.ups_input_voltage
-    #       - entity: sensor.ups_output_voltage
+      - type: markdown
+        content: "## Back-UPS CS 350"
+        style: |
+          ha-card {
+            box-shadow: none;
+            border: none;
+            background: none;
+            font-family: var(--primary-font-family);
+            --card-background-color: none
+          }
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - entity: sensor.ups_model
+          - entity: binary_sensor.ups_online_status
+          - entity: sensor.ups_battery
+          - entity: sensor.ups_input_voltage
+          - entity: sensor.ups_output_voltage
+          - entity: sensor.ups_internal_temperature
+          - entity: sensor.ups_load
+          - entity: sensor.ups_time_left
+
 
       ################# Включенные светильники #################
 

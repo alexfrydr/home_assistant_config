@@ -3,32 +3,93 @@
 # (в настоящий момент не используется)
 # -----------------------------------------------------------
 
-# - alias: "008_APC_ON_BATTARY"
-#   trigger:
-#   - platform: state
-#     entity_id:
-#     - binary_sensor.ups_online_status
-#     from: 'on'
-#     to: 'off'
-#   condition: []
-#   action:
-#   - service: telegram_bot.send_message
-#     data:
-#      title: "*APC UPS trouble!* ⚠️☢️☠️"
-#      message: | 
-#         Сбой электропитания!
+- alias: "008_APC: Питание от батареи"
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.ups_online_status
+    from: 'on'
+    to: 'off'
+  action:
+  - service: telegram_bot.send_message
+    data:
+      title: "⚡ Питание от батареи!"
+      message: |
+        🔋 Заряд: {{ states('sensor.ups_battery') }}%
+        ⏱ Время работы: {{ states('sensor.ups_time_left') }} мин
+        🔌 Нагрузка: {{ states('sensor.ups_load') }}%
         
-# - alias: "008_APC_OFF_BATTARY"
-#   trigger: 
-#   - platform: state
-#     entity_id:
-#     - binary_sensor.ups_online_status
-#     from: 'off'
-#     to: 'on'
-#   condition: []
-#   action:
-#   - service: telegram_bot.send_message
-#     data:
-#      title: "*APC UPS OK!* 👍 "
-#      message: | 
-#         Электропитание восстановлено!
+- alias: "008_APC: Питание восстановлено"
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.ups_online_status
+    from: 'off'
+    to: "on"
+  action:
+  - service: telegram_bot.send_message
+    data:
+      title: "✅ Питание восстановлено"
+      message: |
+        Время работы от батареи: {{ states('sensor.ups_time_on_battery') }}
+        Текущий заряд: {{ states('sensor.ups_battery') }}%
+        
+- alias: "008_APC: Еженедельный отчет"
+  description: "Отправка отчета о состоянии UPS каждую неделю"
+  trigger:
+    - platform: time
+      at: "08:00:00"
+  condition:
+    - condition: time
+      weekday:
+        - mon  # Понедельник 
+  action:
+    - service: telegram_bot.send_message
+      data:
+        message: |
+          📊 *Еженедельный отчет UPS*
+        
+          🔋 Текущий заряд: {{ states('sensor.ups_battery') }}%
+          ⚡ Количество переходов: {{ states('sensor.ups_transfer_count') }}
+          🕒 Последний переход: {{ states('sensor.ups_last_transfer') }}
+          🌡 Температура: {{ states('sensor.ups_internal_temperature') }}°C
+          🔌 Текущая нагрузка: {{ states('sensor.ups_load') }}%
+          ⏱️ Время работы от батареи: {{ states('sensor.ups_time_on_battery') }}
+
+- alias: "008_APC: Перегрев UPS"
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.ups_internal_temperature
+    above: 40
+  action:
+  - service: telegram_bot.send_message
+    data:
+      title: "🌡 Перегрев UPS!"
+      message: "Температура {{ states('sensor.ups_internal_temperature') }}°C"
+      
+- alias: "008_APC: Замена батареи"
+  trigger:
+  - platform: template
+    value_template: >
+      {{ as_timestamp(now()) - as_timestamp(states.sensor.ups_battery_replaced.last_changed) > 31536000 }}
+  action:
+  - service: telegram_bot.send_message
+    data:
+      title: "Замена батареи UPS"
+      message: "Батарея работает более 1 года"
+      
+- alias: "008_APC: Неудачный самотест"
+  trigger:
+    - platform: state
+      entity_id: sensor.ups_last_self_test
+  condition:
+    - condition: template
+      value_template: >
+        {{ 'FAILED' in states('sensor.ups_last_self_test') | upper }}
+  action:
+    - service: telegram_bot.send_message
+      data:
+        message: |
+          ❗ *Результат самотеста UPS: НЕУДАЧНО!*
+          🔍 Данные: {{ states('sensor.ups_last_self_test') }}
+        parse_mode: markdown
+        
+
