@@ -26,5 +26,5 @@ cards:
           entity: camera.kam02_home_profile0 
 
         - type: picture-entity
-          entity: camera.10_123_10_19          
+          entity: camera.kam_padik_profile_000          
           
