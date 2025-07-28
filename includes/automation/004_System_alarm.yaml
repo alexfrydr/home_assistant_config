@@ -253,14 +253,18 @@
             {%- endfor %}
   mode: single
 
-- alias: "004_internet_ping_lost"
-  description: "Оповещение о проблемах с интернетом"
+- alias: "004_internet_ping_lost_rtk"
+  description: "Оповещение о проблемах с РТК"
   trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.internet_is_available
-    from: 'on'
-    to: 'off'
+  - type: not_connected
+    device_id: b4ce8ca81cf37628ca2110c0df3b97b7
+    entity_id: 607a9a7da223513d6062b2f299a71bb1
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
   condition:
   - condition: state
     entity_id: input_boolean.control_mode
@@ -271,21 +275,20 @@
     data_template:
       title: "🎉 *Сообщение системы*" 
       message: >
-        ❌ Потеряна связь с интернетом {{ states('sensor.date_time') }}
-  - delay: 00:00:05
-  - service: telegram_bot.delete_message
-    data:
-      chat_id: !secret telegram_bot_allowed_chat_id1
-      message_id: last
-        
-- alias: "004_internet_ping_available"
-  description: "Оповещение о восстновлении интренет соединения"
+        ❌ Потеряна связь с РТК 
+      
+- alias: "004_internet_ping_available_rtk"
+  description: "Оповещение о восстновлении соединения РТК"
   trigger:
-  - platform: state
-    entity_id:
-    - binary_sensor.internet_is_available
-    from: 'off'
-    to: 'on'
+  - type: connected
+    device_id: b4ce8ca81cf37628ca2110c0df3b97b7
+    entity_id: 607a9a7da223513d6062b2f299a71bb1
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
   condition:
   - condition: state
     entity_id: input_boolean.control_mode
@@ -296,12 +299,7 @@
     data_template:
       title: "🎉 *Сообщение системы*" 
       message: >
-        ✅  Cвязь с интернетом восстановлена {{ states('sensor.date_time') }}
-  - delay: 00:00:05
-  - service: telegram_bot.delete_message
-    data:
-      chat_id: !secret telegram_bot_allowed_chat_id1
-      message_id: last
+        ✅ Cвязь с РТК восстановлена 
 
 - alias: "The camera on the 7th floor is unavailable"
   description: ''
