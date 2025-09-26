@@ -99,7 +99,6 @@ cards:
               padding: 5
               entities:
                 - entity: input_boolean.auto_light_on_off_hallway
-                - entity: input_boolean.auto_light_on_off_stok
                 - entity: input_boolean.auto_light_on_off
                   name: Auto light on bathroom
                 - entity: input_boolean.auto_light_on_off_girlianda_ws2811
