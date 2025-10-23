@@ -1,6 +1,6 @@
 # Конфигурация Home Assistant 
 
-![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/screen1.JPG)
+![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/screen2.png)
 
 Содержит конфигурацию для моего проекта домашней автоматизации. Значительное количество конфигураций на самом деле хранятся
 в базе данных homeassistant и, следовательно, здесь не показаны.
