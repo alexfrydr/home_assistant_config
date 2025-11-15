@@ -195,7 +195,7 @@
     domain: select
     entity_id: select.wled_preset
     type: select_option
-    option: Preset 8
+    option: Preset 9
   mode: single
  
 - alias: "029_light_living_room_Christmas_tree" 
