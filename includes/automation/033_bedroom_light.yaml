@@ -131,7 +131,7 @@
                 brightness_pct: 25
             - service: select.select_option
               data:
-                option: Preset 3
+                option: Preset 10
               target:
                 entity_id: select.wled_bedroom_preset
             - delay: 00:02:00
@@ -141,7 +141,7 @@
                 brightness_pct: 25
             - service: select.select_option
               data:
-                option: Preset 3
+                option: Preset 10
               target:
                 entity_id: select.wled_bedroom_preset
             - delay: 00:02:00
@@ -151,7 +151,7 @@
                 brightness_pct: 25
             - service: select.select_option
               data:
-                option: Preset 3
+                option: Preset 10
               target:
                 entity_id: select.wled_bedroom_preset
             - delay: 00:02:00
@@ -161,7 +161,7 @@
                 brightness_pct: 25
             - service: select.select_option
               data:
-                option: Preset 3
+                option: Preset 10
               target:
                 entity_id: select.wled_bedroom_preset
             - delay: 00:02:00
@@ -171,7 +171,7 @@
                 brightness_pct: 25
             - service: select.select_option
               data:
-                option: Preset 3
+                option: Preset 10
               target:
                 entity_id: select.wled_bedroom_preset
             - delay: 00:02:00
@@ -181,7 +181,7 @@
                 brightness_pct: 25
             - service: select.select_option
               data:
-                option: Preset 3
+                option: Preset 10
               target:
                 entity_id: select.wled_bedroom_preset
     - condition: or
@@ -219,7 +219,7 @@
   action:
   - service: select.select_option
     data:
-      option: Preset 3
+      option: Preset 10
     target:
       entity_id: select.wled_bedroom_preset
   - service: light.turn_on
