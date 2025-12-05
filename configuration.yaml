@@ -21,18 +21,17 @@ input_datetime: !include includes/input_datetimes.yaml
 input_button: !include includes/input_button.yaml
 input_text: !include includes/input_text.yaml
 shell_command: !include includes/shell_command.yaml
-# command_line: !include includes/command_line.yaml
 notify: !include includes/notify.yaml
 plant: !include includes/plant.yaml
 recorder: !include includes/recorder.yaml
 scene: !include includes/scenes.yaml
 script: !include includes/script.yaml
 timer: !include includes/timer.yaml
-#telegram_bot: !include includes/telegram_bot.yaml
 switch: !include includes/switch.yaml
 automation ui: !include automations.yaml
 person: !include includes/persons.yaml
 mqtt: !include includes/mqtt_sensors.yaml
+group: !include includes/groups.yaml
 
 ### Includes private
 fan: !include includes_private/fan.yaml
@@ -42,7 +41,7 @@ media_player: !include includes_private/media_players.yaml
 sensor: !include_dir_merge_list includes/sensors
 automation manual: !include_dir_merge_list includes/automation
 binary_sensor: !include_dir_merge_list includes/binsensors
-group: !include includes/groups.yaml
+#template: !include_dir_merge_list includes/templates
 
 wake_on_lan:
 browser:

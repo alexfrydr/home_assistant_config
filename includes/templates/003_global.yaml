@@ -1,0 +1,10 @@
+# Сенсор движения в доме
+template:
+- binary_sensor:
+  - device_class: MOTION
+    default_entity_id: binary_sensor.motion_in_home
+    name: Движение в доме
+    state: "{{ is_state('binary_sensor.human_body_movement_bathroom_occupancy', 'on')\n
+      \  or is_state('binary_sensor.human_body_movement_hallway_occupancy', 'on')\n
+      \  or is_state('binary_sensor.kam02_home_cell_motion_detection', 'on')\n   or
+      is_state('binary_sensor.human_body_movement_stok_occupancy', 'on')  }}"

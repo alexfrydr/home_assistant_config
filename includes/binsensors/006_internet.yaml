@@ -1,6 +1,8 @@
 # Сенсор доступности интернет соединения
-- platform: template
-  sensors:
-    internet_is_available:
-      value_template: "{{ states('binary_sensor.google_is_available') == 'on' or states('binary_sensor.yandex_is_available') == 'on' }}"
-      device_class: connectivity
+template:
+- binary_sensor:
+  - device_class: CONNECTIVITY
+    default_entity_id: binary_sensor.internet_is_available
+    state: '{{ states(''binary_sensor.google_is_available'') == ''on'' or states(''binary_sensor.yandex_is_available'')
+      == ''on'' }}'
+    name: internet_is_available

@@ -1,5 +1,6 @@
-- platform: template
-  sensors:
-    alice_state:
-      value_template: "{{ state_attr('media_player.yandex_station_mini', 'alice_state') }}"
+template:
+- sensor:
+  - default_entity_id: sensor.alice_state
+    state: '{{ state_attr(''media_player.yandex_station_mini'', ''alice_state'') }}'
+    name: alice_state
       
