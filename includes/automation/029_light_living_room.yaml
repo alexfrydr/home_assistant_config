@@ -205,18 +205,17 @@
     - platform: time_pattern
       minutes: '/15'
   conditions:
-    - condition: device
-      type: is_on
-      device_id: c8e395bfdad8c52e8cd70265ff22459f
-      entity_id: c5d4876ae57a4d0376d8af628a9ced88
-      domain: light
+    - condition: state
+      entity_id: light.wled_strip_elka
+      state:
+        - "on"
     - condition: state
       entity_id: input_boolean.control_mode
       state: 'on'
   actions:
-    - device_id: c8e395bfdad8c52e8cd70265ff22459f
+    - device_id: 182985d92d314295a2d7ab62fb6e8e44
       domain: select
-      entity_id: 40f94190fffce08de1ad8c65a3e6019b
+      entity_id: 676b95a15a1e83e70c8f18a1d84105b2
       type: select_next
       cycle: true
       
@@ -224,8 +223,8 @@
   description: "Синхронизация включения и отключения сегментов ёлки"
   triggers:
   - type: changed_states
-    device_id: c8e395bfdad8c52e8cd70265ff22459f
-    entity_id: c5d4876ae57a4d0376d8af628a9ced88
+    device_id: 182985d92d314295a2d7ab62fb6e8e44
+    entity_id: f25d4da7baa848622f0350a20a4ffef9
     domain: light
     trigger: device
   conditions:
@@ -237,24 +236,24 @@
     - conditions:
       - condition: device
         type: is_on
-        device_id: c8e395bfdad8c52e8cd70265ff22459f
-        entity_id: c5d4876ae57a4d0376d8af628a9ced88
+        device_id: 182985d92d314295a2d7ab62fb6e8e44
+        entity_id: f25d4da7baa848622f0350a20a4ffef9
         domain: light
       sequence:
-      - type: turn_on
-        device_id: c8e395bfdad8c52e8cd70265ff22459f
-        entity_id: c93276eb1b6e97d703ea6ca5d8f05337
+      - type: is_on
+        device_id: 182985d92d314295a2d7ab62fb6e8e44
+        entity_id: 97a89136eab9296309d8be1fcefd50ee
         domain: light
     - conditions:
       - condition: device
         type: is_off
-        device_id: c8e395bfdad8c52e8cd70265ff22459f
-        entity_id: c5d4876ae57a4d0376d8af628a9ced88
+        device_id: 182985d92d314295a2d7ab62fb6e8e44
+        entity_id: f25d4da7baa848622f0350a20a4ffef9
         domain: light
       sequence:
-      - type: turn_off
-        device_id: c8e395bfdad8c52e8cd70265ff22459f
-        entity_id: c93276eb1b6e97d703ea6ca5d8f05337
+      - type: is_off
+        device_id: 182985d92d314295a2d7ab62fb6e8e44
+        entity_id: 97a89136eab9296309d8be1fcefd50ee
         domain: light
   mode: single
   
