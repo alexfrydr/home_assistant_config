@@ -39,3 +39,12 @@ light_child_room_off:
   name: Light child room off
   has_date: false
   has_time: true
+  
+light_balcon_on:
+  name: Light balcon on
+  has_date: false
+  has_time: true
+light_balcon_off:
+  name: Light balcon off
+  has_date: false
+  has_time: true

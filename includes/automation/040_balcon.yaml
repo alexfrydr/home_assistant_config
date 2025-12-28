@@ -1,0 +1,131 @@
+- alias: "040_light_balcony_room_off"
+  description: 'Выключение света по времени с повторными попытками и уведомлением'
+  trigger:
+    - platform: time
+      at: input_datetime.light_balcon_off
+  condition:
+    - condition: state
+      entity_id: input_boolean.auto_light_balcon_on_off
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+    - condition: state
+      entity_id: light.0x00158d0003985898
+      state: "on"
+  action:
+    - repeat:
+        while:
+          - condition: or
+            conditions:
+              - condition: state
+                entity_id: light.0x00158d0003985898
+                state: "on"
+              - condition: state
+                entity_id: light.0x00158d0003985898
+                state: unavailable
+              - condition: state
+                entity_id: light.0x00158d0003985898
+                state: unknown
+        sequence:
+          - service: light.turn_off
+            entity_id: light.0x00158d0003985898
+          - delay: 00:02:00
+          - service: light.turn_off
+            entity_id: light.0x00158d0003985898
+          - delay: 00:02:00
+          - service: light.turn_off
+            entity_id: light.0x00158d0003985898
+          - delay: 00:02:00
+          - service: light.turn_off
+            entity_id: light.0x00158d0003985898
+          - delay: 00:02:00
+          - service: light.turn_off
+            entity_id: light.0x00158d0003985898
+          - delay: 00:02:00
+          - service: light.turn_off
+            entity_id: light.0x00158d0003985898
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: light.0x00158d0003985898
+          state: "on"
+        - condition: state
+          entity_id: light.0x00158d0003985898
+          state: unavailable
+        - condition: state
+          entity_id: light.0x00158d0003985898
+          state: unknown
+    - service: telegram_bot.send_message
+      data:
+        message: |
+          ⚠️ Свет на балконе не включился в течении 10 минут.
+    - delay: 00:00:05
+    
+- alias: "040_light_balcony_room_on"
+  description: 'Включение света по времени с уведомлением о задержке и повторным включением'
+  trigger:
+    - platform: time
+      at: input_datetime.light_balcon_on
+  condition:
+    - condition: state
+      entity_id: input_boolean.auto_light_balcon_on_off
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+    - condition: and
+      conditions:
+        - condition: state
+          entity_id:
+            - light.0x00158d0003985898
+          match: any
+          state: "off"
+  action:
+    - repeat:
+        while:
+            condition: or
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity_id: light.0x00158d0003985898
+                    state: "off"
+                  - condition: state
+                    entity_id: light.0x00158d0003985898
+                    state: unavailable
+                  - condition: state
+                    entity_id: light.0x00158d0003985898
+                    state: unknown
+        sequence:
+            - service: light.turn_on
+              entity_id: light.0x00158d0003985898
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.0x00158d0003985898
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.0x00158d0003985898
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.0x00158d0003985898
+            - delay: 00:02:00
+            - service: light.turn_on
+              entity_id: light.0x00158d0003985898
+            - delay: 00:02:00
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: light.0x00158d0003985898
+          state: "off"
+        - condition: state
+          entity_id: light.0x00158d0003985898
+          state: unavailable
+        - condition: state
+          entity_id: light.0x00158d0003985898
+          state: unknown
+    - service: telegram_bot.send_message
+      data:
+        message: |
+            ⚠️ Свет на балконе не включилась в течение 10 минут.
+    - delay: 00:00:05

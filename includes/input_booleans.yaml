@@ -14,6 +14,9 @@ wake_up_with_spotify:
 auto_light_bedroom_on_off:
   name: Auto light strip on bedroom
   icon: mdi:brightness-auto
+auto_light_balcon_on_off:
+  name: Auto light on balcon
+  icon: mdi:brightness-auto
 auto_light_on_off:
   name: Auto light on
   icon: mdi:brightness-auto
