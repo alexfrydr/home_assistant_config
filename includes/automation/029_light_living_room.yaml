@@ -6,9 +6,12 @@
 
 - alias: "029_light_living_room_off"
   description: 'Выключение подсветки по времени с повторными попытками и уведомлением'
-  trigger:
+  triggers:
     - platform: time
       at: input_datetime.light_living_room_off
+    - trigger: sun
+      event: sunrise
+      offset: 0
   condition:
     - condition: state
       entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
@@ -95,9 +98,12 @@
 
 - alias: "029_light_living_room_50%_on"
   description: 'Включение подсветки по времени с уведомлением о задержке и повторным включением'
-  trigger:
+  triggers:
     - platform: time
       at: input_datetime.light_living_room_on
+    - trigger: sun
+      event: sunset
+      offset: 0
   condition:
     - condition: state
       entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
@@ -224,37 +230,62 @@
   triggers:
   - type: changed_states
     device_id: 182985d92d314295a2d7ab62fb6e8e44
-    entity_id: f25d4da7baa848622f0350a20a4ffef9
+    entity_id: e91d81394c721f6bc5108891f509ae37
+    domain: light
+    trigger: device
+  conditions: 
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
+  actions:
+  - choose:
+      - conditions:
+          - condition: device
+            type: is_on
+            device_id: 182985d92d314295a2d7ab62fb6e8e44
+            entity_id: e91d81394c721f6bc5108891f509ae37
+            domain: light
+        sequence:
+          - type: turn_on
+            device_id: 182985d92d314295a2d7ab62fb6e8e44
+            entity_id: 97a89136eab9296309d8be1fcefd50ee
+            domain: light
+      - conditions:
+          - condition: device
+            type: is_off
+            device_id: 182985d92d314295a2d7ab62fb6e8e44
+            entity_id: e91d81394c721f6bc5108891f509ae37
+            domain: light
+        sequence:
+          - type: turn_off
+            device_id: 182985d92d314295a2d7ab62fb6e8e44
+            entity_id: 97a89136eab9296309d8be1fcefd50ee
+            domain: light
+  mode: single
+
+- alias: "029_light_living_room_Christmas_tree_elka_and_segment_95%"
+  description: "Установкая яркости 95% сегментов ёлки"
+  triggers:
+  - type: turned_on
+    device_id: 182985d92d314295a2d7ab62fb6e8e44
+    entity_id: e91d81394c721f6bc5108891f509ae37
     domain: light
     trigger: device
   conditions:
-  - condition: state
-    entity_id: input_boolean.control_mode
-    state: 'on'
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: 'on'
   actions:
-  - choose:
-    - conditions:
-      - condition: device
-        type: is_on
-        device_id: 182985d92d314295a2d7ab62fb6e8e44
-        entity_id: f25d4da7baa848622f0350a20a4ffef9
-        domain: light
-      sequence:
-      - type: is_on
-        device_id: 182985d92d314295a2d7ab62fb6e8e44
-        entity_id: 97a89136eab9296309d8be1fcefd50ee
-        domain: light
-    - conditions:
-      - condition: device
-        type: is_off
-        device_id: 182985d92d314295a2d7ab62fb6e8e44
-        entity_id: f25d4da7baa848622f0350a20a4ffef9
-        domain: light
-      sequence:
-      - type: is_off
-        device_id: 182985d92d314295a2d7ab62fb6e8e44
-        entity_id: 97a89136eab9296309d8be1fcefd50ee
-        domain: light
-  mode: single
-  
+  - action: light.turn_on
+    metadata: {}
+    target:
+      entity_id: light.wled_strip_elka
+    data:
+      brightness_pct: 95
+  - action: light.turn_on
+    metadata: {}
+    data:
+      brightness_pct: 95
+    target:
+      entity_id: light.wled_strip_elka_segment_1
 

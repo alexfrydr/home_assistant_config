@@ -6,9 +6,12 @@
 
 - alias: "033_light_bedroom_off"
   description: 'Выключение подсветки в спальне по времени с повторными попытками и уведомлением'
-  trigger:
+  triggers:
     - platform: time
       at: input_datetime.light_bedroom_off
+    - trigger: sun
+      event: sunrise
+      offset: 0
   condition:
     - condition: state
       entity_id: input_boolean.auto_light_bedroom_on_off
@@ -93,9 +96,12 @@
 
 - alias: "033_light_bedroom_50%_on"
   description: 'Включение подсветки по времени с уведомлением о задержке и повторным включением'
-  trigger:
+  triggers:
     - platform: time
       at: input_datetime.light_bedroom_on
+    - trigger: sun
+      event: sunset
+      offset: 0
   condition:
     - condition: state
       entity_id: input_boolean.auto_light_bedroom_on_off

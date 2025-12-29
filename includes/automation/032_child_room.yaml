@@ -6,9 +6,12 @@
 
 - alias: "032_light_child_room_off"
   description: 'Выключение подсветки в детской по времени с повторными попытками и уведомлением'
-  trigger:
+  triggers:
     - platform: time
       at: input_datetime.light_child_room_off
+    - trigger: sun
+      event: sunrise
+      offset: 0
   condition:
     - condition: state
       entity_id: input_boolean.auto_light_child_room
@@ -93,9 +96,12 @@
               
 - alias: "032_light_child_room_50%_on"
   description: 'Включение подсветки по времени с уведомлением о задержке и повторным включением'
-  trigger:
+  triggers:
     - platform: time
       at: input_datetime.light_child_room_on
+    - trigger: sun
+      event: sunset
+      offset: 0
   condition:
     - condition: state
       entity_id: input_boolean.auto_light_child_room
