@@ -2,20 +2,20 @@
 # Автоматизации принудительного применения темы
 # -----------------------------------------------------------
 
-# - alias: "009_Auto_Theme_Selector_IOS_Dark/Light_mode"
-#   description: "Автоматическое назначение темы"
-#   trigger:
-#   - event: start
-#     platform: homeassistant
-#   condition:
-#     condition: state
-#     entity_id: input_boolean.auto_theme_selector
-#     state: "on"
-#   action:
-#   - data_template:
-#       name: "clear"
-#     service_template: frontend.set_theme
-#   mode: single
+- alias: "009_Auto_Theme_Selector_IOS_Dark/Light_mode"
+  description: "Автоматическое назначение темы"
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition:
+    condition: state
+    entity_id: input_boolean.auto_theme_selector
+    state: "on"
+  action:
+  - data_template:
+      name: "macOS Theme"
+    service_template: frontend.set_theme
+  mode: single
 
 - alias: "Frontend: turn on dark mode"
   trigger:
