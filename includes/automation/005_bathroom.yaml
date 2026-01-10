@@ -119,9 +119,13 @@
   
 - alias: "005_fan_bathroom_OFF"
   description: 'Проверка и отключение вентиляции в ванной'
-  trigger:
+  triggers:
   - platform: time_pattern
     minutes: '/1'
+  - trigger: state
+    entity_id:
+      - sensor.0x54ef4410008194ad_action
+    from: null
   condition:
     - condition: state
       entity_id: input_boolean.control_fan_mode
@@ -133,6 +137,30 @@
       entity_id: binary_sensor.motion_in_bathroom
       state: 'off'
       for: 00:05:00
+  action:
+  - service: fan.turn_off
+    data: {}
+    entity_id: fan.rele01
+    
+- alias: "005_fan_bathroom_OFF_force"
+  description: 'Принудительное отключение вентиляции в ванной'
+  triggers:
+  - trigger: state
+    entity_id:
+      - light.0x54ef4410008194ad
+    to:
+      - "off"
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_fan_mode
+      state: 'on'
+    - condition: state
+      entity_id: fan.rele01
+      state: 'on'
   action:
   - service: fan.turn_off
     data: {}
