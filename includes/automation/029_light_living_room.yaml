@@ -7,8 +7,8 @@
 - alias: "029_light_living_room_off"
   description: 'Выключение подсветки по времени с повторными попытками и уведомлением'
   triggers:
-    - platform: time
-      at: input_datetime.light_living_room_off
+    # - platform: time
+    #   at: input_datetime.light_living_room_off
     - trigger: sun
       event: sunrise
       offset: 0
@@ -94,13 +94,13 @@
     - service: light.turn_on
       data:
         entity_id: light.wled
-        brightness_pct: 3
+        brightness_pct: 10
 
 - alias: "029_light_living_room_50%_on"
   description: 'Включение подсветки по времени с уведомлением о задержке и повторным включением'
   triggers:
-    - platform: time
-      at: input_datetime.light_living_room_on
+    # - platform: time
+    #   at: input_datetime.light_living_room_on
     - trigger: sun
       event: sunset
       offset: 0

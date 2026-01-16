@@ -122,10 +122,6 @@
   triggers:
   - platform: time_pattern
     minutes: '/1'
-  - trigger: state
-    entity_id:
-      - sensor.0x54ef4410008194ad_action
-    from: null
   condition:
     - condition: state
       entity_id: input_boolean.control_fan_mode

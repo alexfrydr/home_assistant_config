@@ -1,8 +1,8 @@
 - alias: "040_light_balcony_room_off"
   description: 'Выключение света по времени с повторными попытками и уведомлением'
   triggers:
-    - platform: time
-      at: input_datetime.light_balcon_off
+    # - platform: time
+    #   at: input_datetime.light_balcon_off
     - trigger: sun
       event: sunrise
       offset: 0
@@ -68,8 +68,8 @@
 - alias: "040_light_balcony_room_on"
   description: 'Включение света по времени с уведомлением о задержке и повторным включением'
   triggers:
-    - platform: time
-      at: input_datetime.light_balcon_on
+    # - platform: time
+    #   at: input_datetime.light_balcon_on
     - trigger: sun
       event: sunset
       offset: 0
