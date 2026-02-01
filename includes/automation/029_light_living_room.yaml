@@ -71,7 +71,7 @@
           ⚠️ Лента в гостинной не выключилась в течение 10 минут.
     - delay: 00:00:05
 
-- alias: "029_light_living_room_3%"
+- alias: "029_light_living_room_30%"
   description: 'Изменение яркости подсветки по времени в 22:00'
   trigger:
   - platform: time
@@ -94,7 +94,7 @@
     - service: light.turn_on
       data:
         entity_id: light.wled
-        brightness_pct: 10
+        brightness_pct: 30
 
 - alias: "029_light_living_room_50%_on"
   description: 'Включение подсветки по времени с уведомлением о задержке и повторным включением'
