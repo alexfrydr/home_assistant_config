@@ -1,0 +1,22 @@
+- binary_sensor:
+  - device_class: motion
+    default_entity_id: binary_sensor.motion_in_home
+    name: Движение в доме
+    state: >-
+      {{ is_state('binary_sensor.human_body_movement_bathroom_occupancy', 'on')
+         or is_state('binary_sensor.human_body_movement_hallway_occupancy', 'on')
+         or is_state('binary_sensor.kam02_home_cell_motion_detection', 'on')
+         or is_state('binary_sensor.human_body_movement_stok_occupancy', 'on')  }}
+- binary_sensor:
+  - device_class: motion
+    default_entity_id: binary_sensor.motion_in_bathroom
+    name: Движение в ванной
+    state: >-
+      {{ is_state('binary_sensor.human_body_movement_bathroom_occupancy', 'on')
+         or is_state('binary_sensor.human_body_movement_bathroom_2_occupancy', 'on')  }}
+- binary_sensor:
+  - device_class: CONNECTIVITY
+    default_entity_id: binary_sensor.internet_is_available
+    state: '{{ states(''binary_sensor.google_is_available'') == ''on'' or states(''binary_sensor.yandex_is_available'')
+      == ''on'' }}'
+    name: internet_is_available

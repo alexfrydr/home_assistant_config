@@ -1,0 +1,71 @@
+- switch:
+  - turn_on:
+    - data:
+        entity_id: fan.xiaomi_air_humidifier
+      action: xiaomi_miio_airpurifier.fan_set_buzzer_on
+    turn_off:
+    - data:
+        entity_id: fan.xiaomi_air_humidifier
+      action: xiaomi_miio_airpurifier.fan_set_buzzer_off
+    default_entity_id: switch.xiaomi_airpurifier_buzzer
+    icon: mdi:volume-off
+    name: Buzzer
+    state: '{{ is_state_attr(''fan.xiaomi_air_humidifier'', ''buzzer'', True) }}'
+- switch:
+  - turn_on:
+    - data:
+        entity_id: fan.xiaomi_air_humidifier
+      action: xiaomi_miio_airpurifier.fan_set_led_on
+    turn_off:
+    - data:
+        entity_id: fan.xiaomi_air_humidifier
+      action: xiaomi_miio_airpurifier.fan_set_led_off
+    default_entity_id: switch.xiaomi_airpurifier_led
+    icon: mdi:lightbulb-outline
+    name: LED
+    state: '{{ is_state_attr(''fan.xiaomi_air_humidifier'', ''led'', True) }}'
+- switch:
+  - turn_on:
+    - entity_id:
+      - fan.xiaomi_air_humidifier
+      action: fan.turn_on
+    - data_template:
+        entity_id: fan.xiaomi_air_humidifier
+        speed: Low
+      action: fan.set_speed
+    turn_off:
+    - entity_id:
+      - fan.xiaomi_air_humidifier
+      action: fan.turn_off
+    default_entity_id: switch.gg_humidifier_mode_silent
+    name: Увлажнитель тихий
+- switch:
+  - turn_on:
+    - entity_id:
+      - fan.xiaomi_air_humidifier
+      action: fan.turn_on
+    - data_template:
+        entity_id: fan.xiaomi_air_humidifier
+        speed: Medium
+      action: fan.set_speed
+    turn_off:
+    - entity_id:
+      - fan.xiaomi_air_humidifier
+      action: fan.turn_off
+    default_entity_id: switch.gg_humidifier_mode_medium
+    name: Увлажнитель средний
+- switch:
+  - turn_on:
+    - entity_id:
+      - fan.xiaomi_air_humidifier
+      action: fan.turn_on
+    - data_template:
+        entity_id: fan.xiaomi_air_humidifier
+        speed: High
+      action: fan.set_speed
+    turn_off:
+    - entity_id:
+      - fan.xiaomi_air_humidifier
+      action: fan.turn_off
+    default_entity_id: switch.gg_humidifier_mode_high
+    name: Увлажнитель максимальный

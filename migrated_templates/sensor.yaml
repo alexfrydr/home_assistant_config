@@ -1,0 +1,319 @@
+- sensor:
+  - default_entity_id: sensor.lg_tv_custom
+    icon: mdi:clock
+    name: Телевизор LG работал сегодня -
+    state: >-
+      {% set uptime = (states.sensor.lg_tv.state | float * 60) %} {% set minutes =
+      ( uptime % 60) | int %} {% set hours = ((uptime % 1440) / 60) | int %} {% set
+      days = (uptime / 1440) | int %}
+        {% if uptime < 1 %}
+          off
+        {% else %}
+          {% if days > 0 %}
+            {{ days }} д.
+          {% endif %}
+          {% if hours > 0 %}
+            {% if days > 0 %}
+              {{ ' ' }}
+            {% endif %}
+            {{ hours }} ч.
+          {% endif %}
+          {% if minutes > 0 %}
+            {% if days > 0 or hours > 0 %}
+              {{ ' ' }}
+            {% endif %}
+              {{ minutes }} мин.
+          {% endif %}
+        {% endif %}
+- sensor:
+  - default_entity_id: sensor.alice_custom
+    icon: mdi:clock
+    name: Яндекс станция работала сегодня -
+    state: >-
+      {% set uptime = (states.sensor.alice_station.state | float * 60) %} {% set minutes
+      = ( uptime % 60) | int %} {% set hours = ((uptime % 1440) / 60) | int %} {%
+      set days = (uptime / 1440) | int %}
+        {% if uptime < 1 %}
+          off
+        {% else %}
+          {% if days > 0 %}
+            {{ days }} д.
+          {% endif %}
+          {% if hours > 0 %}
+            {% if days > 0 %}
+              {{ ' ' }}
+            {% endif %}
+            {{ hours }} ч.
+          {% endif %}
+          {% if minutes > 0 %}
+            {% if days > 0 or hours > 0 %}
+              {{ ' ' }}
+            {% endif %}
+              {{ minutes }} мин.
+          {% endif %}
+        {% endif %}
+- sensor:
+  - default_entity_id: sensor.light_bathroom_custom
+    icon: mdi:clock
+    name: Свет в ванной был включен сегодня -
+    state: >-
+      {% set uptime = (states.sensor.light_bathroom.state | float * 60) %} {% set
+      minutes = ( uptime % 60) | int %} {% set hours = ((uptime % 1440) / 60) | int
+      %} {% set days = (uptime / 1440) | int %}
+        {% if uptime < 1 %}
+          off
+        {% else %}
+          {% if days > 0 %}
+            {{ days }} д.
+          {% endif %}
+          {% if hours > 0 %}
+            {% if days > 0 %}
+              {{ ' ' }}
+            {% endif %}
+            {{ hours }} ч.
+          {% endif %}
+          {% if minutes > 0 %}
+            {% if days > 0 or hours > 0 %}
+              {{ ' ' }}
+            {% endif %}
+              {{ minutes }} мин.
+          {% endif %}
+        {% endif %}
+- sensor:
+  - default_entity_id: sensor.light_kitchen_custom
+    icon: mdi:clock
+    name: Вентиляция в ванной была включена сегодня -
+    state: >-
+      {% set uptime = (states.sensor.light_fan_bath.state | float * 60) %} {% set
+      minutes = ( uptime % 60) | int %} {% set hours = ((uptime % 1440) / 60) | int
+      %} {% set days = (uptime / 1440) | int %}
+        {% if uptime < 1 %}
+          off
+        {% else %}
+          {% if days > 0 %}
+            {{ days }} д.
+          {% endif %}
+          {% if hours > 0 %}
+            {% if days > 0 %}
+              {{ ' ' }}
+            {% endif %}
+            {{ hours }} ч.
+          {% endif %}
+          {% if minutes > 0 %}
+            {% if days > 0 or hours > 0 %}
+              {{ ' ' }}
+            {% endif %}
+              {{ minutes }} мин.
+          {% endif %}
+        {% endif %}
+- sensor:
+  - default_entity_id: sensor.light_kitchen_custom
+    icon: mdi:clock
+    name: Вентиляция в ванной была включена сегодня -
+    state: >-
+      {% set uptime = (states.sensor.light_fan_bath.state | float * 60) %} {% set
+      minutes = ( uptime % 60) | int %} {% set hours = ((uptime % 1440) / 60) | int
+      %} {% set days = (uptime / 1440) | int %}
+        {% if uptime < 1 %}
+          off
+        {% else %}
+          {% if days > 0 %}
+            {{ days }} д.
+          {% endif %}
+          {% if hours > 0 %}
+            {% if days > 0 %}
+              {{ ' ' }}
+            {% endif %}
+            {{ hours }} ч.
+          {% endif %}
+          {% if minutes > 0 %}
+            {% if days > 0 or hours > 0 %}
+              {{ ' ' }}
+            {% endif %}
+              {{ minutes }} мин.
+          {% endif %}
+        {% endif %}
+- sensor:
+  - default_entity_id: sensor.light_kitchen_custom
+    icon: mdi:clock
+    name: Вентиляция в ванной была включена сегодня -
+    state: >-
+      {% set uptime = (states.sensor.light_fan_bath.state | float * 60) %} {% set
+      minutes = ( uptime % 60) | int %} {% set hours = ((uptime % 1440) / 60) | int
+      %} {% set days = (uptime / 1440) | int %}
+        {% if uptime < 1 %}
+          off
+        {% else %}
+          {% if days > 0 %}
+            {{ days }} д.
+          {% endif %}
+          {% if hours > 0 %}
+            {% if days > 0 %}
+              {{ ' ' }}
+            {% endif %}
+            {{ hours }} ч.
+          {% endif %}
+          {% if minutes > 0 %}
+            {% if days > 0 or hours > 0 %}
+              {{ ' ' }}
+            {% endif %}
+              {{ minutes }} мин.
+          {% endif %}
+        {% endif %}
+- sensor:
+  - default_entity_id: sensor.light_kitchen_custom
+    icon: mdi:clock
+    name: Вентиляция в ванной была включена сегодня -
+    state: >-
+      {% set uptime = (states.sensor.light_fan_bath.state | float * 60) %} {% set
+      minutes = ( uptime % 60) | int %} {% set hours = ((uptime % 1440) / 60) | int
+      %} {% set days = (uptime / 1440) | int %}
+        {% if uptime < 1 %}
+          off
+        {% else %}
+          {% if days > 0 %}
+            {{ days }} д.
+          {% endif %}
+          {% if hours > 0 %}
+            {% if days > 0 %}
+              {{ ' ' }}
+            {% endif %}
+            {{ hours }} ч.
+          {% endif %}
+          {% if minutes > 0 %}
+            {% if days > 0 or hours > 0 %}
+              {{ ' ' }}
+            {% endif %}
+              {{ minutes }} мин.
+          {% endif %}
+        {% endif %}
+- sensor:
+  - default_entity_id: sensor.hum_tank_state
+    state: >-
+      {{ state_attr('fan.xiaomi_air_humidifier', 'no_water') }}
+    name: hum_tank_state
+- sensor:
+  - default_entity_id: sensor.count_automations
+    icon: mdi:autorenew
+    state: >-
+      {{ states.automation | count }}
+    name: count_automations
+- sensor:
+  - default_entity_id: sensor.count_scripts
+    icon: mdi:script-text-outline
+    state: >-
+      {{ states.script| count }}
+    name: count_scripts
+- sensor:
+  - default_entity_id: sensor.count_device_trackers
+    icon: mdi:map-marker
+    state: >-
+      {{ states.device_tracker | count }}
+    name: count_device_trackers
+- sensor:
+  - default_entity_id: sensor.count_binary_sensors
+    icon: mdi:unfold-more-horizontal
+    state: >-
+      {{ states.binary_sensor| count }}
+    name: count_binary_sensors
+- sensor:
+  - default_entity_id: sensor.count_sensors
+    icon: mdi:resistor
+    state: >-
+      {{ states.sensor | count }}
+    name: count_sensors
+- sensor:
+  - default_entity_id: sensor.count_switches
+    icon: mdi:light-switch
+    state: >-
+      {{ states.switch | count }}
+    name: count_switches
+- sensor:
+  - default_entity_id: sensor.count_zones
+    icon: mdi:map-marker-radius
+    state: >-
+      {{ states.zone | count }}
+    name: count_zones
+- sensor:
+  - default_entity_id: sensor.count_input_booleans
+    icon: mdi:toggle-switch
+    state: >-
+      {{ states.input_boolean | count }}
+    name: count_input_booleans
+- sensor:
+  - default_entity_id: sensor.count_input_numbers
+    icon: mdi:numeric
+    state: >-
+      {{ states.input_number | count }}
+    name: count_input_numbers
+- sensor:
+  - default_entity_id: sensor.count_input_texts
+    icon: mdi:alphabetical
+    state: >-
+      {{ states.input_text | count }}
+    name: count_input_texts
+- sensor:
+  - default_entity_id: sensor.count_input_selects
+    icon: mdi:view-list
+    state: >-
+      {{ states.input_select | count }}
+    name: count_input_selects
+- sensor:
+  - default_entity_id: sensor.count_input_datetimes
+    icon: mdi:calendar-clock
+    state: >-
+      {{ states.input_datetime | count }}
+    name: count_input_datetimes
+- sensor:
+  - default_entity_id: sensor.count_automation_off
+    icon: mdi:autorenew
+    name: Отключенных автоматизаций -
+    state: >-
+      {{states.automation | selectattr ('state', 'equalto', 'off') | list | length}}
+- sensor:
+  - default_entity_id: sensor.count_script_on
+    icon: mdi:script-text-outline
+    name: Выполняющихся скриптов -
+    state: >-
+      {{states.script | selectattr ('state', 'equalto', 'on') | list | length}}
+- sensor:
+  - default_entity_id: sensor.count_script_off
+    icon: mdi:script-text-outline
+    name: Выключенных скриптов -
+    state: >-
+      {{states.script | selectattr ('state', 'equalto', 'off') | list | length}}
+- sensor:
+  - default_entity_id: sensor.ten_minutes_before_alarm
+    name: Ten minutes before alarm
+    state: >-
+      {% set t_alarm = state_attr("input_datetime.alarm_clock", "timestamp") | int
+      %} {% set t_start = states("sensor.timestamp_start_of_today") | int %} {% set
+      before_alarm = t_alarm + t_start - 60 * 10 %} {{ before_alarm | timestamp_custom("%H:%M",
+      True) }}
+- sensor:
+  - unit_of_measurement: s
+    default_entity_id: sensor.timestamp_start_of_today
+    state: >-
+      {{ as_timestamp(now().replace(hour=0).replace(minute=0).replace(second=0)) }}
+    name: timestamp_start_of_today
+- sensor:
+  - default_entity_id: sensor.unavailable_now_light
+    icon: mdi:lightbulb-off
+    name: Всего недоступных светильников -
+    state: '{{states.light | selectattr (''state'', ''equalto'', ''unavailable'') | list | length}}'
+- sensor:
+  - default_entity_id: sensor.unavailable_now_switch
+    icon: mdi:light-switch
+    name: Всего недоступных реле -
+    state: '{{states.switch | selectattr (''state'', ''equalto'', ''unavailable'') | list | length}}'
+- sensor:
+  - default_entity_id: sensor.unavailable_now_sensor
+    icon: mdi:motion-sensor-off
+    name: Всего недоступных сенсоров -
+    state: '{{states.sensor | selectattr (''state'', ''equalto'', ''unavailable'') | list | length}}'
+- sensor:
+  - default_entity_id: sensor.unavailable_now_binary_sensor
+    icon: mdi:leak-off
+    name: Всего недоступных бинарных сенсоров -
+    state: '{{states.binary_sensor | selectattr (''state'', ''equalto'', ''unavailable'') | list | length}}'
+
