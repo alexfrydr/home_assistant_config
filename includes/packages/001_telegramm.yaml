@@ -42,13 +42,8 @@ telegramm:
                 💡 Недоступно светильников: {{ states('sensor.unavailable_now_light') }}  
                 🔧 Недоступно свичей: {{ states('sensor.unavailable_now_switch') }}  
                 📡 Недоступно сенсоров: {{ states('sensor.unavailable_now_sensor') }}  
-                🤖 Недостпно бинарных сенсоров: {{ states('sensor.unavailable_now_binary_sensor') }}
-         - delay: 00:01:00
-         - service: telegram_bot.delete_message
-           data:
-             chat_id: !secret telegram_bot_allowed_chat_id1
-             message_id: last
-                 
+                🤖 Недоступно бинарных сенсоров: {{ states('sensor.unavailable_now_binary_sensor') }}
+
       temp_report:
         alias: "Pakage: Отправка отчета о состоянии температуры в доме"
         sequence:
@@ -60,12 +55,7 @@ telegramm:
                  🌡 Гостинная:  {{ states('sensor.aqara_t_h_living_room_temperature') }} °C
                  🌡 Спальня:  {{ states('sensor.aqara_t_h_bedroom_temperature') }} °C
                  🌡 Ванная:  {{ states('sensor.aqara_t_h_bathroom_temperature') }} °C
-         - delay: 00:01:00
-         - service: telegram_bot.delete_message
-           data:
-             chat_id: !secret telegram_bot_allowed_chat_id1
-             message_id: last
-                 
+
       report_home:
         alias: "Pakage: Статус Дома"
         sequence:
@@ -76,11 +66,6 @@ telegramm:
                  {{'\U0001F57A'}} Движение в доме - {% if is_state('binary_sensor.motion_in_home', 'on') %} Есть движение {% else %} Нет движения {% endif %}
                  {{'\U0001F9FB'}} Ванная - {% if is_state('binary_sensor.water_leak_sensor_bathroom_water_leak', 'on') %} Влажно {% else %} Сухо {% endif %}
                  {{'\U0001F4A7'}} Кухня - {% if is_state('binary_sensor.water_leak_sensor_kitchen_water_leak', 'on') %} Влажно {% else %} Сухо {% endif %}
-         - delay: 00:01:00
-         - service: telegram_bot.delete_message
-           data:
-             chat_id: !secret telegram_bot_allowed_chat_id1
-             message_id: last
 
       home_away_report:
         alias: "Pakage: Отправка отчета уходя из дома"
@@ -147,7 +132,6 @@ telegramm:
                     "Хелло амиго! 🌵",
                     "Буенос ночес! 🌌"
                   ] | random }}
-                data:
                 inline_keyboard:
                   - '📊 Статус системы:/report, 🏠 Статус дома:/temp'
                   - '🔐 Поставить на охрану:/armed, 🔓 Снять с охраны:/disarm'
@@ -175,9 +159,6 @@ telegramm:
                entity_id: script.telegramm_keyboard_start
              - delay: 00:01:00
              - service: telegram_bot.delete_message
-               data:
-                 chat_id: !secret telegram_bot_allowed_chat_id1
-                 message_id: last
 
         - alias: "Pakage: arrived_home_alex"
           trigger:
