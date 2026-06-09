@@ -1,29 +1,29 @@
-  - platform: template
-    switches:
-      xiaomi_airpurifier_buzzer:
-        friendly_name: "Buzzer"
-        value_template: "{{ is_state_attr('fan.xiaomi_air_humidifier', 'buzzer', True) }}"
-        turn_on:
-          service: xiaomi_miio_airpurifier.fan_set_buzzer_on
-          data:
-            entity_id: fan.xiaomi_air_humidifier
-        turn_off:
-          service: xiaomi_miio_airpurifier.fan_set_buzzer_off
-          data:
-            entity_id: fan.xiaomi_air_humidifier
-        icon_template: "mdi:volume-off"
-      xiaomi_airpurifier_led:
-        friendly_name: "LED"
-        value_template: "{{ is_state_attr('fan.xiaomi_air_humidifier', 'led', True) }}"
-        turn_on:
-          service: xiaomi_miio_airpurifier.fan_set_led_on
-          data:
-            entity_id: fan.xiaomi_air_humidifier
-        turn_off:
-          service: xiaomi_miio_airpurifier.fan_set_led_off
-          data:
-            entity_id: fan.xiaomi_air_humidifier
-        icon_template: "mdi:lightbulb-outline"
+#   - platform: template
+#     switches:
+#       xiaomi_airpurifier_buzzer:
+#         friendly_name: "Buzzer"
+#         value_template: "{{ is_state_attr('fan.xiaomi_air_humidifier', 'buzzer', True) }}"
+#         turn_on:
+#           service: xiaomi_miio_airpurifier.fan_set_buzzer_on
+#           data:
+#             entity_id: fan.xiaomi_air_humidifier
+#         turn_off:
+#           service: xiaomi_miio_airpurifier.fan_set_buzzer_off
+#           data:
+#             entity_id: fan.xiaomi_air_humidifier
+#         icon_template: "mdi:volume-off"
+#       xiaomi_airpurifier_led:
+#         friendly_name: "LED"
+#         value_template: "{{ is_state_attr('fan.xiaomi_air_humidifier', 'led', True) }}"
+#         turn_on:
+#           service: xiaomi_miio_airpurifier.fan_set_led_on
+#           data:
+#             entity_id: fan.xiaomi_air_humidifier
+#         turn_off:
+#           service: xiaomi_miio_airpurifier.fan_set_led_off
+#           data:
+#             entity_id: fan.xiaomi_air_humidifier
+#         icon_template: "mdi:lightbulb-outline"
         
 
 
