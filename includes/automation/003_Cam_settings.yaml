@@ -13,10 +13,10 @@
        data_template:
             entity_id: camera.kam02_home_profile0
             filename: "/config/www/cam_captures/cam_2.mp4"
-            lookback: 3
-            duration: 3
-     - delay: 00:00:10
+            lookback: 5
+            duration: 20
+     - delay: 00:00:25
      - service: telegram_bot.send_video
        data_template:
          file: "/config/www/cam_captures/cam_2.mp4"
-         caption: "Входная дверь"
+         caption: "Входная дверь — Тревога"
