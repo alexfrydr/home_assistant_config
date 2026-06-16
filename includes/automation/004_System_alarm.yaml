@@ -341,23 +341,23 @@
       message: >
         👍  Связь с камерой на 7 этаже восстановлена {{ states('sensor.date_time') }}
 
-- alias: "004_Torrent_Completed"
-  trigger:
-  - type: value
-    platform: device
-    device_id: 9fe90303300721798204a27de18b6855
-    entity_id: ac81c608d6277c377994b65f16852fcd
-    domain: sensor
-    below: 0
-  condition:
-    - condition: state
-      entity_id: input_boolean.control_mode
-      state: 'on'
-  action:
-    service: telegram_bot.send_message
-    data_template:
-        title: "🎉 *Сообщение системы*" 
-        message: "Загрузка torrent-файла завершена"
+# - alias: "004_Torrent_Completed"
+#   trigger:
+#   - type: value
+#     platform: device
+#     device_id: 9fe90303300721798204a27de18b6855
+#     entity_id: ac81c608d6277c377994b65f16852fcd
+#     domain: sensor
+#     below: 0
+#   condition:
+#     - condition: state
+#       entity_id: input_boolean.control_mode
+#       state: 'on'
+#   action:
+#     service: telegram_bot.send_message
+#     data_template:
+#         title: "🎉 *Сообщение системы*" 
+#         message: "Загрузка torrent-файла завершена"
 
 - alias: "004_Полнолуние"
   trigger:

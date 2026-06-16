@@ -2,47 +2,47 @@ hum_living:
 
     switch:
 
-      - platform: template
-        switches:
+    #   - platform: template
+    #     switches:
 
-          gg_humidifier_mode_silent:
-            friendly_name: "Увлажнитель тихий"
-            turn_on:
-              - service: fan.turn_on
-                entity_id: fan.xiaomi_air_humidifier
-              - service: fan.set_speed
-                data_template:
-                    entity_id: fan.xiaomi_air_humidifier
-                    speed: Low
-            turn_off:
-              - service: fan.turn_off
-                entity_id: fan.xiaomi_air_humidifier
+    #       gg_humidifier_mode_silent:
+    #         friendly_name: "Увлажнитель тихий"
+    #         turn_on:
+    #           - service: fan.turn_on
+    #             entity_id: fan.xiaomi_air_humidifier
+    #           - service: fan.set_speed
+    #             data_template:
+    #                 entity_id: fan.xiaomi_air_humidifier
+    #                 speed: Low
+    #         turn_off:
+    #           - service: fan.turn_off
+    #             entity_id: fan.xiaomi_air_humidifier
 
-          gg_humidifier_mode_medium:
-            friendly_name: "Увлажнитель средний"
-            turn_on:
-              - service: fan.turn_on
-                entity_id: fan.xiaomi_air_humidifier
-              - service: fan.set_speed
-                data_template:
-                    entity_id: fan.xiaomi_air_humidifier
-                    speed: Medium
-            turn_off:
-              - service: fan.turn_off
-                entity_id: fan.xiaomi_air_humidifier
+    #       gg_humidifier_mode_medium:
+    #         friendly_name: "Увлажнитель средний"
+    #         turn_on:
+    #           - service: fan.turn_on
+    #             entity_id: fan.xiaomi_air_humidifier
+    #           - service: fan.set_speed
+    #             data_template:
+    #                 entity_id: fan.xiaomi_air_humidifier
+    #                 speed: Medium
+    #         turn_off:
+    #           - service: fan.turn_off
+    #             entity_id: fan.xiaomi_air_humidifier
 
-          gg_humidifier_mode_high:
-            friendly_name: "Увлажнитель максимальный"
-            turn_on:
-              - service: fan.turn_on
-                entity_id: fan.xiaomi_air_humidifier
-              - service: fan.set_speed
-                data_template:
-                    entity_id: fan.xiaomi_air_humidifier
-                    speed: High
-            turn_off:
-              - service: fan.turn_off
-                entity_id: fan.xiaomi_air_humidifier
+    #       gg_humidifier_mode_high:
+    #         friendly_name: "Увлажнитель максимальный"
+    #         turn_on:
+    #           - service: fan.turn_on
+    #             entity_id: fan.xiaomi_air_humidifier
+    #           - service: fan.set_speed
+    #             data_template:
+    #                 entity_id: fan.xiaomi_air_humidifier
+    #                 speed: High
+    #         turn_off:
+    #           - service: fan.turn_off
+    #             entity_id: fan.xiaomi_air_humidifier
                    
     input_number:
 

@@ -1,26 +1,4 @@
 telegramm:
-    sensor:
-      - platform: template
-        sensors:
-          unavailable_now_light:
-            friendly_name: "Всего недоступных светильников - "
-            value_template: "{{states.light | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
-            icon_template: mdi:lightbulb-off        
-
-          unavailable_now_switch:
-            friendly_name: "Всего недоступных реле - "
-            value_template: "{{states.switch | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
-            icon_template: mdi:light-switch 
-            
-          unavailable_now_sensor:
-            friendly_name: "Всего недоступных сенсоров - "
-            value_template: "{{states.sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
-            icon_template: mdi:motion-sensor-off
-            
-          unavailable_now_binary_sensor:
-            friendly_name: "Всего недоступных бинарных сенсоров - "
-            value_template: "{{states.binary_sensor | selectattr ('state', 'equalto', 'unavailable') | list | length}}"
-            icon_template: mdi:leak-off
 
     script:
       send_message_1:

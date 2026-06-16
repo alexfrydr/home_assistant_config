@@ -317,3 +317,4 @@
     name: Всего недоступных бинарных сенсоров -
     state: '{{states.binary_sensor | selectattr (''state'', ''equalto'', ''unavailable'') | list | length}}'
 
+
