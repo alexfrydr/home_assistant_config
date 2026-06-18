@@ -5,71 +5,36 @@
 
 
 - alias: "032_light_child_room_off"
-  description: 'Выключение подсветки в детской по времени с повторными попытками и уведомлением'
-  triggers:
-    # - platform: time
-    #   at: input_datetime.light_child_room_off
-    - trigger: sun
+  description: "Выключение подсветки в детской на рассвете"
+  trigger:
+    - platform: sun
       event: sunrise
-      offset: 0
   condition:
     - condition: state
       entity_id: input_boolean.auto_light_child_room
-      state: 'on'
+      state: "on"
     - condition: state
       entity_id: input_boolean.control_mode
-      state: 'on'
-    - condition: state
-      entity_id: light.wled_2
       state: "on"
   action:
-    - repeat:
-        while:
-              - condition: or
-                conditions:
-                  - condition: state
-                    entity_id: light.wled_2
-                    state: "on"
-                  - condition: state
-                    entity_id: light.wled_2
-                    state: unavailable
-                  - condition: state
-                    entity_id: light.wled_2
-                    state: unknown
-        sequence:
-            - service: light.turn_off
-              entity_id: light.wled_2
-            - delay: 00:02:00
-            - service: light.turn_off
-              entity_id: light.wled_2
-            - delay: 00:02:00
-            - service: light.turn_off
-              entity_id: light.wled_2
-            - delay: 00:02:00
-            - service: light.turn_off
-              entity_id: light.wled_2
-            - delay: 00:02:00
-            - service: light.turn_off
-              entity_id: light.wled_2
-            - delay: 00:02:00
-            - service: light.turn_off
-              entity_id: light.wled_2
-    - condition: or
-      conditions:
-      - condition: state
+    - service: light.turn_off
+      target:
         entity_id: light.wled_2
-        state: "on"
-      - condition: state
-        entity_id: light.wled_2
-        state: unavailable
-      - condition: state
-        entity_id: light.wled_2
-        state: unknown
+      data:
+        transition: 3
+    - delay: "00:00:08"
+    # Повторная попытка + перезагрузка, если не выключилось
+    - condition: state
+      entity_id: light.wled_2
+      state: ["on", "unavailable", "unknown"]
+    - service: button.press
+      target:
+        entity_id: button.wled_strip_2_restart
+    - delay: "00:00:12"
     - service: telegram_bot.send_message
       data:
-        message: |
-          ⚠️ Лента в детской не выключилась в течение 10 минут.
-    - delay: 00:00:05
+        message: "⚠️ Подсветка в детской не выключилась автоматически (статус: {{ states('light.wled_2') }})"
+  mode: single
 
 - alias: "032_light_child_room_3%_strip_on_22:00"
   description: 'Изменение яркости подсветки в 22:00'
@@ -95,87 +60,37 @@
         brightness_pct: 15
               
 - alias: "032_light_child_room_50%_on"
-  description: 'Включение подсветки по времени с уведомлением о задержке и повторным включением'
-  triggers:
-    # - platform: time
-    #   at: input_datetime.light_child_room_on
-    - trigger: sun
+  description: "Включение подсветки в детской на закате"
+  trigger:
+    - platform: sun
       event: sunset
-      offset: 0
   condition:
     - condition: state
       entity_id: input_boolean.auto_light_child_room
-      state: 'on'
+      state: "on"
     - condition: state
       entity_id: input_boolean.control_mode
-      state: 'on'
-    - condition: and
-      conditions:
-        - condition: state
-          entity_id:
-            - light.wled_2
-          match: any
-          state: "off"
+      state: "on"
   action:
-    - repeat:
-        while:
-          - condition: or
-            conditions:
-              - condition: state
-                entity_id: light.wled_2
-                state: "off"
-              - condition: state
-                entity_id: light.wled_2
-                state: unavailable
-              - condition: state
-                entity_id: light.wled_2
-                state: unknown
-        sequence:
-            - service: light.turn_on
-              data:
-                entity_id: light.wled_2
-                brightness_pct: 50
-            - delay: 00:02:00
-            - service: light.turn_on
-              data:
-                entity_id: light.wled_2
-                brightness_pct: 50
-            - delay: 00:02:00
-            - service: light.turn_on
-              data:
-                entity_id: light.wled_2
-                brightness_pct: 50
-            - delay: 00:02:00
-            - service: light.turn_on
-              data:
-                entity_id: light.wled_2
-                brightness_pct: 50
-            - delay: 00:02:00
-            - service: light.turn_on
-              data:
-                entity_id: light.wled_2
-                brightness_pct: 50
-            - delay: 00:02:00
-            - service: light.turn_on
-              data:
-                entity_id: light.wled_2
-                brightness_pct: 50
-    - condition: or
-      conditions:
-      - condition: state
+    - service: light.turn_on
+      target:
         entity_id: light.wled_2
-        state: "off"
-      - condition: state
-        entity_id: light.wled_2
-        state: unavailable
-      - condition: state
-        entity_id: light.wled_2
-        state: unknown
+      data:
+        brightness_pct: 50
+        transition: 3
+    - delay: "00:00:08"
+    # Повтор + перезагрузка, если не включилось
+    - condition: state
+      entity_id: light.wled_2
+      state: ["off", "unavailable", "unknown"]
+    - service: button.press
+      target:
+        entity_id: button.wled_strip_2_restart
+    - delay: "00:00:12"
     - service: telegram_bot.send_message
       data:
-        message: |
-          ⚠️ Лента в детской не включилась в течение 10 минут.
-    - delay: 00:00:05
+        message: "⚠️ Подсветка в детской не включилась автоматически (статус: {{ states('light.wled_2') }})"
+  mode: single
 
 - alias: "032_light_child_room_turn_on_automatic_wled_2"
   description: 'Применение пресета после сброса питания'

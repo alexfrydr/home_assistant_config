@@ -6,7 +6,7 @@
   description: ''
   trigger:
   - platform: time_pattern
-    minutes: '/10'
+    minutes: '/30'
     seconds: '0'
   condition:
       - condition: state
@@ -16,13 +16,21 @@
           minutes: 30
       - condition: state
         entity_id:
+            - light.0x54ef4410008178c4_right
+            - light.0x54ef4410008178c4_left
+            - light.0xec1bbdfffe803961
+            - light.0x00158d00028b38b0
             - light.wled
-            - light.wled_2
-            - light.gyver_lamp_esp_ce2392
             - media_player.lg_webos_smart_tv
-            - switch.hallway_one_gang
-            - switch.aqara_single_key_bathroom
-            - switch.0x00158d00028b38b0_switch
+            - light.wled_strip_elka
+            - light.0x00158d0003985898
+            - media_player.yandex_station_540078920110102034cf
+            - light.0x54ef4410008194ad
+            - fan.rele01
+            - light.0x00158d00044f539d
+            - light.wled_2
+            - media_player.yandex_station_m003nh2007vwab
+            - light.wled_bedroom
         match: any
         state: "on"
       - condition: state

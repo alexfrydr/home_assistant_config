@@ -24,11 +24,7 @@
       message: >
         ⚠  Превышение температуры процессора {{ states('sensor.processor_temperature') }}
   - delay: 00:00:30
-  - service: telegram_bot.delete_message
-    data:
-      chat_id: !secret telegram_bot_allowed_chat_id1
-      message_id: last
-        
+
 - alias: "004_System_CPU_usage_alarm"
   description: "Тревога превышение порога утилизации процессора"
   trigger:
@@ -51,11 +47,7 @@
       message: >
         ⚠  Тревога, высокая утилизация процессорного времени {{ states('sensor.processor_use') }}
   - delay: 00:00:30
-  - service: telegram_bot.delete_message
-    data:
-      chat_id: !secret telegram_bot_allowed_chat_id1
-      message_id: last
-    
+
 - alias: "004_System_Disk_usage_alarm"
   description: "Тревога превышение порога использования диска"
   trigger:
@@ -372,7 +364,7 @@
     service: telegram_bot.send_message
     data_template:
         title: "🎉 *Сообщение системы*" 
-        message: "Сегодня полнолуние!"
+        message: "🌕 Сегодня полнолуние!"
       
 - alias: "004_HACS:_New_Component_Version_Available"
   trigger:

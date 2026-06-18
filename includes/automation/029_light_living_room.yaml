@@ -5,71 +5,36 @@
 
 
 - alias: "029_light_living_room_off"
-  description: 'Выключение подсветки по времени с повторными попытками и уведомлением'
-  triggers:
-    # - platform: time
-    #   at: input_datetime.light_living_room_off
-    - trigger: sun
+  description: "Выключение подсветки в гостиной на рассвете"
+  trigger:
+    - platform: sun
       event: sunrise
-      offset: 0
   condition:
     - condition: state
       entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
-      state: 'on'
+      state: "on"
     - condition: state
       entity_id: input_boolean.control_mode
-      state: 'on'
-    - condition: state
-      entity_id: light.wled
       state: "on"
   action:
-    - repeat:
-        while:
-          - condition: or
-            conditions:
-              - condition: state
-                entity_id: light.wled
-                state: "on"
-              - condition: state
-                entity_id: light.wled
-                state: unavailable
-              - condition: state
-                entity_id: light.wled
-                state: unknown
-        sequence:
-          - service: light.turn_off
-            entity_id: light.wled
-          - delay: 00:02:00
-          - service: light.turn_off
-            entity_id: light.wled
-          - delay: 00:02:00
-          - service: light.turn_off
-            entity_id: light.wled
-          - delay: 00:02:00
-          - service: light.turn_off
-            entity_id: light.wled
-          - delay: 00:02:00
-          - service: light.turn_off
-            entity_id: light.wled
-          - delay: 00:02:00
-          - service: light.turn_off
-            entity_id: light.wled
-    - condition: or
-      conditions:
-        - condition: state
-          entity_id: light.wled
-          state: "on"
-        - condition: state
-          entity_id: light.wled
-          state: unavailable
-        - condition: state
-          entity_id: light.wled
-          state: unknown
+    - service: light.turn_off
+      target:
+        entity_id: light.wled
+      data:
+        transition: 3
+    - delay: "00:00:08"
+    # Повторная попытка + перезагрузка при неудаче
+    - condition: state
+      entity_id: light.wled
+      state: ["on", "unavailable", "unknown"]
+    - service: button.press
+      target:
+        entity_id: button.wled_restart
+    - delay: "00:00:12"
     - service: telegram_bot.send_message
       data:
-        message: |
-          ⚠️ Лента в гостинной не выключилась в течение 10 минут.
-    - delay: 00:00:05
+        message: "⚠️ Подсветка в гостиной не выключилась автоматически (статус: {{ states('light.wled') }})"
+  mode: single
 
 - alias: "029_light_living_room_30%"
   description: 'Изменение яркости подсветки по времени в 22:00'
@@ -97,89 +62,37 @@
         brightness_pct: 30
 
 - alias: "029_light_living_room_50%_on"
-  description: 'Включение подсветки по времени с уведомлением о задержке и повторным включением'
-  triggers:
-    # - platform: time
-    #   at: input_datetime.light_living_room_on
-    - trigger: sun
+  description: "Включение подсветки в гостиной на закате"
+  trigger:
+    - platform: sun
       event: sunset
-      offset: 0
   condition:
     - condition: state
       entity_id: input_boolean.auto_light_on_off_girlianda_ws2811
-      state: 'on'
+      state: "on"
     - condition: state
       entity_id: input_boolean.control_mode
-      state: 'on'
-    - condition: and
-      conditions:
-        - condition: state
-          entity_id:
-            - light.wled
-          match: any
-          state: "off"
+      state: "on"
   action:
-    - repeat:
-        while:
-            condition: or
-            conditions:
-              - condition: or
-                conditions:
-                  - condition: state
-                    entity_id: light.wled
-                    state: "off"
-                  - condition: state
-                    entity_id: light.wled
-                    state: unavailable
-                  - condition: state
-                    entity_id: light.wled
-                    state: unknown
-        sequence:
-            - service: light.turn_on
-              data:
-                entity_id: light.wled
-                brightness_pct: 50
-            - delay: 00:02:00
-            - service: light.turn_on
-              data:
-                entity_id: light.wled
-                brightness_pct: 50
-            - delay: 00:02:00
-            - service: light.turn_on
-              data:
-                entity_id: light.wled
-                brightness_pct: 50
-            - delay: 00:02:00
-            - service: light.turn_on
-              data:
-                entity_id: light.wled
-                brightness_pct: 50
-            - delay: 00:02:00
-            - service: light.turn_on
-              data:
-                entity_id: light.wled
-                brightness_pct: 50
-            - delay: 00:02:00
-            - service: light.turn_on
-              data:
-                entity_id: light.wled
-                brightness_pct: 50
-    - condition: or
-      conditions:
-        - condition: state
-          entity_id: light.wled
-          state: "off"
-        - condition: state
-          entity_id: light.wled
-          state: unavailable
-        - condition: state
-          entity_id: light.wled
-          state: unknown
+    - service: light.turn_on
+      target:
+        entity_id: light.wled
+      data:
+        brightness_pct: 50
+        transition: 3
+    - delay: "00:00:08"
+    # Повторная попытка + перезагрузка при неудаче
+    - condition: state
+      entity_id: light.wled
+      state: ["off", "unavailable", "unknown"]
+    - service: button.press
+      target:
+        entity_id: button.wled_restart
+    - delay: "00:00:12"
     - service: telegram_bot.send_message
       data:
-        message: |
-            ⚠️ Лента в гостинной не включилась в течение 10 минут.
-    - delay: 00:00:05
+        message: "⚠️ Подсветка в гостиной не включилась автоматически (статус: {{ states('light.wled') }})"
+  mode: single
 
 - alias: "029_light_living_room_turn_on_automatic"
   description: 'Применение пресета после сброса питания'
