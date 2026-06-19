@@ -293,8 +293,8 @@
       message: >
         ✅ Cвязь с РТК восстановлена 
 
-- alias: "The camera on the 7th floor is unavailable"
-  description: ''
+- alias: "004_The_camera_on_the_7th_floor_is_unavailable"
+  description: 'Уведомления о потере связи с камерой на 7 этаже'
   trigger:
   - type: not_connected
     platform: device
@@ -313,8 +313,8 @@
       message: >
         ⚠  Потеряна связь с камерой на 7 этаже {{ states('sensor.date_time') }}
 
-- alias: "The camera on the 7th floor is available"
-  description: ''
+- alias: "004_The_camera_on_the_7th_floor_is_available"
+  description: 'Уведомления о восстановлении связи с камерой на 7 этаже'
   trigger:
   - type: connected
     platform: device
@@ -331,7 +331,7 @@
     data_template:
       title: "🎉 *Сообщение системы*" 
       message: >
-        👍  Связь с камерой на 7 этаже восстановлена {{ states('sensor.date_time') }}
+        ✅ Связь с камерой на 7 этаже восстановлена {{ states('sensor.date_time') }}
 
 # - alias: "004_Torrent_Completed"
 #   trigger:
@@ -350,6 +350,48 @@
 #     data_template:
 #         title: "🎉 *Сообщение системы*" 
 #         message: "Загрузка torrent-файла завершена"
+
+- alias: "004_Dacha_is_unavailable"
+  description: ""
+  mode: single
+  triggers:
+  - type: not_connected
+    device_id: 273f881ce719f3fd19974e28a6584d43
+    entity_id: 69e2a3ee0e409b239cefea0b8b3e75a2
+    domain: binary_sensor
+    trigger: device
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: "🎉 *Сообщение системы*" 
+      message: >
+        ⚠  Потеряна связь с дачей!
+
+- alias: "004_Dacha_is_available"
+  description: ""
+  mode: single
+  triggers:
+  - type: connected
+    device_id: 273f881ce719f3fd19974e28a6584d43
+    entity_id: 69e2a3ee0e409b239cefea0b8b3e75a2
+    domain: binary_sensor
+    trigger: device
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: "🎉 *Сообщение системы*" 
+      message: >
+        ✅ Связь с дачей восстановлена!
 
 - alias: "004_Полнолуние"
   trigger:
