@@ -118,6 +118,9 @@ include:
     - sensor.minecraft_server_players_online
     - binary_sensor.kam02_home_cell_motion_detection
     - sensor.0x00124b002262723d_state
+    - sensor.esp8266_temperature
+    - sensor.esp8266_humidity
+    - sensor.esp8266_battery
     
 
     

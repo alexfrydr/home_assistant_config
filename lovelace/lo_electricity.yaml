@@ -106,6 +106,8 @@ cards:
             name: "Aqara temperature, humidity Bathroom"
           - entity: sensor.aqara_t_h_living_room_battery
             name: "Aqara temperature, humidity Living room"
+          - entity: sensor.esp8266_battery
+            name: "ESP8266 Battery"
 
       ################# Потребление более 5 Ватт #################
 

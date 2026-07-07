@@ -56,6 +56,41 @@ sensor:
     value_template: "{{ value_json.network.extendedPanID }}"
     icon: mdi:wifi
 
+#Датчик температуры 2
+# 1. Температура
+  - name: "ESP8266 Temperature"
+    unique_id: "esp8266_temperature"
+    state_topic: "sensors/esp8266"
+    value_template: "{{ value_json.temperature }}"
+    unit_of_measurement: "°C"
+    device_class: "temperature"
+    state_class: "measurement"
 
+# 2. Влажность
+  - name: "ESP8266 Humidity"
+    unique_id: "esp8266_humidity"
+    state_topic: "sensors/esp8266"
+    value_template: "{{ value_json.humidity }}"
+    unit_of_measurement: "%"
+    device_class: "humidity"
+    state_class: "measurement"
+
+# 3. Напряжение батареи
+  - name: "ESP8266 Battery Voltage"
+    unique_id: "esp8266_battery_voltage"
+    state_topic: "sensors/esp8266"
+    value_template: "{{ value_json.battery_voltage }}"
+    unit_of_measurement: "V"
+    device_class: "voltage"
+    state_class: "measurement"
+
+# 4. Процент заряда 
+  - name: "ESP8266 Battery"
+    unique_id: "esp8266_battery"
+    state_topic: "sensors/esp8266"
+    value_template: "{{ value_json.battery_percent }}"
+    unit_of_measurement: "%"
+    device_class: "battery"
+    state_class: "measurement"
 
 

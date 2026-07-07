@@ -42,8 +42,8 @@
   action:
     - service: switch.turn_off
       entity_id: switch.0x54ef4410008194ad
-      
-- alias: "005_Bathroom_Turn_OFF_light_above_15_min"
+
+- alias: "005_Bathroom_Turn_OFF_light_above_20_min"
   description: "Проверка если 005_Bathroom_Turn_OFF_light_above_10_min_(no motion) не сработала"
   initial_state: true
   trigger:
@@ -97,7 +97,7 @@
       retain: true   
       
 - alias: "005_fan_bathroom_ON"
-  description: 'Включение вентиляции в ванной если есть движение'
+  description: 'Включение вентиляции в ванной если есть движение (с задержкой)'
   trigger:
     platform: state
     entity_id: binary_sensor.motion_in_bathroom
@@ -113,6 +113,7 @@
       after: "06:00:00"
       before: "22:00:00"
   action:
+  - delay: 00:00:05
   - service: fan.turn_on
     data: {}
     entity_id: fan.rele01
@@ -161,6 +162,7 @@
   - service: fan.turn_off
     data: {}
     entity_id: fan.rele01
+
     
     
     
