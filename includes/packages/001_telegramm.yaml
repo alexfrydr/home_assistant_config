@@ -28,7 +28,9 @@ telegramm:
          - service: telegram_bot.send_message
            data:
              message: | 
+                 🌡 *Температура*  
                  🌡 Улица:  {{ states('sensor.outdoor_temperature') }} °C
+                 🌡 Балкон:  {{ states('sensor.esp8266_temperature') }} °C                 
                  🌡 Детская:  {{ states('sensor.aqara_t_h_child_room_temperature') }} °C
                  🌡 Гостинная:  {{ states('sensor.aqara_t_h_living_room_temperature') }} °C
                  🌡 Спальня:  {{ states('sensor.aqara_t_h_bedroom_temperature') }} °C
@@ -40,6 +42,7 @@ telegramm:
          - service: telegram_bot.send_message
            data:
              message: | 
+                 📋 *Сводка по дому*
                  {{'\U0001F6AA'}} Входная дверь - {% if is_state('binary_sensor.door_window_contact_sensor_hallway_contact', 'on') %} Открыта {% else %} Закрыта {% endif %}
                  {{'\U0001F57A'}} Движение в доме - {% if is_state('binary_sensor.motion_in_home', 'on') %} Есть движение {% else %} Нет движения {% endif %}
                  {{'\U0001F9FB'}} Ванная - {% if is_state('binary_sensor.water_leak_sensor_bathroom_water_leak', 'on') %} Влажно {% else %} Сухо {% endif %}
