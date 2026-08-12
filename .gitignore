@@ -5,6 +5,9 @@
 /.storage
 /.yandex_station.json
 /.ssh
+/.ha_run.lock
+/.hass_configurator_prefs.json
+/.cache/brands/integrations
 /pushupdates.sh
 /shell_command.yaml
 /aircast.xml
