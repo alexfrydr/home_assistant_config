@@ -121,6 +121,7 @@ include:
     - sensor.esp8266_temperature
     - sensor.esp8266_humidity
     - sensor.esp8266_battery
+    - binary_sensor.dacha_motion_alarm
     
 
     

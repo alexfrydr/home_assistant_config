@@ -93,4 +93,33 @@ sensor:
     device_class: "battery"
     state_class: "measurement"
 
+  - name: "Vacuum Runs Counter"
+    unique_id: "vacuum_runs_counter"
+    state_topic: "homeassistant/vacuum/runs_counter"
+    value_template: "{{ value | int(0) }}"
+    unit_of_measurement: "раз"
+    state_class: "total_increasing"
+    icon: "mdi:robot-vacuum"
 
+# Общее время уборки (в минутах)
+  - name: "Vacuum Total Cleaning Time"
+    unique_id: "vacuum_total_cleaning_time"
+    state_topic: "homeassistant/vacuum/total_cleaning_time"
+    value_template: "{{ value | int(0) }}"
+    unit_of_measurement: "мин"
+    state_class: "total_increasing"
+    icon: "mdi:timer-outline"
+
+    # Время последней уборки (в минутах)
+  - name: "Vacuum Last Cleaning Duration"
+    unique_id: "vacuum_last_cleaning_duration"
+    state_topic: "homeassistant/vacuum/last_cleaning_duration"
+    value_template: "{{ value | int(0) }}"
+    unit_of_measurement: "мин"
+    icon: "mdi:timer"
+
+    # Время начала текущей уборки (для расчёта)
+  - name: "Vacuum Cleaning Start Time"
+    unique_id: "vacuum_cleaning_start_time"
+    state_topic: "homeassistant/vacuum/cleaning_start_time"
+    value_template: "{{ value }}"

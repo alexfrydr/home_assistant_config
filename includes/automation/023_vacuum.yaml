@@ -3,6 +3,7 @@
 # -----------------------------------------------------------
 
 - alias: "023_Vacuum_started_cleaning"
+  description: "Уведомление о начале уборки роботом-пылесосом"
   trigger:
     platform: state
     entity_id: vacuum.dreame_mc1808_e6fb_robot_cleaner
@@ -10,23 +11,12 @@
   action:
   - service: telegram_bot.send_message
     data:
-      title: "🎉 *Сообщение системы*" 
+      title: "🧹 *Робот-пылесос*" 
       message: | 
-        "🤖 Робот начал уборку!"
+        "Начал уборку!"
 
-- alias: "023_Vacuum_stopped_cleaning"
-  trigger:
-    platform: state
-    entity_id: vacuum.dreame_mc1808_e6fb_robot_cleaner
-    from: returning
-    to: docked
-  action:
-    - service: telegram_bot.send_message
-      data:
-        title: "🎉 *Сообщение системы*" 
-        message: "Уборка успешно завершена после {{ state_attr('vacuum.dreame_mc1808_e6fb_robot_cleaner', 'clean.total_clean_times') }} минут."
-        
 - alias: "023_Vacuum_reset_to_standard_mode"
+  description: "Возврат режима уборки в Standard после возвращения на базу"
   trigger:
     platform: state
     entity_id: vacuum.dreame_mc1808_e6fb_robot_cleaner
@@ -39,6 +29,7 @@
     option: Standard
       
 - alias: "023_Vacuum_reset_cleaned_today"
+  description: "Сброс флага 'уборка сегодня выполнена' после возвращения пылесоса на базу"
   initial_state: "on"
   trigger:
     platform: state
@@ -49,6 +40,7 @@
     entity_id: input_boolean.cleaned_today
 
 - alias: "023_Vacuum_reminder_notification"
+  description: "Напоминание убрать вещи с пола перед запланированной уборкой в 13:00"
   trigger:
   - platform: state
     entity_id: input_boolean.cleaned_today
@@ -60,10 +52,11 @@
   action:
     service: telegram_bot.send_message
     data:
-      title: "🎉 *Сообщение системы*"
+      title: "🧹 *Робот-пылесос*"
       message: "Пылесос сегодня в 13:00 выполнит уборку, пожалуйста убери вещи с пола и закрой дверь в ванную!"
       
 - alias: "023_Vacuum_cleanup_if_nobody_is_home"
+  description: "Запуск уборки в 13:00, если дома никого нет и нет движения 30 минут"
   trigger:
     - platform: time
       at: "13:00"
@@ -94,7 +87,7 @@
     option: Medium
     
 - alias: "023_Vacuum_cleanup:_ON_away"
-  description: ''
+  description: "Включение флага запланированной уборки при уходе всех из дома (утром)"
   trigger:
     - platform: state
       entity_id: group.persons
@@ -110,8 +103,170 @@
       entity_id: input_boolean.cleaned_today
   mode: single
 
+# =============================================
+# Счётчик запусков робота-пылесоса
+# =============================================
+
+# 1. Увеличение счётчика при каждом запуске пылесоса
+- alias: "023_Vacuum_Count_Run"
+  id: "023_vacuum_count_run"
+  description: "Увеличивает счётчик запусков пылесоса"
+  trigger:
+    - platform: state
+      entity_id: vacuum.dreame_mc1808_e6fb_robot_cleaner
+      to: "cleaning"
+  action:
+    - service: mqtt.publish
+      data:
+        topic: "homeassistant/vacuum/runs_counter"
+        payload: "{{ (states('sensor.vacuum_runs_counter') | int(0)) + 1 }}"
+        retain: true
+        qos: 1
+    - delay: 00:00:05
+    - device_id: 0becfdd23f8e874142bdc8a3bf15df57
+      domain: select
+      entity_id: 62767688245e424b4b2164e28fd5b3f4
+      type: select_option
+      option: Medium
+  mode: single
+
+
+# 2. Уведомление после 3-х запусков + кнопка сброса
+- alias: "023_Vacuum_Clean_Reminder"
+  id: "023_vacuum_clean_reminder"
+  description: "Уведомление о необходимости очистки пылесоса (после 3+ запусков)"
+  trigger:
+    - platform: state
+      entity_id: sensor.vacuum_runs_counter
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.vacuum_runs_counter
+      above: 2
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: "on"
+  action:
+    - service: telegram_bot.send_message
+      data:
+        title: "🧹 *Робот-пылесос*"
+        message: >
+          ⚠ Пора очистить пылесос!
+          Количество запусков: **{{ states('sensor.vacuum_runs_counter') }}**
+        inline_keyboard:
+          - "🔄 Сбросить счётчик:/reset_vacuum_counter"
+  mode: single
+
+
+# 3. Сброс счётчика по кнопке в Telegram
+- alias: "023_Vacuum_Reset_Counter"
+  id: "023_vacuum_reset_counter"
+  description: "Сброс счётчика запусков пылесоса по команде из Telegram"
+  trigger:
+    - platform: event
+      event_type: telegram_callback
+      event_data:
+        command: "/reset_vacuum_counter"
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: "on"
+  action:
+    - service: mqtt.publish
+      data:
+        topic: "homeassistant/vacuum/runs_counter"
+        payload: "0"
+        retain: true
+        qos: 1
+    - service: telegram_bot.send_message
+      data:
+        message: "✅ Счётчик запусков пылесоса сброшен на 0"
+  mode: single
   
-    
+# 4. Ежедневное принудительное напоминание (если счётчик ≥ 3)
+- alias: "023_Vacuum_Daily_Clean_Reminder"
+  id: "023_vacuum_daily_clean_reminder"
+  description: "Ежедневное напоминание об очистке пылесоса, если счётчик ≥ 3"
+  trigger:
+    - platform: time
+      at: "08:00:00"
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.vacuum_runs_counter
+      above: 2
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: "on"
+  action:
+    - service: telegram_bot.send_message
+      data:
+        title: "🧹 *Робот-пылесос*"
+        message: >
+          ⚠ Напоминание: пора очистить пылесос!
+          Количество запусков: **{{ states('sensor.vacuum_runs_counter') }}**
+        inline_keyboard:
+          - "🔄 Сбросить счётчик:/reset_vacuum_counter"
+  mode: single
+  
+# =============================================
+# Учёт времени работы пылесоса
+# =============================================
+
+# Запоминаем время старта уборки
+- alias: "023_Vacuum_Start_Cleaning_Time"
+  id: "023_vacuum_start_cleaning_time"
+  description: "Записывает время начала уборки в MQTT"
+  trigger:
+    - platform: state
+      entity_id: vacuum.dreame_mc1808_e6fb_robot_cleaner
+      to: "cleaning"
+  action:
+    - service: mqtt.publish
+      data:
+        topic: "homeassistant/vacuum/cleaning_start_time"
+        payload: "{{ now().timestamp() | int }}"
+        retain: true
+  mode: single
+
+
+# Расчёт времени уборки + уведомление о завершении
+- alias: "023_Vacuum_stopped_cleaning"
+  id: "023_vacuum_stopped_cleaning"
+  description: "Расчёт времени уборки и уведомление о завершении"
+  trigger:
+    - platform: state
+      entity_id: vacuum.dreame_mc1808_e6fb_robot_cleaner
+      from: "returning"
+      to: "docked"
+  action:
+    - variables:
+        start_ts: "{{ states('sensor.vacuum_cleaning_start_time') | int(0) }}"
+        duration_min: >
+          {% if start_ts > 0 %}
+            {{ ((now().timestamp() | int) - start_ts) // 60 }}
+          {% else %}
+            0
+          {% endif %}
+        total_min: "{{ (states('sensor.vacuum_total_cleaning_time') | int(0)) + duration_min }}"
+    - service: mqtt.publish
+      data:
+        topic: "homeassistant/vacuum/last_cleaning_duration"
+        payload: "{{ duration_min }}"
+        retain: true
+    - service: mqtt.publish
+      data:
+        topic: "homeassistant/vacuum/total_cleaning_time"
+        payload: "{{ total_min }}"
+        retain: true
+    - service: telegram_bot.send_message
+      data:
+        title: "🧹 *Робот-пылесос*"
+        message: >
+          ✅ Уборка успешно завершена!
+          
+          ⏱ Время этой уборки: **{{ duration_min }}** мин.
+          
+          📊 Общее время уборки: **{{ total_min }}** мин.
+  mode: single
     
     
     

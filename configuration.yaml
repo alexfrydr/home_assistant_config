@@ -50,12 +50,12 @@ browser:
 xiaomi_miot:
   language: en
 
-http:
-  use_x_forwarded_for: true
-  trusted_proxies:
-    - 127.0.0.1
-    - 172.16.0.0/12
-    - ::1
+# http:
+#   use_x_forwarded_for: true
+#   trusted_proxies:
+#     - 127.0.0.1
+#     - 172.16.0.0/12
+#     - ::1
 
 lovelace:
   resource_mode: yaml
