@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026.8.1-41BDF5?logo=home-assistant&logoColor=white)
 
-![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/screen2.png)
+![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/screen4.png)
 
 Содержит конфигурацию для моего проекта домашней автоматизации. Значительное количество конфигураций на самом деле хранятся
 в базе данных Home Assistant и, следовательно, здесь не показаны.
