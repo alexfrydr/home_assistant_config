@@ -2,7 +2,6 @@
 
 ![GitHub stars](https://img.shields.io/github/stars/alexfrydr/home_assistant_config?style=social)
 ![GitHub last commit](https://img.shields.io/github/last-commit/alexfrydr/home_assistant_config)
-![License](https://img.shields.io/badge/license-MIT-blue)
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026.8.1-41BDF5?logo=home-assistant&logoColor=white)
 
 ![Home Assistant](https://github.com/alexfrydr/home_assistant_config/blob/master/screen4.png)
