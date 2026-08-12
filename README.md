@@ -8,7 +8,7 @@
 ## Что интересного
 
 - [Голосовое управление через Яндекс станции](https://github.com/dext0r/yandex_smart_home)
-- Автоматическое управление подсветкой (WLED) в гостиной, спальне и детской с надёжной обработкой `unavailable` и кнопкой перезагрузки
+- Автоматическое управление подсветкой (WLED) в [гостиной](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/029_light_living_room.yaml), [спальне](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/033_bedroom_light.yaml) и [детской](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/032_child_room.yaml) с надёжной обработкой `unavailable` и кнопкой перезагрузки
 - Автоматическое управление освещением в [ванной](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/005_bathroom.yaml), [прихожей](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/007_Light_hallway.yaml) и [складе](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/034_stock_light.yaml)
 - Автоматическое управление [вентиляцией](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/005_bathroom.yaml)
 - Автоматическое управление [домофоном](https://github.com/alexfrydr/home_assistant_config/blob/master/includes/automation/025_intercom.yaml)
