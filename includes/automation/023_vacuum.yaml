@@ -131,7 +131,7 @@
   mode: single
 
 
-# 2. Уведомление после 3-х запусков + кнопка сброса
+# 2. Уведомление после 5-х запусков + кнопка сброса
 - alias: "023_Vacuum_Clean_Reminder"
   id: "023_vacuum_clean_reminder"
   description: "Уведомление о необходимости очистки пылесоса (после 3+ запусков)"
@@ -141,7 +141,7 @@
   condition:
     - condition: numeric_state
       entity_id: sensor.vacuum_runs_counter
-      above: 2
+      above: 5
     - condition: state
       entity_id: input_boolean.control_mode
       state: "on"
@@ -182,7 +182,7 @@
         message: "✅ Счётчик запусков пылесоса сброшен на 0"
   mode: single
   
-# 4. Ежедневное принудительное напоминание (если счётчик ≥ 3)
+# 4. Ежедневное принудительное напоминание (если счётчик ≥ 5)
 - alias: "023_Vacuum_Daily_Clean_Reminder"
   id: "023_vacuum_daily_clean_reminder"
   description: "Ежедневное напоминание об очистке пылесоса, если счётчик ≥ 3"
@@ -192,7 +192,7 @@
   condition:
     - condition: numeric_state
       entity_id: sensor.vacuum_runs_counter
-      above: 2
+      above: 5
     - condition: state
       entity_id: input_boolean.control_mode
       state: "on"
