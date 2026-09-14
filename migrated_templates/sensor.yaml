@@ -316,5 +316,47 @@
     icon: mdi:leak-off
     name: Всего недоступных бинарных сенсоров -
     state: '{{states.binary_sensor | selectattr (''state'', ''equalto'', ''unavailable'') | list | length}}'
+    
+- sensor:
+    - name: "Время до работы (мин)"
+      unique_id: time_to_work_min
+      unit_of_measurement: "мин"
+      state: "{{ states('sensor.waze_vremia_do_raboty') | int(0) }}"
+      icon: "mdi:car-clock"
+      attributes:
+        icon_color: >
+          {% set t = states('sensor.waze_vremia_do_raboty') | int(0) %}
+          {% if t == 0 %}grey
+          {% elif t <= 20 %}green
+          {% elif t <= 30 %}#FFC107
+          {% elif t <= 45 %}orange
+          {% elif t <= 60 %}#FF5722
+          {% else %}red
+          {% endif %}
+
+    - name: "Балл пробок до работы"
+      unique_id: traffic_score_to_work
+      state: >
+        {% set t = states('sensor.waze_vremia_do_raboty') | int(0) %}
+        {% if t == 0 %}нет данных
+        {% elif t <= 20 %}1–2 (свободно)
+        {% elif t <= 30 %}3–4 (лёгкие)
+        {% elif t <= 45 %}5–6 (средние)
+        {% elif t <= 60 %}7–8 (сильные)
+        {% else %}9–10 (очень сильные)
+        {% endif %}
+      icon: "mdi:traffic-light"
+      attributes:
+        icon_color: >
+          {% set t = states('sensor.waze_vremia_do_raboty') | int(0) %}
+          {% if t == 0 %}grey
+          {% elif t <= 20 %}green
+          {% elif t <= 30 %}#FFC107
+          {% elif t <= 45 %}orange
+          {% elif t <= 60 %}#FF5722
+          {% else %}red
+          {% endif %}
+    
+
 
 

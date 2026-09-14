@@ -1,0 +1,71 @@
+# -----------------------------------------------------------
+# Автоматизации оповещения о пробках
+# -----------------------------------------------------------
+
+- alias: "041_Update_Waze_Travel_Time"
+  id: "Обновления состояния сенсора пробок"
+  description: "Обновление времени в пути по Waze каждые 10 минут"
+  trigger:
+    - platform: time_pattern
+      minutes: "/10"
+  action:
+    - service: homeassistant.update_entity
+      target:
+        entity_id:
+          - sensor.vremia_do_raboty
+          - sensor.vremia_do_doma
+  mode: single
+  
+- alias: "041_Traffic_notification"
+  description: "Уведомление в Telegram, если пробки выше 4 баллов утром или вечером"
+  trigger:
+    - platform: time_pattern
+      minutes: "/10"
+  condition:
+    - condition: state
+      entity_id: input_boolean.control_mode
+      state: "on"
+    - condition: or
+      conditions:
+        - condition: time
+          after: "06:50:00"
+          before: "07:30:00"
+        - condition: time
+          after: "16:50:00"
+          before: "17:30:00"
+  action:
+    - choose:
+        # Утро
+        - conditions:
+            - condition: time
+              after: "06:00:00"
+              before: "08:00:00"
+          sequence:
+            - condition: template
+              value_template: >
+                {% set score = states('sensor.ball_probok_do_raboty') %}
+                {{ score not in ['unknown', 'unavailable', 'нет данных', ''] and score[0]|int(0) > 4 }}
+            - service: telegram_bot.send_message
+              data:
+                title: "⚠️ Сильные пробки утром"
+                message: >
+                  🚗 До работы: **{{ states('sensor.vremia_do_raboty') }} мин**
+                  📊 Балл пробок: **{{ states('sensor.ball_probok_do_raboty') }}**
+
+        # Вечер
+        - conditions:
+            - condition: time
+              after: "16:50:00"
+              before: "17:30:00"
+          sequence:
+            - condition: template
+              value_template: >
+                {% set score = states('sensor.ball_probok_do_raboty') %}
+                {{ score not in ['unknown', 'unavailable', 'нет данных', ''] and score[0]|int(0) > 4 }}
+            - service: telegram_bot.send_message
+              data:
+                title: "⚠️ Сильные пробки вечером"
+                message: >
+                  🚗 Домой: **{{ states('sensor.vremia_do_doma') }} мин**
+                  📊 Балл пробок: **{{ states('sensor.ball_probok_do_raboty') }}**
+  mode: single
