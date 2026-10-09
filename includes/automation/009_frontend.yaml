@@ -13,47 +13,47 @@
     state: "on"
   action:
   - data_template:
-      name: "macOS Theme"
+      name: "Mushroom"
     service_template: frontend.set_theme
   mode: single
 
-- alias: "Frontend: turn on dark mode"
-  trigger:
-    - platform: time
-      at: "20:00"
-    - platform: sun
-      event: sunset
-  condition: "{{ is_state('input_boolean.dark_mode', 'off') }}"
-  action:
-    entity_id: input_boolean.dark_mode
-    service: input_boolean.turn_on
+# - alias: "Frontend: turn on dark mode"
+#   trigger:
+#     - platform: time
+#       at: "20:00"
+#     - platform: sun
+#       event: sunset
+#   condition: "{{ is_state('input_boolean.dark_mode', 'off') }}"
+#   action:
+#     entity_id: input_boolean.dark_mode
+#     service: input_boolean.turn_on
 
-- alias: "Frontend: turn on light mode"
-  trigger:
-    - platform: time
-      at: "06:00"
-    - platform: sun
-      event: sunrise
-  condition: "{{ is_state('input_boolean.dark_mode', 'on') }}"
-  action:
-    entity_id: input_boolean.dark_mode
-    service: input_boolean.turn_on
+# - alias: "Frontend: turn on light mode"
+#   trigger:
+#     - platform: time
+#       at: "06:00"
+#     - platform: sun
+#       event: sunrise
+#   condition: "{{ is_state('input_boolean.dark_mode', 'on') }}"
+#   action:
+#     entity_id: input_boolean.dark_mode
+#     service: input_boolean.turn_on
 
-- alias: "Frontend: change theme"
-  trigger:
-    - platform: state
-      entity_id: input_select.theme
-    - platform: state
-      entity_id: input_boolean.dark_mode
-    - platform: state
-      entity_id: input_boolean.theme_alternative
-    - platform: homeassistant
-      event: start
-  action:
-    service: frontend.set_theme
-    data:
-      name: >
-        {% set which = "dark" if is_state("input_boolean.dark_mode", "on") else "light" -%}
-        {% set name = states("input_select.theme") -%}
-        {% set suffix = "-alternative" if is_state("input_boolean.theme_alternative", "on") else "" -%}
-        ios-{{ which }}-mode-{{ name }}{{ suffix }}
+# - alias: "Frontend: change theme"
+#   trigger:
+#     - platform: state
+#       entity_id: input_select.theme
+#     - platform: state
+#       entity_id: input_boolean.dark_mode
+#     - platform: state
+#       entity_id: input_boolean.theme_alternative
+#     - platform: homeassistant
+#       event: start
+#   action:
+#     service: frontend.set_theme
+#     data:
+#       name: >
+#         {% set which = "dark" if is_state("input_boolean.dark_mode", "on") else "light" -%}
+#         {% set name = states("input_select.theme") -%}
+#         {% set suffix = "-alternative" if is_state("input_boolean.theme_alternative", "on") else "" -%}
+#         ios-{{ which }}-mode-{{ name }}{{ suffix }}
