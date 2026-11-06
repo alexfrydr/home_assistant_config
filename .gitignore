@@ -39,4 +39,5 @@
 /zigbee2mqtt
 /zigbee2mqtt2
 /1C Base
-/smartctl
+/smartct
+/ip_bans.yaml

@@ -1,4 +1,0 @@
-# Телеграм 
-- name: telegram
-  platform: telegram
-  chat_id: !secret telegram_bot_allowed_chat_id1
