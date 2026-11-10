@@ -1,0 +1,16 @@
+2026-11-10 10:48:04 seafile-session.c(65): fileserver: web_token_expire_time = 3600
+2026-11-10 10:48:04 seafile-session.c(77): fileserver: max_index_processing_threads= 3
+2026-11-10 10:48:04 seafile-session.c(90): fileserver: fixed_block_size = 8388608
+2026-11-10 10:48:04 seafile-session.c(102): fileserver: max_indexing_threads = 1
+2026-11-10 10:48:04 ../common/seaf-utils.c(359): Use database Mysql
+2026-11-10 10:48:04 http-server.c(195): fileserver: worker_threads = 10
+2026-11-10 10:48:04 http-server.c(217): fileserver: cluster_shared_temp_file_mode = 600
+2026-11-10 10:48:07 start to serve on pipe client
+2026-11-10 10:48:10 start to serve on pipe client
+2026-11-10 10:48:10 start to serve on pipe client
+2026-11-10 10:48:10 start to serve on pipe client
+2026-11-10 10:48:46 start to serve on pipe client
+2026-11-10 10:48:46 start to serve on pipe client
+2026-11-10 10:48:47 start to serve on pipe client
+2026-11-10 10:48:48 start to serve on pipe client
+2026-11-10 10:48:54 start to serve on pipe client

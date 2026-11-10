@@ -1,0 +1,25 @@
+2026-11-10 10:48:00 0 [Note] Starting MariaDB 10.6.23-MariaDB-0ubuntu0.22.04.1 source revision fe8047caf26d20e98ea7f6ec1dce3924e696703f server_uid xPXg9BmBoCI8eTvcYTjvHbdxy9o= as process 128
+2026-11-10 10:48:00 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2026-11-10 10:48:00 0 [Note] InnoDB: Number of pools: 1
+2026-11-10 10:48:00 0 [Note] InnoDB: Using crc32 + pclmulqdq instructions
+2026-11-10 10:48:00 0 [Note] mysqld: O_TMPFILE is not supported on /tmp (disabling future attempts)
+2026-11-10 10:48:00 0 [Note] InnoDB: Using liburing
+2026-11-10 10:48:00 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2026-11-10 10:48:00 0 [Note] InnoDB: Completed initialization of buffer pool
+2026-11-10 10:48:00 0 [Note] InnoDB: Resizing redo log from 100663296 to 16777216 bytes; LSN=42514
+2026-11-10 10:48:00 0 [Note] InnoDB: Starting to delete and rewrite log file.
+2026-11-10 10:48:00 0 [Note] InnoDB: Setting log file ./ib_logfile101 size to 16777216 bytes
+2026-11-10 10:48:00 0 [Note] InnoDB: Renaming log file ./ib_logfile101 to ./ib_logfile0
+2026-11-10 10:48:00 0 [Note] InnoDB: New log file created, LSN=42514
+2026-11-10 10:48:00 0 [Note] InnoDB: 128 rollback segments are active.
+2026-11-10 10:48:00 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2026-11-10 10:48:00 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2026-11-10 10:48:00 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+2026-11-10 10:48:00 0 [Note] InnoDB: 10.6.23 started; log sequence number 42486; transaction id 14
+2026-11-10 10:48:00 0 [Note] InnoDB: Loading buffer pool(s) from /config/seafile/mariadb/ib_buffer_pool
+2026-11-10 10:48:00 0 [Note] Plugin 'FEEDBACK' is disabled.
+2026-11-10 10:48:00 0 [Warning] You need to use --log-bin to make --expire-logs-days or --binlog-expire-logs-seconds work.
+2026-11-10 10:48:00 0 [Note] Server socket created on IP: '127.0.0.1'.
+2026-11-10 10:48:00 0 [Note] InnoDB: Buffer pool(s) load completed at 261110 10:48:00
+2026-11-10 10:48:00 0 [Note] mysqld: ready for connections.
+Version: '10.6.23-MariaDB-0ubuntu0.22.04.1'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  Ubuntu 22.04

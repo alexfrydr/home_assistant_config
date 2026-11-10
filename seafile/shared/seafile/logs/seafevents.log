@@ -1,0 +1,23 @@
+[2026-11-10 10:48:10,115] [WARNING] Unknown database backend: 
+[2026-11-10 10:48:10,116] [INFO] LDAP is not set, stop ldap test.
+[2026-11-10 10:48:10,116] [INFO] [virus_scan] scan_command option is not found in seafile.conf, disable virus scan.
+[2026-11-10 10:48:10,116] [INFO] Subscribe to channels: {'seahub.stats', 'seaf_server.stats', 'seaf_server.event'}
+[2026-11-10 10:48:10,123] [INFO] Start counting user activity info..
+[2026-11-10 10:48:10,124] [INFO] [UserActivityCounter] update 0 items.
+[2026-11-10 10:48:10,126] [INFO] Start counting traffic info..
+[2026-11-10 10:48:10,126] [INFO] Start file updates sender, interval = 300 sec
+[2026-11-10 10:48:10,126] [INFO] Traffic counter finished, total time: 0.0008573532104492188 seconds.
+[2026-11-10 10:48:10,127] [WARNING] Can not start work weixin notice sender: it is not enabled!
+[2026-11-10 10:48:10,128] [WARNING] Can not start index updater: it is not enabled!
+[2026-11-10 10:48:10,128] [INFO] seahub email sender is started, interval = 1800 sec
+[2026-11-10 10:48:10,128] [WARNING] Can not start ldap syncer: it is not enabled!
+[2026-11-10 10:48:10,129] [WARNING] Can not start virus scanner: it is not enabled!
+[2026-11-10 10:48:10,133] [INFO] Start data statistics..
+[2026-11-10 10:48:10,133] [WARNING] Can not start content scanner: it is not enabled!
+[2026-11-10 10:48:10,134] [WARNING] Can not scan repo old files auto del days: it is not enabled!
+[2026-11-10 10:48:10,136] [INFO] Start counting total storage..
+[2026-11-10 10:48:10,140] [INFO] Start counting file operations..
+[2026-11-10 10:48:10,180] [INFO] Start counting monthly traffic info..
+[2026-11-10 10:48:10,245] [INFO] [TotalStorageCounter] No results from seafile-db.
+[2026-11-10 10:48:10,266] [INFO] Monthly traffic counter finished, update 0 user items, 0 org items, total time: 0.08541035652160645 seconds.
+[2026-11-10 10:48:10,271] [INFO] [FileOpsCounter] Finish counting file operations in 0.1303565502166748 seconds, 0 added, 0 deleted, 0 visited, 0 modified
