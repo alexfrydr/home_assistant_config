@@ -441,7 +441,61 @@
       data_template:
         message: "_INFO:_ Доступна новая версия Home Assistant ({{ state_attr('binary_sensor.home_assistant_versions_update_available') }})"
 
+- alias: "004_zgw_ping_lost"
+  description: "Оповещение о проблемах с zgw"
+  trigger:
+  - trigger: state
+    entity_id:
+      - binary_sensor.koridor_10_123_10_74
+    from:
+      - 'on'
+    to:
+      - unavailable
+      - unknown
+      - 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: "🎉 *Сообщение системы*" 
+      message: >
+        ❌ Потеряна связь с zgw
 
+- alias: "004_zgw_ping_available"
+  description: "Оповещение о восстновлении соединения с zgw"
+  trigger:
+  - trigger: state
+    entity_id:
+      - binary_sensor.koridor_10_123_10_74
+    from:
+      - unavailable
+      - unknown
+      - 'off'
+    to:
+      - 'on'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  condition:
+  - condition: state
+    entity_id: input_boolean.control_mode
+    state: 'on'
+  action:
+  - data: {}
+    service: telegram_bot.send_message
+    data_template:
+      title: "🎉 *Сообщение системы*" 
+      message: >
+        ✅  Связь с zgw восстановлена
 
 
 
